@@ -1,15 +1,14 @@
 package com.mobiventarium;
 
-import com.facebook.react.ReactActivity;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 
-public class MainActivity extends ReactActivity {
+import com.reactnativenavigation.NavigationActivity;
 
-    /**
-     * Returns the name of the main component registered from JavaScript.
-     * This is used to schedule rendering of the component.
-     */
+public class MainActivity extends NavigationActivity {
+
     @Override
-    protected String getMainComponentName() {
-        return "mobiventarium";
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 }

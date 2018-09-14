@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "android": "cd ./android && ./gradlew app:assembleDebug && ./gradlew installDebug"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "react": "16.4.1",
     "react-native": "0.56.0",
     "react-native-navigation": "^2.0.2544"

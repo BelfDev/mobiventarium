@@ -2,7 +2,13 @@
   "presets": ["react-native"],
   "env": {
     "production": {
-      "plugins": ["react-native-paper/babel"]
+      "plugins": [
+        "react-native-paper/babel", 
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ]
     }
   }
 }

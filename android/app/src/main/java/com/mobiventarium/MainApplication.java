@@ -10,6 +10,9 @@ import com.reactnativenavigation.react.ReactGateway;
 import java.util.Arrays;
 import java.util.List;
 
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
+
 public class MainApplication extends NavigationApplication {
 
     @Override
@@ -32,7 +35,9 @@ public class MainApplication extends NavigationApplication {
         // Add additional packages you require here
         // No need to add RnnPackage and MainReactPackage
         return Arrays.<ReactPackage>asList(
-                new VectorIconsPackage()
+                new VectorIconsPackage(),
+                new RNFirebasePackage(),
+                new RNFirebaseFirestorePackage()
         );
     }
 

@@ -11,7 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.auth.RNFirebaseAuthPackage;
 import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
+import io.invertase.firebase.links.RNFirebaseLinksPackage;
 
 public class MainApplication extends NavigationApplication {
 
@@ -37,7 +39,9 @@ public class MainApplication extends NavigationApplication {
         return Arrays.<ReactPackage>asList(
                 new VectorIconsPackage(),
                 new RNFirebasePackage(),
-                new RNFirebaseFirestorePackage()
+                new RNFirebaseFirestorePackage(),
+                new RNFirebaseLinksPackage(),
+                new RNFirebaseAuthPackage()
         );
     }
 

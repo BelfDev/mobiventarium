@@ -1,0 +1,31 @@
+{
+  "name": "mobiventarium",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "android": "cd ./android && ./gradlew app:assembleDebug && ./gradlew installDebug"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "mobx": "^5.1.1",
+    "mobx-react": "^5.2.8",
+    "react": "16.4.1",
+    "react-native": "0.56.0",
+    "react-native-firebase": "^4.3.8",
+    "react-native-navigation": "^2.0.2544",
+    "react-native-paper": "^2.0.1",
+    "react-native-vector-icons": "^5.0.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.0.0",
+    "babel-jest": "23.6.0",
+    "babel-preset-react-native": "^5",
+    "jest": "23.6.0",
+    "react-test-renderer": "16.4.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}

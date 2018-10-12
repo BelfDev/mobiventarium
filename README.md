@@ -20,10 +20,10 @@ Open-source inventory App built for Android and iOS using React-Native.
 
 ## Authors
 
-* **Pedro Belfort** - [PurpleBooth](https://github.com/BelfDev)
-* **Leonardo Moraes** - [PurpleBooth](https://github.com/leo1995m)
+* **Pedro Belfort** - [More](https://github.com/BelfDev)
+* **Leonardo Moraes** - [More](https://github.com/leo1995m)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/BelfDev/mobiventarium/graphs/contributors) who participated in this project.
 
 ## License
 

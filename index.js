@@ -1,5 +1,5 @@
 import { Navigation } from "react-native-navigation";
-import WelcomeScreen from "./src/screen/WelcomeScreen";
+import WelcomeScreen from "./src/screens/WelcomeScreen";
 
 Navigation.registerComponent(`com.mobiventarium.WelcomeScreen`, () => WelcomeScreen);
 

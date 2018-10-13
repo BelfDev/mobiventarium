@@ -38,6 +38,7 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* mobiventariumTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* mobiventariumTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
+		457EC234217270CD0014CA9A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 457EC233217270CD0014CA9A /* GoogleService-Info.plist */; };
 		4A4B75B6B1F54EA298444D72 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2977342444424041A2105130 /* Foundation.ttf */; };
 		4C2F62141631BF66CF3CD274 /* libPods-mobiventarium-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B5418FF519B43F6F7EB6931 /* libPods-mobiventarium-tvOSTests.a */; };
 		53EC8A30140A4617AAE2FB7E /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 637F42FAA4AA4C5A8C632F5E /* libRNVectorIcons.a */; };
@@ -57,7 +58,6 @@
 		CDA79BF2750C4A339EE61BE5 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B94D78DF7C92401FB948E271 /* Feather.ttf */; };
 		E08C9629CFC8D44DCD2853CA /* libPods-mobiventariumTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ADF46A5125C5313A37E3873 /* libPods-mobiventariumTests.a */; };
 		E8882AD1013F4E08B2156127 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CE289705D844AD281560424 /* Entypo.ttf */; };
-		EB9A9E10215A6EEA00EAA74D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB9A9E0F215A6EEA00EAA74D /* GoogleService-Info.plist */; };
 		EBB86813214B455100B20BA6 /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBB86810214B454500B20BA6 /* libReactNativeNavigation.a */; };
 		FA291A5CF943461C49C9035C /* libPods-mobiventarium-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 703E5E6E7CB74143195D5ED6 /* libPods-mobiventarium-tvOS.a */; };
 /* End PBXBuildFile section */
@@ -395,6 +395,7 @@
 		2D02E4901E0B4A5D006451C7 /* mobiventarium-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mobiventarium-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		34ADBFA7A10C453EB3713790 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		457EC233217270CD0014CA9A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4B5418FF519B43F6F7EB6931 /* libPods-mobiventarium-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mobiventarium-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E28BEF91B3EEBE37CE3DE12 /* Pods-mobiventarium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium.release.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium/Pods-mobiventarium.release.xcconfig"; sourceTree = "<group>"; };
 		531607A1480418D1420E3C5E /* Pods-mobiventarium-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium-tvOS/Pods-mobiventarium-tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -421,7 +422,6 @@
 		D2CC4283DA02496EBA9DC9EF /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		D2F8950E20E425C93DAAB12F /* Pods-mobiventarium-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium-tvOSTests/Pods-mobiventarium-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		D687BF6201EC4BEE806D5EB2 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		EB9A9E0F215A6EEA00EAA74D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EBB867E5214B454500B20BA6 /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/lib/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
 		F325BF509E10457B81BDA90A /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		FBEB8501A4844C5B8CD2314D /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
@@ -573,9 +573,9 @@
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				457EC233217270CD0014CA9A /* GoogleService-Info.plist */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
-				EB9A9E0F215A6EEA00EAA74D /* GoogleService-Info.plist */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
@@ -1274,7 +1274,7 @@
 				4A4B75B6B1F54EA298444D72 /* Foundation.ttf in Resources */,
 				BB5AE14AC18C48488C7DDE16 /* Ionicons.ttf in Resources */,
 				B2CA649F15F549D8AF0CE02C /* MaterialCommunityIcons.ttf in Resources */,
-				EB9A9E10215A6EEA00EAA74D /* GoogleService-Info.plist in Resources */,
+				457EC234217270CD0014CA9A /* GoogleService-Info.plist in Resources */,
 				27EC5957D6A7401C9B693D2F /* MaterialIcons.ttf in Resources */,
 				BB67567455CA48ED8036ED17 /* Octicons.ttf in Resources */,
 				5C425322B6F5480C995F8245 /* SimpleLineIcons.ttf in Resources */,
@@ -1312,7 +1312,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		11F4CC399C14D6EE1458BE40 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

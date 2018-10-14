@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Image,TouchableOpacity } from 'react-native'
 import firebase from 'react-native-firebase'
 
 export default class SignUpScreen extends Component {

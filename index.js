@@ -1,14 +1,14 @@
-import { Navigation } from "react-native-navigation";
-import WelcomeScreen from "./src/screens/WelcomeScreen";
+import {Navigation} from 'react-native-navigation';
+import {Screens} from "./src/screens/Screens";
 
-Navigation.registerComponent(`com.mobiventarium.WelcomeScreen`, () => WelcomeScreen);
 
+Screens();
 Navigation.events().registerAppLaunchedListener(() => {
   Navigation.setRoot({
     root: {
       component: {
-        name: "com.mobiventarium.WelcomeScreen"
+        name: 'StartScreen'
       }
-    }
+    },
   });
 });

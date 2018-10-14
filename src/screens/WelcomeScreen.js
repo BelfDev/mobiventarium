@@ -1,93 +1,91 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
-import firebase from 'react-native-firebase'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { Navigation } from 'react-native-navigation'
 
-export default class auth extends Component {
-  state = {
-    email: '',
-    password: '',
-    errorMessage: null,
-    email_login: '',
-    password_login: '',
-    errorMessage_login: null
-  }
+export default class WelcomeScreen extends Component {
+  constructor(props) {
+    super(props);
 
-  handleSignUp = () => {
-    firebase
-      .auth()
-      .createUserAndRetrieveDataWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => console.log("criado"))
-      .catch(error => this.setState({ errorMessage: error.message }))
+    this.pushLoginScreen = this.pushLoginScreen.bind(this);
+    this.pushSignUpScreen = this.pushSignUpScreen.bind(this);
   }
-  handleLogin = () => {
-    const { email_login, password_login } = this.state
-    firebase
-      .auth()
-      .signInAndRetrieveDataWithEmailAndPassword(email_login, password_login)
-      .then((credential) =>{
-        console.log("==========autenticado=======")
-        console.log('user=======>', credential.user.toJSON())
-      })
-      .catch(error => this.setState({ errorMessage: error.errorMessage_login }))
+  pushLoginScreen() {
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: 'LoginScreen',
+        options: {
+          buttonColor: 'black',
+          topBar: {
+            visible: true,
+            background: {
+              color: 'transparent',
+            },
+          },
+        }
+      }
+    });
   }
-
+  pushSignUpScreen() {
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: 'SignUpScreen',
+        options: {
+          topBar: {
+            visible: true,
+            background: {
+              color: 'transparent',
+            },
+          },
+        }
+      }
+    });
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{fontSize: 20,color:'red'}}>Sign Up</Text>
-        {this.state.errorMessage &&
-          <Text style={{ color: 'red' }}>
-            {this.state.errorMessage}
-          </Text>}
-        <TextInput
-          placeholder="Email"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-        />
-        <TextInput
-          secureTextEntry
-          placeholder="Password"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-        />
-        <Button title="Sign Up" onPress={this.handleSignUp} />
+        <View style={{ height: '50%', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
+          <Image
+            style={{ width: 100, height: 100 }}
+            source={require('../Images/login1.png')}
+            resizeMode="contain"
+          />
+          <Text style={{ fontSize: 16, marginTop: 10, color: '#E2E4F6' }}>INVENTORY</Text>
+        </View>
+        <View style={{ height: '40%', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={{ fontSize: 30, color: '#FFFFFF', textAlign: 'center', marginTop: 10, }}>Controle de</Text>
+          <Text style={{ fontSize: 30, color: '#FFFFFF', marginTop: 5, textAlign: 'center' }}>Inventário</Text>
+          <Text style={{ fontSize: 15, color: '#E2E4F6', marginTop: 15, textAlign: 'center' }}>Chega de devices</Text>
+          <Text style={{ fontSize: 15, color: '#E2E4F6', marginTop: 5, textAlign: 'center' }}>perdidos</Text>
+        </View>
+        <View style={{ height: '10%', width: '100%', flexDirection: 'row', backgroundColor: 'white' }}>
+      <View style={{width:'50%',alignItems:'center',justifyContent:'center'}}>
+          <TouchableOpacity
+            style={styles.signUpButton}
+            onPress={this.pushSignUpScreen}
+          >
+            <Text style={{fontSize:18,color:'#5861C5'}}> Cadastrar </Text>
+          </TouchableOpacity>
+          </View>
+          <View style={{height:'50%',width:1,backgroundColor:'#F2F2F2',alignSelf:'center'}}></View>
+          <View style={{width:'50%',backgroundColor:' green',justifyContent:'center',alignItems:'center'}}>
+          <TouchableOpacity
+            style={styles.loginButton}
+            onPress={this.pushLoginScreen}
+          >
+            <Text style={{color:'white',fontSize:18}}> Login  </Text>
+          </TouchableOpacity>
+          </View>
+        </View>
 
-        <View style={styles.separator}></View>
-        
-        <Text style={{fontSize: 20,color:'red'}}>Login</Text>
-        {this.state.errorMessage_login &&
-          <Text style={{ color: 'red' }}>
-            {this.state.errorMessage_login}
-          </Text>}
-        <TextInput
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Email"
-          onChangeText={email_login => this.setState({ email_login })}
-          value={this.state.email_login}
-        />
-        <TextInput
-          secureTextEntry
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Password"
-          onChangeText={password_login => this.setState({ password_login })}
-          value={this.state.password_login}
-        />
-        <Button title="Login" onPress={this.handleLogin} />
       </View>
     )
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    backgroundColor: '#636BD2'
   },
   textInput: {
     height: 40,
@@ -96,10 +94,27 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginTop: 8
   },
-  separator:{
-    height:30,
+  separator: {
+    height: 30,
+    width: '100%',
+    backgroundColor: 'green',
+    marginVertical: 20,
+  },
+  signUpButton: {
+    flex:1,
     width:'100%',
-    backgroundColor:'green',
-    marginVertical:20,
+    padding: 10,
+    alignItems:'center',
+    justifyContent:'center',
+  },
+  loginButton: {
+    
+    width:'70%',
+    backgroundColor: '#5861C5',
+    padding: 15,
+    alignItems:'center',
+    justifyContent:'center',
+    borderRadius:50
+    
   },
 })

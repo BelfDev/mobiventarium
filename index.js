@@ -1,15 +1,15 @@
-import { Navigation } from "react-native-navigation";
-import WelcomeScreen from "./src/screens/WelcomeScreen";
-import InventoryScreen from "./src/screens/InventoryScreen";
+import Stores from './src/stores/RootStores';
+import { registerScreens } from './src/screens'
+import { Navigation } from 'react-native-navigation'
+import { Provider } from 'mobx-react';
 
-Navigation.registerComponent(`com.mobiventarium.WelcomeScreen`, () => WelcomeScreen);
-Navigation.registerComponent(`com.mobiventarium.InventoryScreen`, () => InventoryScreen)
+registerScreens(Stores, Provider);
 
 Navigation.events().registerAppLaunchedListener(() => {
   Navigation.setRoot({
     root: {
       component: {
-        name: "com.mobiventarium.InventoryScreen"
+        name: "com.mobiventarium.UserListScreen"
       }
     }
   });

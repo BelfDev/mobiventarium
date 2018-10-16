@@ -1,20 +1,37 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import {
+    TouchableRipple,
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    CardCover,
+    Title,
+    Paragraph
+} from 'react-native-paper';
 
 export default class User extends PureComponent {
     render() {
         return (
-            <TouchableOpacity style={styles.viewItem}
-                onPress={() => this._navigateTo()}>
-                <View style={styles.thumbnail}>
-
-                </View>
+            <TouchableRipple
+                onPress={() => console.log('Pressed')}
+                rippleColor="rgba(0, 0, 0, .32)"
+            >
                 <View>
-                    <Text style={styles.title}>{this.props.name}</Text>
-                    <Text style={styles.subtitle}>{this.props.username}</Text>
-                    <Text style={styles.subtitle}>{this.props.email}</Text>
+                    <Card>
+                        <CardContent>
+                            <Title>Card title</Title>
+                            <Paragraph>Card content</Paragraph>
+                        </CardContent>
+                        <CardCover source={{ uri: 'https://picsum.photos/700' }} />
+                        <CardActions>
+                            <Button>Cancel</Button>
+                            <Button>Ok</Button>
+                        </CardActions>
+                    </Card>
                 </View>
-            </TouchableOpacity>
+            </TouchableRipple>
         );
     }
 

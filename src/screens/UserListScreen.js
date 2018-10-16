@@ -3,6 +3,7 @@ import { StyleSheet, FlatList, View, RefreshControl } from 'react-native';
 import { observer, inject } from 'mobx-react/native';
 import { toJS } from 'mobx';
 import User from '../components/User';
+import Item from '../components/Item'
 
 @inject('usersStore')
 @observer
@@ -34,7 +35,7 @@ export default class UserListScreen extends Component {
         const { navigation } = this.props;
         const params = Object.assign({}, item, navigation)
         return (
-            <User {...params} />
+            <Item {...params} />
         );
     };
 

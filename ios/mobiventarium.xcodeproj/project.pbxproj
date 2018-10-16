@@ -46,6 +46,7 @@
 		7B1F55122FAC4D4A9EE54E62 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CC9550A31CD4BA59B618F8D /* FontAwesome.ttf */; };
 		7B4184AD24C2489FA0F24BD7 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BBE2D4E0319449DAF8FC086 /* FontAwesome5_Brands.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		9734197B2176293A008E16FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9734197A2176293A008E16FE /* GoogleService-Info.plist */; };
 		A01D91389D39A60E43B43E76 /* libPods-mobiventarium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0E79F429DDB3B34DBC28D48 /* libPods-mobiventarium.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B2CA649F15F549D8AF0CE02C /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144E07A0EF454915B21B6885 /* MaterialCommunityIcons.ttf */; };
@@ -57,7 +58,6 @@
 		CDA79BF2750C4A339EE61BE5 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B94D78DF7C92401FB948E271 /* Feather.ttf */; };
 		E08C9629CFC8D44DCD2853CA /* libPods-mobiventariumTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ADF46A5125C5313A37E3873 /* libPods-mobiventariumTests.a */; };
 		E8882AD1013F4E08B2156127 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CE289705D844AD281560424 /* Entypo.ttf */; };
-		EB9A9E10215A6EEA00EAA74D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB9A9E0F215A6EEA00EAA74D /* GoogleService-Info.plist */; };
 		EBB86813214B455100B20BA6 /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBB86810214B454500B20BA6 /* libReactNativeNavigation.a */; };
 		FA291A5CF943461C49C9035C /* libPods-mobiventarium-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 703E5E6E7CB74143195D5ED6 /* libPods-mobiventarium-tvOS.a */; };
 /* End PBXBuildFile section */
@@ -414,6 +414,7 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		84BEC62CDF024653B6A83E36 /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
 		8E76383E15584C05A6B600DD /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		9734197A2176293A008E16FE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B94D78DF7C92401FB948E271 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		CD7152C3981D4B2525FBD4DD /* Pods-mobiventarium-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium-tvOS/Pods-mobiventarium-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -421,7 +422,6 @@
 		D2CC4283DA02496EBA9DC9EF /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		D2F8950E20E425C93DAAB12F /* Pods-mobiventarium-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium-tvOSTests/Pods-mobiventarium-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		D687BF6201EC4BEE806D5EB2 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		EB9A9E0F215A6EEA00EAA74D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EBB867E5214B454500B20BA6 /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/lib/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
 		F325BF509E10457B81BDA90A /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		FBEB8501A4844C5B8CD2314D /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
@@ -575,8 +575,8 @@
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
-				EB9A9E0F215A6EEA00EAA74D /* GoogleService-Info.plist */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				9734197A2176293A008E16FE /* GoogleService-Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
@@ -1274,7 +1274,7 @@
 				4A4B75B6B1F54EA298444D72 /* Foundation.ttf in Resources */,
 				BB5AE14AC18C48488C7DDE16 /* Ionicons.ttf in Resources */,
 				B2CA649F15F549D8AF0CE02C /* MaterialCommunityIcons.ttf in Resources */,
-				EB9A9E10215A6EEA00EAA74D /* GoogleService-Info.plist in Resources */,
+				9734197B2176293A008E16FE /* GoogleService-Info.plist in Resources */,
 				27EC5957D6A7401C9B693D2F /* MaterialIcons.ttf in Resources */,
 				BB67567455CA48ED8036ED17 /* Octicons.ttf in Resources */,
 				5C425322B6F5480C995F8245 /* SimpleLineIcons.ttf in Resources */,

@@ -13,6 +13,7 @@ export default class UserListScreen extends Component {
         const { usersStore } = this.props;
         return (
             <FlatList
+            style={styles.list}
                 data={toJS(usersStore.users)}
                 refreshing={usersStore.isRefresing}
                 refreshControl={
@@ -57,5 +58,8 @@ const styles = StyleSheet.create({
         borderColor: 'lightgray',
         marginLeft: 12,
         marginRight: 12
-    }
+    },
+    list: {
+        backgroundColor: 'lightgray'
+      }
 });

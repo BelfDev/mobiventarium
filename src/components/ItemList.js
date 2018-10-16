@@ -18,6 +18,7 @@ export default class ItemList extends Component {
   render() {
     return (
       <FlatList
+        style={styles.list}
         refreshControl={<RefreshControl />}
         extraData={this.props}
         keyExtractor={this._keyExtractor.bind(this)}
@@ -34,5 +35,8 @@ const styles = StyleSheet.create({
     borderColor: "lightgray",
     marginLeft: 12,
     marginRight: 12
+  },
+  list: {
+    backgroundColor: 'lightgray'
   }
 });

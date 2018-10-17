@@ -8,16 +8,18 @@
     "android": "cd ./android && ./gradlew app:assembleDebug && ./gradlew installDebug"
   },
   "dependencies": {
+    "assets": "file:./src/assets",
     "axios": "^0.18.0",
     "mobx": "4.3.1",
     "mobx-react": "5.1.0",
+    "prop-types": "^15.6.2",
+    "ramda": "^0.25.0",
     "react": "16.4.1",
     "react-native": "0.56.0",
     "react-native-firebase": "^4.3.8",
     "react-native-navigation": "2.0.2580",
     "react-native-paper": "^2.0.1",
-    "react-native-vector-icons": "^5.0.0",
-    "assets": "file:./src/assets"
+    "react-native-vector-icons": "^5.0.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "7.0.0-beta.47",

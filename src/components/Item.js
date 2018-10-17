@@ -3,13 +3,23 @@ import { StyleSheet, View, Image } from 'react-native';
 import { Text, TouchableRipple, Divider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Images from 'assets';
+import PropTypes from 'prop-types';
 
 export default class Item extends Component {
-
     render() {
+        const {
+            color,
+            loading,
+            iconName,
+            imageUrl,
+            onPress,
+            rippleColor,
+            ...rest
+          } = this.props;
+
         return (
                 <TouchableRipple
-                    onPress={() => console.log('Pressed')}
+                    onPress={() => onPress()}
                     rippleColor="rgba(0, 0, 0, .32)"
                     style={styles.card}
                     useForeground={true}
@@ -39,6 +49,16 @@ export default class Item extends Component {
         )
     }
 }
+
+Item.propTypes = {
+    color: PropTypes.string,
+    loading: PropTypes.bool,
+    iconName: PropTypes.string,
+    imageUrl: PropTypes.string.isRequired,
+    onPress: PropTypes.func,
+    rippleColor: PropTypes.string,
+  };
+
 const styles = StyleSheet.create({
     card: {
         height: 144,

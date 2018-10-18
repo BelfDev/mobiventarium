@@ -34,7 +34,7 @@ export default class Item extends Component {
 
         return (
             <TouchableRipple
-                onPress={() => onPress ? onPress() : null }
+                onPress={() => onPress ? onPress() : null}
                 rippleColor={isNil(rippleColor) ? defaultProps.rippleColor : rippleColor}
                 style={{
                     elevation: isNil(elevation) ? defaultProps.elevation : elevation,

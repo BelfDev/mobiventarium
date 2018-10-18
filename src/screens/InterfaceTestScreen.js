@@ -3,13 +3,30 @@ import { StyleSheet, View, Image, TouchableNativeFeedback } from 'react-native';
 import { Text, TouchableRipple, Divider, Card, Title, Paragraph } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Images from 'assets';
+import InventoryApiService from '../services/InventoryApiService'
+import { Button } from 'react-native-paper'
 
 export default class InterfaceTestScreen extends Component {
+
+    onPress = () => {
+        InventoryApiService.addDevice(
+            {
+                os: "android",
+                type: "mobile",
+                brand: "apple",
+                model: "iPhone",
+                version: "Android 6.0",
+                serial: "431606277",
+                color: "black",
+                isRented: true
+            }
+        )
+    }
 
     render() {
         return (
             <View style={styles.container}>
-                <TouchableRipple
+                {/* <TouchableRipple
                     onPress={() => console.log('Pressed')}
                     rippleColor="rgba(0, 0, 0, .32)"
                     style={styles.card}
@@ -36,7 +53,11 @@ export default class InterfaceTestScreen extends Component {
                             </Text>
                         </View>
                     </View>
-                </TouchableRipple>
+                </TouchableRipple> */}
+                <Button mode="contained" onPress={() => this.onPress()} style={{ width: '50%', alignSelf: 'center' }}>
+                    Press me
+                    </Button>
+
             </View >
         )
     }

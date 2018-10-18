@@ -4,48 +4,74 @@ import { Text, TouchableRipple, Divider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Images from 'assets';
 import PropTypes from 'prop-types';
+import { isNil, toUpper } from 'ramda';
 
 export default class Item extends Component {
+
     render() {
         const {
-            color,
-            loading,
+            elevation,
+            itemTitle,
+            descriptionText,
+            statusLabelText,
             iconName,
-            imageUrl,
-            onPress,
+            imagePath,
+            iconColor,
             rippleColor,
-            ...rest
-          } = this.props;
+            onPress,
+        } = this.props
+
+        const defaultProps = {
+            elevation: 8,
+            itemTitle: "Item Title",
+            descriptionText: "description",
+            statusLabelText: "label",
+            iconName: "android",
+            imagePath: Images.galaxy,
+            iconColor: "#A4C639",
+            rippleColor: "rgba(0, 0, 0, .32)",
+        }
 
         return (
-                <TouchableRipple
-                    onPress={() => onPress()}
-                    rippleColor="rgba(0, 0, 0, .32)"
-                    style={styles.card}
-                    useForeground={true}
-                >
-                    <View style={styles.cardContent} >
-                        <View style={styles.imageContainer} >
-                            <Image style={styles.image}
-                                resizeMode='cover'
-                                source={Images.galaxy}
-                            />
-                        </View>
-                        <View style={styles.infoContainer} >
-                            <Text style={styles.itemTitle} numberOfLines={1}>
-                                Galaxy J7
-                            </Text>
-                            <View style={styles.descriptionContainer}>
-                                <Icon name="android" size={18} color="#A4C639" />
-                                <Text style={styles.descriptionText}> android </Text>
-                            </View>
-                            <Divider style={styles.divider} />
-                            <Text style={styles.statusLabel}>
-                                {'Disponível'.toUpperCase()}
-                            </Text>
-                        </View>
+            <TouchableRipple
+                onPress={() => onPress ? onPress() : null }
+                rippleColor={isNil(rippleColor) ? defaultProps.rippleColor : rippleColor}
+                style={{
+                    elevation: isNil(elevation) ? defaultProps.elevation : elevation,
+                    ...styles.card
+                }}
+                useForeground={true}
+            >
+                <View style={styles.cardContent} >
+                    <View style={styles.imageContainer} >
+                        <Image style={styles.image}
+                            resizeMode='cover'
+                            source={isNil(imagePath) ? defaultProps.imagePath : imagePath}
+                        />
                     </View>
-                </TouchableRipple>
+                    <View style={styles.infoContainer} >
+                        <Text
+                            style={styles.itemTitle}
+                            numberOfLines={1}>
+                            {isNil(itemTitle) ? defaultProps.itemTitle : itemTitle}
+                        </Text>
+                        <View style={styles.descriptionContainer}>
+                            <Icon
+                                name={isNil(iconName) ? defaultProps.iconName : iconName}
+                                size={18}
+                                color={isNil(iconColor) ? defaultProps.iconColor : iconColor} />
+                            <Text
+                                style={styles.descriptionText}>
+                                {isNil(descriptionText) ? defaultProps.descriptionText : descriptionText}
+                            </Text>
+                        </View>
+                        <Divider style={styles.divider} />
+                        <Text style={styles.statusLabel}>
+                            {isNil(statusLabelText) ? toUpper(defaultProps.statusLabelText) : toUpper(statusLabelText)}
+                        </Text>
+                    </View>
+                </View>
+            </TouchableRipple>
         )
     }
 }
@@ -54,10 +80,14 @@ Item.propTypes = {
     color: PropTypes.string,
     loading: PropTypes.bool,
     iconName: PropTypes.string,
-    imageUrl: PropTypes.string.isRequired,
+    iconColor: PropTypes.string,
+    itemTitle: PropTypes.string,
+    descriptionText: PropTypes.string,
+    statusLabelText: PropTypes.string,
+    imagePath: PropTypes.string,
     onPress: PropTypes.func,
     rippleColor: PropTypes.string,
-  };
+};
 
 const styles = StyleSheet.create({
     card: {
@@ -65,7 +95,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 8,
         margin: 8,
-        elevation: 8,
         overflow: 'hidden',
     },
     cardContent: {
@@ -101,6 +130,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     descriptionText: {
+        marginLeft: 4,
         textAlignVertical: 'bottom',
         fontSize: 18,
         fontWeight: 'bold',

@@ -36,7 +36,8 @@ export default class UserListScreen extends Component {
         const { navigation } = this.props;
         const params = Object.assign({}, item, navigation)
         return (
-            <Item {...params} />
+            <Item 
+            {...params} />
         );
     };
 

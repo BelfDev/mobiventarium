@@ -8,7 +8,8 @@ import { Button } from 'react-native-paper'
 
 export default class InterfaceTestScreen extends Component {
 
-    onPress = () => {
+    addDevice = () => {
+        console.log("Adding Device")
         InventoryApiService.addDevice(
             {
                 os: "android",
@@ -21,6 +22,11 @@ export default class InterfaceTestScreen extends Component {
                 isRented: true
             }
         )
+    }
+
+    getDevices = () => {
+        console.log("Try to get devices")
+        InventoryApiService.getDevices()
     }
 
     render() {
@@ -54,8 +60,12 @@ export default class InterfaceTestScreen extends Component {
                         </View>
                     </View>
                 </TouchableRipple> */}
-                <Button mode="contained" onPress={() => this.onPress()} style={{ width: '50%', alignSelf: 'center' }}>
-                    Press me
+                <Button mode="contained" onPress={() => this.addDevice()} style={{ width: '50%', alignSelf: 'center' }}>
+                    Add Device
+                    </Button>
+
+                     <Button mode="outlined" onPress={() => this.getDevices()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
+                    Get Devices
                     </Button>
 
             </View >

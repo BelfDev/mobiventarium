@@ -3,7 +3,7 @@ import firebase from 'react-native-firebase'
 const devicesCollection = firebase.firestore().collection('devices')
 
 export default class InventoryApiService {
-    
+
     static async addDevice(device) {
         // let devices = firebase.firestore().collection('devices')
         devicesCollection.add({
@@ -17,6 +17,22 @@ export default class InventoryApiService {
             isRented: device.isRented
         });
     }
+
+    static async getDevices() {
+        // let devices = firebase.firestore().collection('devices')
+        console.log(">>>> Get Devices")
+
+        devicesCollection.get()
+            .then((snapshot) => {
+                snapshot.forEach(doc => {
+                    console.log("Parent Document ID: ", doc.id)
+                })
+            })
+            .catch((error) => {
+                console.log("Error getting sub-collection documents", error);
+            })
+    }
+
 }
 
 //  os: "android",

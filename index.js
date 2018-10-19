@@ -9,7 +9,7 @@ Navigation.events().registerAppLaunchedListener(() => {
   Navigation.setRoot({
     root: {
       component: {
-        name: "com.mobiventarium.InterfaceTestScreen"
+        name: "com.mobiventarium.UserListScreen"
       }
     }
   });

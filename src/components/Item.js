@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+
+import React, { PureComponent } from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import { Text, TouchableRipple, Divider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Images from 'assets';
 import PropTypes from 'prop-types';
-import { isNil, toUpper } from 'ramda';
+import { toUpper } from 'ramda';
 
-export default class Item extends Component {
-
+export default class Item extends PureComponent {
     render() {
         const {
             elevation,
@@ -21,59 +21,57 @@ export default class Item extends Component {
             onPress,
         } = this.props
 
-        const defaultProps = {
-            elevation: 8,
-            itemTitle: "Item Title",
-            descriptionText: "description",
-            statusLabelText: "label",
-            iconName: "android",
-            imagePath: Images.galaxy,
-            iconColor: "#A4C639",
-            rippleColor: "rgba(0, 0, 0, .32)",
-        }
-
         return (
             <TouchableRipple
                 onPress={() => onPress ? onPress() : null}
-                rippleColor={isNil(rippleColor) ? defaultProps.rippleColor : rippleColor}
-                style={{
-                    elevation: isNil(elevation) ? defaultProps.elevation : elevation,
-                    ...styles.card
-                }}
+                rippleColor={rippleColor}
+                style={[styles.card,
+                { elevation }]}
                 useForeground={true}
             >
                 <View style={styles.cardContent} >
                     <View style={styles.imageContainer} >
                         <Image style={styles.image}
                             resizeMode='cover'
-                            source={isNil(imagePath) ? defaultProps.imagePath : imagePath}
+                            source={imagePath}
                         />
                     </View>
                     <View style={styles.infoContainer} >
                         <Text
                             style={styles.itemTitle}
                             numberOfLines={1}>
-                            {isNil(itemTitle) ? defaultProps.itemTitle : itemTitle}
+                            {itemTitle}
                         </Text>
                         <View style={styles.descriptionContainer}>
                             <Icon
-                                name={isNil(iconName) ? defaultProps.iconName : iconName}
+                                name={iconName}
                                 size={18}
-                                color={isNil(iconColor) ? defaultProps.iconColor : iconColor} />
+                                color={iconColor} />
                             <Text
                                 style={styles.descriptionText}>
-                                {isNil(descriptionText) ? defaultProps.descriptionText : descriptionText}
+                                {descriptionText}
                             </Text>
                         </View>
                         <Divider style={styles.divider} />
                         <Text style={styles.statusLabel}>
-                            {isNil(statusLabelText) ? toUpper(defaultProps.statusLabelText) : toUpper(statusLabelText)}
+                            {toUpper(statusLabelText)}
                         </Text>
                     </View>
                 </View>
             </TouchableRipple>
         )
     }
+}
+
+Item.defaultProps = {
+    elevation: 8,
+    itemTitle: "Item Title",
+    descriptionText: "description",
+    statusLabelText: "label",
+    iconName: "android",
+    imagePath: Images.galaxy,
+    iconColor: "#A4C639",
+    rippleColor: "rgba(0, 0, 0, .32)",
 }
 
 Item.propTypes = {
@@ -84,7 +82,10 @@ Item.propTypes = {
     itemTitle: PropTypes.string,
     descriptionText: PropTypes.string,
     statusLabelText: PropTypes.string,
-    imagePath: PropTypes.string,
+    imagePath: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
     onPress: PropTypes.func,
     rippleColor: PropTypes.string,
 };

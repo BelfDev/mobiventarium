@@ -25,7 +25,6 @@ export default class InterfaceTestScreen extends Component {
     }
 
     getDevices = () => {
-        console.log("Try to get devices")
         InventoryApiService.getDevices()
     }
 

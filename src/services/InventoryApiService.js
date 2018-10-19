@@ -27,6 +27,7 @@ export default class InventoryApiService {
                 snapshot.forEach(doc => {
                     console.log("Parent Document ID: ", doc.id)
                 })
+                return snapshot.docs
             })
             .catch((error) => {
                 console.log("Error getting sub-collection documents", error);

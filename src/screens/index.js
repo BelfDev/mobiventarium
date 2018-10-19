@@ -3,6 +3,7 @@ import { Navigation } from "react-native-navigation";
 import WelcomeScreen from "./WelcomeScreen";
 import UserListScreen from "./UserListScreen";
 import InterfaceTestScreen from "./InterfaceTestScreen";
+import InventoryScreen from "./InventoryScreen";
 import { storeProviderHOC } from "../utils/StoreProvider";
 
 const APP_BUNDLE_ID = "com.mobiventarium";
@@ -23,6 +24,11 @@ export function registerScreens(store, provider) {
  () =>  storeProviderHOC(InterfaceTestScreen, provider, store)
   );
 
+  Navigation.registerComponent(
+    `${APP_BUNDLE_ID}.InventoryScreen`,
+ () =>  storeProviderHOC(InventoryScreen, provider, store)
+  );
+ 
 
   // Navigation.registerComponent(
   //   `${APP_BUNDLE_ID}.WelcomeScreen`,

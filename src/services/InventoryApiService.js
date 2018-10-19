@@ -5,42 +5,52 @@ const devicesCollection = firebase.firestore().collection('devices')
 export default class InventoryApiService {
 
     static async addDevice(device) {
-        // let devices = firebase.firestore().collection('devices')
-        devicesCollection.add({
-            os: device.os,
-            type: device.type,
-            brand: device.brand,
-            model: device.model,
-            version: device.version,
-            serial: device.serial,
-            color: device.color,
-            isRented: device.isRented
+        return devicesCollection.add(device.data).then(doc => {
+            console.log(">>> addDevice success: ", doc.id)
+            return { id: doc.id, data: device.data }
+        }).catch(error => {
+            console.log(">>> addDevice error: ", error)
+            return error
         });
     }
 
     static async getDevices() {
-        // let devices = firebase.firestore().collection('devices')
-        console.log(">>>> Get Devices")
-
-        devicesCollection.get()
+        return devicesCollection.get()
             .then((snapshot) => {
-                snapshot.forEach(doc => {
-                    console.log("Parent Document ID: ", doc.id)
+                console.log(">>> getDevices success")
+                return snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    data: doc.data()
                 })
-                return snapshot.docs
+                )
             })
             .catch((error) => {
-                console.log("Error getting sub-collection documents", error);
+                console.log(">>> getDevices error: ", error)
+                return error
             })
     }
 
-}
+    static async updateDevice(device) {
+        return devicesCollection.doc(device.id).update(device.data)
+            .then((doc) => {
+                console.log(">>> updateDevice success: ", doc)
+                return doc
+            })
+            .catch((error) => {
+                console.log(">>> updateDevice error: ", error)
+                return error
+            })
+    }
 
-//  os: "android",
-//  type: "mobile",
-//  brand: "Samsung",
-//  model: "Moto G2- XT1069",
-//  version: "Android 6.0",
-//  serial: "431606277",
-//  color: "black",
-//  isRented: true
+    static async deleteDevice(device) {
+        return devicesCollection.doc(device.id).delete()
+            .then(() => {
+                console.log(">>> deleteDevice success: ", device.id)
+                return device.id
+            })
+            .catch((error) => {
+                console.log(">>> deleteDevice error: ", error)
+                return error
+            })
+    }
+}

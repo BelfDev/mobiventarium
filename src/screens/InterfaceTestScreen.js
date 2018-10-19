@@ -8,24 +8,62 @@ import { Button } from 'react-native-paper'
 
 export default class InterfaceTestScreen extends Component {
 
-    addDevice = () => {
+    addDevice = async () => {
         console.log("Adding Device")
-        InventoryApiService.addDevice(
+        const device = await InventoryApiService.addDevice(
             {
-                os: "android",
-                type: "mobile",
-                brand: "apple",
-                model: "iPhone",
-                version: "Android 6.0",
-                serial: "431606277",
-                color: "black",
-                isRented: true
+                data: {
+                    os: "ios",
+                    type: "tablet",
+                    brand: "apple",
+                    model: "iPad",
+                    version: "iPad",
+                    serial: "431606277",
+                    color: "black",
+                    isRented: true
+                }
             }
         )
+        console.log(">>>>> DEVICE ", device)
     }
 
-    getDevices = () => {
-        InventoryApiService.getDevices()
+    getDevices = async () => {
+        const devices = await InventoryApiService.getDevices()
+        console.log(">>>>> DEVICES ", devices)
+    }
+
+    deleteDevice = async () => {
+        const device = await InventoryApiService.deleteDevice({
+            id: 'Is1lgPGPp9kO1k1OALIL',
+            data: {
+                version: 'Super Teste',
+                brand: 'android',
+                type: 'mobile',
+                model: 'Modelo de Testee',
+                isRented: true,
+                serial: '431606277',
+                os: 'ios',
+                color: 'black'
+            }
+        })
+        console.log(">>>>> DEVICE DELETED ", device)
+    }
+
+    updateDevice = async () => {
+        const device = await InventoryApiService.updateDevice({
+            id: 'qPCd6eOFlIyu2vunqFvF',
+            data: {
+                version: 'Super Teste',
+                brand: 'android',
+                type: 'mobile',
+                model: 'Modelo de Testee',
+                isRented: true,
+                serial: '431606277',
+                os: 'ios',
+                color: 'black'
+            }
+        })
+        console.log(">>>>> UPDATED DEVICE ", device)
     }
 
     render() {
@@ -63,10 +101,17 @@ export default class InterfaceTestScreen extends Component {
                     Add Device
                     </Button>
 
-                     <Button mode="outlined" onPress={() => this.getDevices()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
+                <Button mode="outlined" onPress={() => this.getDevices()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
                     Get Devices
                     </Button>
 
+                <Button mode="text" onPress={() => this.updateDevice()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
+                    Update Device
+                    </Button>
+
+                <Button mode="text" onPress={() => this.deleteDevice()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
+                    Delete Device
+                    </Button>
             </View >
         )
     }

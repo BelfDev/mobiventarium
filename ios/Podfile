@@ -10,7 +10,6 @@ target 'mobiventarium' do
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
 
-
   target 'mobiventariumTests' do
     inherit! :search_paths
     # Pods for testing

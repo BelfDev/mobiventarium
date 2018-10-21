@@ -38,6 +38,7 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* mobiventariumTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* mobiventariumTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
+		457EC234217270CD0014CA9A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 457EC233217270CD0014CA9A /* GoogleService-Info.plist */; };
 		4A4B75B6B1F54EA298444D72 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2977342444424041A2105130 /* Foundation.ttf */; };
 		4C2F62141631BF66CF3CD274 /* libPods-mobiventarium-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B5418FF519B43F6F7EB6931 /* libPods-mobiventarium-tvOSTests.a */; };
 		53EC8A30140A4617AAE2FB7E /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 637F42FAA4AA4C5A8C632F5E /* libRNVectorIcons.a */; };
@@ -395,6 +396,7 @@
 		2D02E4901E0B4A5D006451C7 /* mobiventarium-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mobiventarium-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		34ADBFA7A10C453EB3713790 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		457EC233217270CD0014CA9A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4B5418FF519B43F6F7EB6931 /* libPods-mobiventarium-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mobiventarium-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E28BEF91B3EEBE37CE3DE12 /* Pods-mobiventarium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium.release.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium/Pods-mobiventarium.release.xcconfig"; sourceTree = "<group>"; };
 		531607A1480418D1420E3C5E /* Pods-mobiventarium-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium-tvOS/Pods-mobiventarium-tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -573,6 +575,7 @@
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				457EC233217270CD0014CA9A /* GoogleService-Info.plist */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,

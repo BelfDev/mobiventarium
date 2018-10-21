@@ -1,25 +1,34 @@
-import React, { Component } from 'react'
-import { FlatList, RefreshControl, StyleSheet } from 'react-native'
-import Item from '../components/Item'
-import { observer, inject } from 'mobx-react/native'
-import { toJS } from 'mobx'
+import React, { Component } from "react";
+import { FlatList, RefreshControl, StyleSheet } from "react-native";
+import Item from "../components/Item";
+import { observer, inject } from "mobx-react/native";
+import { toJS } from "mobx";
+import ItemFormatter from "../utils/ItemFormatter"
 
-@inject('itemStore')
+@inject("itemStore")
 @observer
 export default class InventoryScreen extends Component {
-  
   async componentDidMount() {
-    const { itemStore } = this.props
-    await itemStore.getDevices()
+    const { itemStore } = this.props;
+    await itemStore.getDevices();
   }
 
-  _keyExtractor = item => item.id.toString()
+  _keyExtractor = item => item.id.toString();
 
   _renderItem = ({ item }) => {
-    const params = Object.assign({}, item);
-    return <Item
-      elevation={8}
-    ></Item>
+    const device = Object.assign({}, item.data);
+    return (
+      <Item
+        itemTitle={device.model}
+        descriptionText={ItemFormatter.getDescriptionTextFormat(device.os)}
+        descriptionTextColor={ItemFormatter.getPlatformTextColor(device.os)}
+        statusLabelText={ItemFormatter.getStatusLabelText(device.isRented)}
+        statusLabelColor={ItemFormatter.getStatusLabelColor(device.isRented)}
+        statusLabelBorderColor={ItemFormatter.getStatusLabelBorderColor(device.isRented)}
+        iconName={ItemFormatter.getIconName(device.os)}
+        iconColor={ItemFormatter.getPlatformTextColor(device.os)}
+      />
+    );
   };
 
   render() {

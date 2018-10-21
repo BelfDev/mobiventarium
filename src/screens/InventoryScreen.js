@@ -3,7 +3,8 @@ import { FlatList, RefreshControl, StyleSheet } from "react-native";
 import Item from "../components/Item";
 import { observer, inject } from "mobx-react/native";
 import { toJS } from "mobx";
-import ItemFormatter from "../utils/ItemFormatter"
+import ItemFormatter from "../utils/ItemFormatter";
+import Colors from "../utils/Colors"
 
 @inject("itemStore")
 @observer
@@ -24,7 +25,9 @@ export default class InventoryScreen extends Component {
         descriptionTextColor={ItemFormatter.getPlatformTextColor(device.os)}
         statusLabelText={ItemFormatter.getStatusLabelText(device.isRented)}
         statusLabelColor={ItemFormatter.getStatusLabelColor(device.isRented)}
-        statusLabelBorderColor={ItemFormatter.getStatusLabelBorderColor(device.isRented)}
+        statusLabelBorderColor={ItemFormatter.getStatusLabelBorderColor(
+          device.isRented
+        )}
         iconName={ItemFormatter.getIconName(device.os)}
         iconColor={ItemFormatter.getPlatformTextColor(device.os)}
       />
@@ -35,6 +38,7 @@ export default class InventoryScreen extends Component {
     const { itemStore } = this.props;
     return (
       <FlatList
+        style={styles.itemList}
         data={toJS(itemStore.deviceList)}
         refreshing={itemStore.isRefresing}
         refreshControl={
@@ -51,11 +55,9 @@ export default class InventoryScreen extends Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   separator: {
-//     borderBottomWidth: 1,
-//     borderColor: "lightgray",
-//     marginLeft: 12,
-//     marginRight: 12
-//   }
-// });
+const styles = StyleSheet.create({
+  itemList: {
+    marginTop: 8,
+    backgroundColor: Colors.backgroundGray,
+  }
+});

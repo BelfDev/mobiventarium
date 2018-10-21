@@ -66,7 +66,7 @@ export default class Item extends PureComponent {
 }
 
 Item.defaultProps = {
-  elevation: 4,
+  elevation: 3,
   itemTitle: "Item Title",
   descriptionText: "description",
   descriptionTextColor: "black",
@@ -100,7 +100,8 @@ const styles = StyleSheet.create({
     height: 144,
     backgroundColor: "white",
     borderRadius: 8,
-    margin: 8,
+    marginHorizontal: 8,
+    marginVertical: 6,
     overflow: "hidden"
   },
   cardContent: {

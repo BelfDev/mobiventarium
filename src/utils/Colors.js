@@ -8,6 +8,7 @@ const colors = {
   backgroundGray: "#EDEDED",
   rippleGray: "rgba(0, 0, 0, .32)",
   underlayGray: "#FAFAFA",
+  topBarPurple: "#5A6ABF"
 };
 
 export default colors;

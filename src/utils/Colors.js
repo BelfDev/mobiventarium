@@ -5,7 +5,9 @@ const colors = {
   green: "#2DA455",
   androidGreen: "#A4C639",
   iosGray: "#7d7d7d",
-  backgroundGray: "#FAFAFA"
+  backgroundGray: "#EDEDED",
+  rippleGray: "rgba(0, 0, 0, .32)",
+  underlayGray: "#FAFAFA",
 };
 
 export default colors;

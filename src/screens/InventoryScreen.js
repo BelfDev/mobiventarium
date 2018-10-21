@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { FlatList, RefreshControl, StyleSheet } from "react-native";
+import { FlatList, RefreshControl, StyleSheet, View } from "react-native";
 import Item from "../components/Item";
 import { observer, inject } from "mobx-react/native";
 import { toJS } from "mobx";
 import ItemFormatter from "../utils/ItemFormatter";
-import Colors from "../utils/Colors"
+import Colors from "../utils/Colors";
 
 @inject("itemStore")
 @observer
@@ -38,6 +38,7 @@ export default class InventoryScreen extends Component {
     const { itemStore } = this.props;
     return (
       <FlatList
+        contentContainerStyle={{ paddingTop: 8 }}
         style={styles.itemList}
         data={toJS(itemStore.deviceList)}
         refreshing={itemStore.isRefresing}
@@ -57,7 +58,6 @@ export default class InventoryScreen extends Component {
 
 const styles = StyleSheet.create({
   itemList: {
-    marginTop: 8,
-    backgroundColor: Colors.backgroundGray,
+    backgroundColor: Colors.backgroundGray
   }
 });

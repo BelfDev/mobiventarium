@@ -1,10 +1,11 @@
 import React, { PureComponent } from "react";
 import { StyleSheet, View, Image } from "react-native";
-import { Text, TouchableRipple, Divider } from "react-native-paper";
+import { Text, TouchableRipple, Divider, Surface } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Images from "assets";
 import PropTypes from "prop-types";
 import { toUpper } from "ramda";
+import Colors from "../utils/Colors";
 
 export default class Item extends PureComponent {
   render() {
@@ -20,47 +21,59 @@ export default class Item extends PureComponent {
       imagePath,
       iconColor,
       rippleColor,
+      underlayColor,
       onPress
     } = this.props;
 
     return (
-      <TouchableRipple
-        onPress={() => (onPress ? onPress() : null)}
-        rippleColor={rippleColor}
-        style={[styles.card, { elevation }]}
-        useForeground={true}
-      >
-        <View style={styles.cardContent}>
-          <View style={styles.imageContainer}>
-            <Image style={styles.image} resizeMode="cover" source={imagePath} />
-          </View>
-          <View style={styles.infoContainer}>
-            <Text style={styles.itemTitle} numberOfLines={1}>
-              {itemTitle}
-            </Text>
-            <View style={styles.descriptionContainer}>
-              <Icon name={iconName} size={18} color={iconColor} />
+      <Surface style={[styles.card, { elevation }]}>
+        <TouchableRipple
+          borderless={true}
+          onPress={() => (onPress ? onPress() : null)}
+          rippleColor={rippleColor}
+          underlayColor={underlayColor}
+          style={styles.touchableContainer}
+          useForeground={true}
+        >
+          <View style={styles.cardContent}>
+            <View style={styles.imageContainer}>
+              <Image
+                style={styles.image}
+                resizeMode="cover"
+                source={imagePath}
+              />
+            </View>
+            <View style={styles.infoContainer}>
+              <Text style={styles.itemTitle} numberOfLines={1}>
+                {itemTitle}
+              </Text>
+              <View style={styles.descriptionContainer}>
+                <Icon name={iconName} size={18} color={iconColor} />
+                <Text
+                  style={[
+                    styles.descriptionText,
+                    { color: descriptionTextColor }
+                  ]}
+                >
+                  {descriptionText}
+                </Text>
+              </View>
+              <Divider style={styles.divider} />
               <Text
                 style={[
-                  styles.descriptionText,
-                  { color: descriptionTextColor }
+                  styles.statusLabel,
+                  {
+                    backgroundColor: statusLabelColor,
+                    borderColor: statusLabelBorderColor
+                  }
                 ]}
               >
-                {descriptionText}
+                {toUpper(statusLabelText)}
               </Text>
             </View>
-            <Divider style={styles.divider} />
-            <Text
-              style={[
-                styles.statusLabel,
-                { backgroundColor: statusLabelColor, borderColor: statusLabelBorderColor }
-              ]}
-            >
-              {toUpper(statusLabelText)}
-            </Text>
           </View>
-        </View>
-      </TouchableRipple>
+        </TouchableRipple>
+      </Surface>
     );
   }
 }
@@ -71,12 +84,13 @@ Item.defaultProps = {
   descriptionText: "description",
   descriptionTextColor: "black",
   statusLabelText: "label",
-  statusLabelColor: "#3ED470",
-  statusLabelBorderColor: "#2DA455",
+  statusLabelColor: Colors.vividGreen,
+  statusLabelBorderColor: Colors.green,
   iconName: "android",
   imagePath: Images.galaxy,
-  iconColor: "#A4C639",
-  rippleColor: "rgba(0, 0, 0, .32)"
+  iconColor: Colors.androidGreen,
+  rippleColor: Colors.rippleGray,
+  underlayColor: Colors.underlayGray
 };
 
 Item.propTypes = {
@@ -92,7 +106,8 @@ Item.propTypes = {
   statusLabelBorderColor: PropTypes.string,
   imagePath: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onPress: PropTypes.func,
-  rippleColor: PropTypes.string
+  rippleColor: PropTypes.string,
+  underlayColor: PropTypes.string
 };
 
 const styles = StyleSheet.create({
@@ -101,8 +116,11 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 8,
     marginHorizontal: 8,
-    marginVertical: 6,
-    overflow: "hidden"
+    marginVertical: 6
+  },
+  touchableContainer: {
+    borderRadius: 8,
+    height: 144
   },
   cardContent: {
     flex: 1,

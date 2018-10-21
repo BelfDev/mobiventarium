@@ -8,6 +8,7 @@ target 'mobiventarium' do
   # Pods for mobiventarium
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
 
 
   target 'mobiventariumTests' do

@@ -35,7 +35,7 @@ export default class Item extends PureComponent {
           style={styles.touchableContainer}
           useForeground={true}
         >
-          <View style={styles.cardContent}>
+          <View pointerEvents="box-only" style={styles.cardContent}>
             <View style={styles.imageContainer}>
               <Image
                 style={styles.image}

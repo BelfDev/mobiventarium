@@ -8,7 +8,7 @@ target 'mobiventarium' do
   # Pods for mobiventarium
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
-  pod 'Firebase/Firestore'
+  pod 'Firebase/Firestore', '~>5.0.0'
 
   target 'mobiventariumTests' do
     inherit! :search_paths

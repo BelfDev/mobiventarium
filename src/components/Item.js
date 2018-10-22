@@ -26,7 +26,7 @@ export default class Item extends PureComponent {
     } = this.props;
 
     return (
-      <Surface style={[styles.card, { elevation }]}>
+      <Surface style={[styles.card, { elevation, overflow: 'hidden' }]}>
         <TouchableRipple
           borderless={true}
           onPress={() => (onPress ? onPress() : null)}
@@ -124,8 +124,9 @@ const styles = StyleSheet.create({
   },
   cardContent: {
     flex: 1,
+    borderRadius: 8,
     padding: 16,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   imageContainer: {
     width: 100,

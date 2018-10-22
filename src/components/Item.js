@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, Platform } from "react-native";
 import { Text, TouchableRipple, Divider, Surface } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Images from "assets";
@@ -26,7 +26,11 @@ export default class Item extends PureComponent {
     } = this.props;
 
     return (
-      <Surface style={[styles.card, { elevation, overflow: 'hidden' }]}>
+      <Surface style={[styles.card,
+      {
+        elevation,
+        overflow: Platform.OS === 'ios' ? 'visible' : 'hidden'
+      }]}>
         <TouchableRipple
           borderless={true}
           onPress={() => (onPress ? onPress() : null)}

@@ -42,7 +42,7 @@ Navigation.events().registerAppLaunchedListener(() => {
         children: [
           {
             component: {
-              name: "com.mobiventarium.InventoryScreen"
+              name: "com.mobiventarium.ScannerScreen"
             }
           }
         ]

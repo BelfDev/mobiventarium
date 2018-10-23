@@ -3,6 +3,7 @@ import WelcomeScreen from "./WelcomeScreen";
 import InterfaceTestScreen from "./InterfaceTestScreen";
 import InventoryScreen from "./InventoryScreen";
 import { storeProviderHOC } from "../utils/StoreProvider";
+import ScannerScreen from "../screens/ScannerScreen";
 
 const APP_BUNDLE_ID = "com.mobiventarium";
 
@@ -18,6 +19,10 @@ const screens = [
   {
     name: "InterfaceTestScreen",
     component: InterfaceTestScreen
+  },
+  {
+    name: "ScannerScreen",
+    component: ScannerScreen
   }
 ];
 

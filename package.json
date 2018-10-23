@@ -16,6 +16,7 @@
     "ramda": "^0.25.0",
     "react": "16.4.1",
     "react-native": "0.56.0",
+    "react-native-camera": "git+https://git@github.com/react-native-community/react-native-camera",
     "react-native-firebase": "^4.3.8",
     "react-native-navigation": "2.0.2580",
     "react-native-paper": "^2.0.1",

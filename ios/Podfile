@@ -14,7 +14,7 @@ target 'mobiventarium' do
   pod 'yoga', path: '../node_modules/react-native/ReactCommon/yoga'
 
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
-  
+  pod 'ReactNativePermissions', :path => '../node_modules/react-native-permissions'
   
   # See http://facebook.github.io/react-native/docs/integration-with-existing-apps.html#configuring-cocoapods-dependencies
   pod 'React', :path => '../node_modules/react-native', :subspecs => [
@@ -33,6 +33,8 @@ target 'mobiventarium' do
   # Third party deps podspec link
   pod 'react-native-camera', path: '../node_modules/react-native-camera'
   
+  pod 'ReactNativePermissions', :path => '../node_modules/react-native-permissions'
+
   post_install do |installer|
       installer.pods_project.targets.each do |target|
           if target.name == "React"

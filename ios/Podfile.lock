@@ -99,6 +99,8 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - ReactNativePermissions (1.1.1):
+    - React
   - yoga (0.56.0.React)
 
 DEPENDENCIES:
@@ -113,6 +115,7 @@ DEPENDENCIES:
   - React/RCTNetwork (from `../node_modules/react-native`)
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - ReactNativePermissions (from `../node_modules/react-native-permissions`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -139,6 +142,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native"
   react-native-camera:
     :path: "../node_modules/react-native-camera"
+  ReactNativePermissions:
+    :path: "../node_modules/react-native-permissions"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -161,8 +166,9 @@ SPEC CHECKSUMS:
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
   react-native-camera: eac1e8cc7523273a2a11956d0e5dac08296cf4b0
+  ReactNativePermissions: 9f2d9c45c98800795e6c2ed330e25d11a66a8169
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: 5db4a7b531f4da64413760a97945dcf9c5e14c6b
+PODFILE CHECKSUM: e682c480d810d472b587ab7e3d309babb6a41cc3
 
 COCOAPODS: 1.5.3

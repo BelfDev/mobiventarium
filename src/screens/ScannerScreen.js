@@ -1,22 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   StyleSheet,
   Linking,
   Dimensions,
   View,
-} from 'react-native';
-
-import QRCodeScanner from 'react-native-qrcode-scanner';
-
-const SCREEN_HEIGHT = Dimensions.get("window").height;
-const SCREEN_WIDTH = Dimensions.get("window").width;
+} from 'react-native'
+import QRCodeScanner from 'react-native-qrcode-scanner'
+import Icon from "react-native-vector-icons/Ionicons"
+import Colors from '../utils/Colors'
 
 export default class ScannerScreen extends Component {
 
   _onSuccess(code) {
     Linking
       .openURL(code.data)
-      .catch(err => console.error('An error occured', err));
+      .catch(err => console.error('An error occured', err))
   }
 
   render() {
@@ -24,91 +22,72 @@ export default class ScannerScreen extends Component {
       <QRCodeScanner
         onRead={(code) => this._onSuccess(code)}
         cameraStyle={styles.cameraContainer}
-        topViewStyle={styles.zeroContainer}
-        bottomViewStyle={styles.zeroContainer}
         fadeIn={true}
         reactivate={true}
         reactivateTimeout={2}
         showMarker={true}
-        customMarker={<View style={styles.rectangleContainer}>
-          <View style={styles.topOverlay} />
-          <View style={{ flexDirection: "row" }}>
-            <View style={styles.leftAndRightOverlay} />
-
-            <View style={styles.rectangle}>
+        customMarker={
+          <View style={styles.markerContainer}>
+            <View style={styles.topOverlay} />
+            <View style={{ flexDirection: "row" }}>
+              <View style={styles.leftAndRightOverlay} />
+              <View style={styles.centerRectangle}>
+                <Icon
+                  name="ios-qr-scanner"
+                  size={SCREEN_WIDTH * 0.73}
+                  color={Colors.markerPurple}
+                />
+              </View>
+              <View style={styles.leftAndRightOverlay} />
             </View>
-
-            <View style={styles.leftAndRightOverlay} />
-          </View>
-
-          <View style={styles.bottomOverlay} />
-        </View>}
+            <View style={styles.bottomOverlay} />
+          </View>}
       />
     );
   }
 }
 
-const overlayColor = "rgba(0,0,0,0.5)"; // this gives us a black color with a 50% transparency
-
-const rectDimensions = SCREEN_WIDTH * 0.65; // this is equivalent to 255 from a 393 device width
-const rectBorderWidth = SCREEN_WIDTH * 0.005; // this is equivalent to 2 from a 393 device width
-const rectBorderColor = "green";
-
-const scanBarWidth = SCREEN_WIDTH * 0.46; // this is equivalent to 180 from a 393 device width
-const scanBarHeight = SCREEN_WIDTH * 0.0025; //this is equivalent to 1 from a 393 device width
-const scanBarColor = "#22ff00";
+const SCREEN_WIDTH = Dimensions.get("window").width
+const rectDimensions = SCREEN_WIDTH * 0.65
+const rectBorderWidth = SCREEN_WIDTH * 0.005
 
 const styles = StyleSheet.create({
   cameraContainer: {
     height: Dimensions.get('window').height,
   },
-  zeroContainer: {
-    height: 0,
-    flex: 0,
-  },
-  rectangleContainer: {
+  markerContainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
   },
-
-  rectangle: {
+  centerRectangle: {
     height: rectDimensions,
     width: rectDimensions,
     borderWidth: rectBorderWidth,
-    borderColor: rectBorderColor,
+    borderColor: Colors.scannerGrayBorder,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "transparent"
   },
-
   topOverlay: {
     flex: 1,
     height: SCREEN_WIDTH,
     width: SCREEN_WIDTH,
-    backgroundColor: overlayColor,
+    backgroundColor: Colors.scannerOverlay,
     justifyContent: "center",
     alignItems: "center"
   },
-
   bottomOverlay: {
     flex: 1,
     height: SCREEN_WIDTH,
     width: SCREEN_WIDTH,
-    backgroundColor: overlayColor,
+    backgroundColor: Colors.scannerOverlay,
     paddingBottom: SCREEN_WIDTH * 0.25
   },
-
   leftAndRightOverlay: {
     height: SCREEN_WIDTH * 0.65,
     width: SCREEN_WIDTH,
-    backgroundColor: overlayColor
+    backgroundColor: Colors.scannerOverlay
   },
-
-  scanBar: {
-    width: scanBarWidth,
-    height: scanBarHeight,
-    backgroundColor: scanBarColor
-  }
 });

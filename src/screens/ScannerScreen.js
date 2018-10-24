@@ -8,6 +8,7 @@ import QRCodeScanner from 'react-native-qrcode-scanner'
 import QRMarker from '../components/QRMarker'
 import InventoryApiService from '../services/InventoryApiService'
 import { has } from "ramda";
+import { Button } from 'react-native-paper'
 
 export default class ScannerScreen extends Component {
 
@@ -17,17 +18,16 @@ export default class ScannerScreen extends Component {
       const device = await InventoryApiService.updateDevice({
         id: 'wgTLjmsBRQ0EeScBkoQ7',
         data: {
-            version: 'TESTE LALALA',
-            brand: 'ios',
-            type: 'mobile',
-            model: 'Modelo de Testee',
-            isRented: true,
-            serial: '431606277',
-            os: 'android',
-            color: 'black'
+          version: 'TESTE LALALA',
+          brand: 'ios',
+          type: 'mobile',
+          model: 'Modelo de Testee',
+          isRented: true,
+          serial: '431606277',
+          os: 'android',
+          color: 'black'
         }
-    })
-    console.log(">>>>> UPDATED DEVICE ", device)
+      })
     }
     // InventoryApiService.updateDevice
   }
@@ -70,7 +70,8 @@ export default class ScannerScreen extends Component {
         customMarker={
           <QRMarker />
         }
-      />
+      >
+      </QRCodeScanner>
     );
   }
 }

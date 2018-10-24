@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, TouchableNativeFeedback } from 'react-native';
-import { Text, TouchableRipple, Divider, Card, Title, Paragraph } from 'react-native-paper';
+import { Text, TouchableRipple, Divider, Card, Title, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Images from 'assets';
 import InventoryApiService from '../services/InventoryApiService'
-import { Button } from 'react-native-paper'
+import PopupDialog, { ScaleAnimation } from 'react-native-popup-dialog';
 
 export default class InterfaceTestScreen extends Component {
 
@@ -66,6 +66,11 @@ export default class InterfaceTestScreen extends Component {
         console.log(">>>>> UPDATED DEVICE ", device)
     }
 
+    triggerPopOver = () => {
+        this.popupDialog.show();
+        console.log("Under Construction")
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -112,10 +117,28 @@ export default class InterfaceTestScreen extends Component {
                 <Button mode="text" onPress={() => this.deleteDevice()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
                     Delete Device
                     </Button>
+                <Button mode="text" onPress={() => this.triggerPopOver()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
+                    Trigger PopOver
+                    </Button>
+                <PopupDialog
+                    ref={(popupDialog) => { this.popupDialog = popupDialog; }}
+                    dialogAnimation={scaleAnimation}
+                >
+                    <View>
+                        <Text>Hello</Text>
+                    </View>
+                </PopupDialog>
             </View >
         )
     }
 }
+
+const scaleAnimation = new ScaleAnimation({
+    toValue: 0, // optional
+    useNativeDriver: true, // optional
+  })
+  
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

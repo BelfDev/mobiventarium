@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, TouchableNativeFeedback } from 'react-native';
 import { Text, TouchableRipple, Divider, Card, Title, Button } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import Images from 'assets';
 import InventoryApiService from '../services/InventoryApiService'
 import PopupDialog, { ScaleAnimation } from 'react-native-popup-dialog';
+import Colors from '../utils/Colors'
+import FeedbackDialog from '../components/FeedbackDialog'
 
 export default class InterfaceTestScreen extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {feedbackMode : 'failure'};
+      }
 
     addDevice = async () => {
         console.log("Adding Device")
@@ -67,8 +74,19 @@ export default class InterfaceTestScreen extends Component {
     }
 
     triggerPopOver = () => {
-        this.popupDialog.show();
+        // this.popupDialog.show();
+        this.feedbackDialog.show()
+
+        // this.refs[(`feedbackDialog`)].show()
         console.log("Under Construction")
+    }
+
+    _onDimissed = () => {
+        console.log(">>>> onDimissed!")
+    }
+
+    _onShown= () => {
+        console.log(">>>> onShow!")
     }
 
     render() {
@@ -102,9 +120,9 @@ export default class InterfaceTestScreen extends Component {
                         </View>
                     </View>
                 </TouchableRipple> */}
-                <Button mode="contained" onPress={() => this.addDevice()} style={{ width: '50%', alignSelf: 'center' }}>
+                {/* <Button mode="contained" onPress={() => this.addDevice()} style={{ width: '50%', alignSelf: 'center' }}>
                     Add Device
-                    </Button>
+                    </Button> */}
 
                 <Button mode="outlined" onPress={() => this.getDevices()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
                     Get Devices
@@ -120,14 +138,14 @@ export default class InterfaceTestScreen extends Component {
                 <Button mode="text" onPress={() => this.triggerPopOver()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
                     Trigger PopOver
                     </Button>
-                <PopupDialog
-                    ref={(popupDialog) => { this.popupDialog = popupDialog; }}
-                    dialogAnimation={scaleAnimation}
-                >
-                    <View>
-                        <Text>Hello</Text>
-                    </View>
-                </PopupDialog>
+                <FeedbackDialog
+                    mode={this.state.feedbackMode}
+                    description={'Descrição de exemplo'}
+                    onDismissed={() => this._onDimissed()}
+                    onShown={() => this._onShown()}
+                    ref={(feedbackDialog) => { this.feedbackDialog = feedbackDialog }}
+                    >
+                </FeedbackDialog>
             </View >
         )
     }
@@ -136,10 +154,25 @@ export default class InterfaceTestScreen extends Component {
 const scaleAnimation = new ScaleAnimation({
     toValue: 0, // optional
     useNativeDriver: true, // optional
-  })
-  
+})
+
 
 const styles = StyleSheet.create({
+    icon: {
+        textAlign: 'center',
+        marginBottom: 8
+    },
+    title: {
+        fontSize: 28,
+        alignSelf: 'center',
+        color: Colors.titleDarkFont,
+        marginBottom: 6,
+    },
+    descriptionTitle: {
+        fontSize: 16,
+        textAlign: 'center',
+        color: Colors.descriptionLightGray
+    },
     container: {
         flex: 1,
         flexDirection: 'column',

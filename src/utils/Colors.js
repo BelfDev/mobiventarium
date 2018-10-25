@@ -12,6 +12,8 @@ const colors = {
   markerPurple: "#8D97E9CC",
   scannerOverlay: "#33333D8C",
   scannerGrayBorder: "#9798A9",
+  titleDarkFont: "#33333D",
+  descriptionLightGray: "#7B8A9D"
 };
 
 export default colors;

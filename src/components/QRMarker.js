@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.scannerOverlay,
         textAlign: 'center',
         textAlignVertical: 'center',
-        fontSize: 16,
-        color: 'white'
+        fontSize: 18,
+        color: 'white',
     },
     bottomOverlay: {
         flex: 1,

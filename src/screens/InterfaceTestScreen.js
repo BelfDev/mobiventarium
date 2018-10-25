@@ -12,22 +12,22 @@ export default class InterfaceTestScreen extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {feedbackMode : 'failure'};
-      }
+        this.state = { feedbackMode: 'failure' };
+    }
 
     addDevice = async () => {
         console.log("Adding Device")
         const device = await InventoryApiService.addDevice(
             {
                 data: {
-                    os: "ios",
-                    type: "tablet",
-                    brand: "apple",
-                    model: "iPad",
-                    version: "iPad",
-                    serial: "431606277",
-                    color: "black",
-                    isRented: true
+                    version: 'Super Teste',
+                    brand: 'android',
+                    type: 'mobile',
+                    model: 'Modelo de Testee',
+                    isRented: true,
+                    serial: '123456',
+                    os: 'ios',
+                    color: 'black'
                 }
             }
         )
@@ -81,11 +81,16 @@ export default class InterfaceTestScreen extends Component {
         console.log("Under Construction")
     }
 
+    getSpecificDevice = async () => {
+        const device = await InventoryApiService.getDeviceWithSerial('123456')
+        console.log(">>> Device: ", device)
+    }
+
     _onDimissed = () => {
         console.log(">>>> onDimissed!")
     }
 
-    _onShown= () => {
+    _onShown = () => {
         console.log(">>>> onShow!")
     }
 
@@ -120,9 +125,9 @@ export default class InterfaceTestScreen extends Component {
                         </View>
                     </View>
                 </TouchableRipple> */}
-                {/* <Button mode="contained" onPress={() => this.addDevice()} style={{ width: '50%', alignSelf: 'center' }}>
+                <Button mode="contained" onPress={() => this.addDevice()} style={{ width: '50%', alignSelf: 'center' }}>
                     Add Device
-                    </Button> */}
+                    </Button>
 
                 <Button mode="outlined" onPress={() => this.getDevices()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
                     Get Devices
@@ -138,13 +143,16 @@ export default class InterfaceTestScreen extends Component {
                 <Button mode="text" onPress={() => this.triggerPopOver()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
                     Trigger PopOver
                     </Button>
+                <Button mode="text" onPress={() => this.getSpecificDevice()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
+                    Get specific device
+                    </Button>
                 <FeedbackDialog
                     mode={this.state.feedbackMode}
                     description={'Descrição de exemplo'}
                     onDismissed={() => this._onDimissed()}
                     onShown={() => this._onShown()}
                     ref={(feedbackDialog) => { this.feedbackDialog = feedbackDialog }}
-                    >
+                >
                 </FeedbackDialog>
             </View >
         )

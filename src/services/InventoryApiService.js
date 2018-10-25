@@ -14,6 +14,22 @@ export default class InventoryApiService {
         });
     }
 
+    static async getDeviceWithSerial(serial) {
+        return devicesCollection.where("serial", "==", serial).get()
+            .then((snapshot) => {
+                console.log(">>> getDeviceWithSerial success")
+                return snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    data: doc.data()
+                })
+                )[0]
+            })
+            .catch((error) => {
+                console.log(">>> getDevices error: ", error)
+                return error
+            })
+    }
+
     static async getDevices() {
         return devicesCollection.get()
             .then((snapshot) => {

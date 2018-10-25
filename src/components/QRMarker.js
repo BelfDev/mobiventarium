@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
-import { StyleSheet, View, Dimensions } from 'react-native'
+import React, { PureComponent } from 'react'
+import { StyleSheet, View, Dimensions, Text } from 'react-native'
 import Icon from "react-native-vector-icons/Ionicons"
+import PropTypes from "prop-types";
 import Colors from '../utils/Colors'
 
-export default class QRMarker extends Component {
+export default class QRMarker extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -11,9 +12,12 @@ export default class QRMarker extends Component {
     }
 
     render() {
+        const {
+            instructionText
+        } = this.props
         return (
             <View style={styles.markerContainer}>
-                <View style={styles.topOverlay} />
+                <Text style={styles.topOverlay} numberOfLines={2}>{instructionText}</Text>
                 <View style={{ flexDirection: "row" }}>
                     <View style={styles.leftAndRightOverlay} />
                     <View style={styles.centerRectangle}>
@@ -30,6 +34,14 @@ export default class QRMarker extends Component {
         );
     }
 }
+
+QRMarker.defaultProps = {
+    instructionText: ''
+};
+
+QRMarker.propTypes = {
+    instructionText: PropTypes.string
+};
 
 const SCREEN_WIDTH = Dimensions.get("window").width
 const rectDimensions = SCREEN_WIDTH * 0.65
@@ -56,8 +68,10 @@ const styles = StyleSheet.create({
         height: SCREEN_WIDTH,
         width: SCREEN_WIDTH,
         backgroundColor: Colors.scannerOverlay,
-        justifyContent: "center",
-        alignItems: "center"
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        fontSize: 16,
+        color: 'white'
     },
     bottomOverlay: {
         flex: 1,

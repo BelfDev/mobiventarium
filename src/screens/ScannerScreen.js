@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import {
   StyleSheet,
   Dimensions,
-  Alert
+  Alert,
 } from 'react-native'
 import QRCodeScanner from 'react-native-qrcode-scanner'
 import QRMarker from '../components/QRMarker'
 import InventoryApiService from '../services/InventoryApiService'
 import { has } from "ramda";
-import { Button } from 'react-native-paper'
+import Strings from '../utils/Strings'
 
 export default class ScannerScreen extends Component {
 
@@ -68,7 +68,7 @@ export default class ScannerScreen extends Component {
         reactivateTimeout={2000}
         showMarker={true}
         customMarker={
-          <QRMarker />
+          <QRMarker instructionText={Strings.scannerInstructionText} />
         }
       >
       </QRCodeScanner>

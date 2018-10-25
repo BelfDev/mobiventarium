@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import PopupDialog, { ScaleAnimation } from 'react-native-popup-dialog'
 import Colors from '../utils/Colors'
 import Icon from 'react-native-vector-icons/Ionicons';
 import PropTypes from "prop-types";
 
-export default class FeedbackDialog extends Component {
+export default class FeedbackDialog extends PureComponent {
 
     show() {
         this.popupDialog.show()

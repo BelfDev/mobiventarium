@@ -82,8 +82,11 @@ export default class InterfaceTestScreen extends Component {
     }
 
     getSpecificDevice = async () => {
-        const device = await InventoryApiService.getDeviceWithSerial('123456')
-        console.log(">>> Device: ", device)
+        // const device = await InventoryApiService.getDeviceBySerial('123456')
+        var device = await InventoryApiService.getDeviceById('x96851pNDHfwbfoBhPAP')
+        device.data.isRented = !device.data.isRented
+        const updatedDevice = await InventoryApiService.updateDevice(device)
+        console.log(">>> Device: ", updatedDevice)
     }
 
     _onDimissed = () => {

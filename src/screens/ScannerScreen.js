@@ -9,36 +9,49 @@ import QRMarker from '../components/QRMarker'
 import InventoryApiService from '../services/InventoryApiService'
 import { has } from "ramda";
 import Strings from '../utils/Strings'
+import PropTypes from "prop-types";
+
+const selectedItemId = 'x96851pNDHfwbfoBhPAP'
 
 export default class ScannerScreen extends Component {
+  constructor(props) {
+    super(props);
+    // this.props.selectedId = 'x96851pNDHfwbfoBhPAP'
+    console.log(">>> Setup selectedId ", selectedItemId)
+  }
 
   async _onSuccess(code) {
     if (this._isValidCode(code)) {
-      this._showAlert(code)
-      const device = await InventoryApiService.updateDevice({
-        id: 'wgTLjmsBRQ0EeScBkoQ7',
-        data: {
-          version: 'TESTE LALALA',
-          brand: 'ios',
-          type: 'mobile',
-          model: 'Modelo de Testee',
-          isRented: true,
-          serial: '431606277',
-          os: 'android',
-          color: 'black'
-        }
-      })
+      this._checkInItem(code)
     }
-    // InventoryApiService.updateDevice
+  }
+
+  async _checkInItem(validatedCode) {
+    let scannedItem = JSON.parse(validatedCode.data)
+    try {
+      if (this._itemConformsWithProtocol(scannedItem, selectedItemId)) {
+        let databaseItem = await InventoryApiService.getDeviceById(selectedItemId)
+        databaseItem.data.isRented = !databaseItem.data.isRented
+        let editedItem = Object.assign({}, databaseItem)
+        const updatedItem = await InventoryApiService.updateDevice(editedItem)
+        console.log(">>> Item successfuly updated: ", updatedItem)
+      }
+    } catch (error) {
+      console.log(">>> Check-in error ", error)
+    }
+  }
+
+  _itemConformsWithProtocol(scannedItem, selectedItemId) {
+    return (scannedItem.id === selectedItemId)
   }
 
   _isValidCode(code) {
     try {
-      let deviceInfo = JSON.parse(code.data)
+      let scannedDevice = JSON.parse(code.data)
       let hasSerialNumber = has('serial');
       let hasRentedStatus = has('isRented')
 
-      if (hasSerialNumber(deviceInfo) && hasRentedStatus(deviceInfo)) {
+      if (hasSerialNumber(scannedDevice.data) && hasRentedStatus(scannedDevice.data)) {
         return true
       }
     } catch (error) {
@@ -75,6 +88,10 @@ export default class ScannerScreen extends Component {
     );
   }
 }
+
+// ScannerScreen.propTypes = {
+//   selectedItemId: PropTypes.string.isRequired
+// };
 
 const styles = StyleSheet.create({
   cameraContainer: {

@@ -12,6 +12,7 @@ import Strings from '../utils/Strings'
 import PropTypes from "prop-types";
 import FeedbackDialog from '../components/FeedbackDialog'
 import { isNil } from 'ramda'
+import { Navigation } from 'react-native-navigation'
 
 const selectedItemId = 'x96851pNDHfwbfoBhPAP'
 
@@ -27,7 +28,7 @@ export default class ScannerScreen extends Component {
     // this.props.selectedId = 'x96851pNDHfwbfoBhPAP'
     console.log(">>> Setup selectedId ", selectedItemId)
   }
-
+  
   async _onSuccess(code) {
     if (this._isValidCode(code)) {
       this._checkInItem(code)
@@ -113,7 +114,7 @@ export default class ScannerScreen extends Component {
           ref={(node) => { this.scanner = node }}
           onRead={(code) => this._onSuccess(code)}
           cameraStyle={styles.cameraContainer}
-          fadeIn={true}
+          fadeIn={false}
           reactivate={true}
           reactivateTimeout={2000}
           showMarker={true}
@@ -134,9 +135,9 @@ export default class ScannerScreen extends Component {
   }
 }
 
-// ScannerScreen.propTypes = {
-//   selectedItemId: PropTypes.string.isRequired
-// };
+ScannerScreen.propTypes = {
+  selectedItemId: PropTypes.string.isRequired
+};
 
 const styles = StyleSheet.create({
   cameraContainer: {

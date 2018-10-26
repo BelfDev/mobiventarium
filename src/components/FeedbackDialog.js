@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         alignItems: 'center',
         justifyContent: 'center',
+        paddingHorizontal: 8,
     },
     icon: {
         textAlign: 'center',

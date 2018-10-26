@@ -66,11 +66,11 @@ export default class InventoryApiService {
         return devicesCollection.doc(device.id).update(device.data)
             .then((doc) => {
                 console.log(">>> updateDevice success: ", doc)
-                return doc
+                return true
             })
             .catch((error) => {
                 console.log(">>> updateDevice error: ", error)
-                return error
+                return false
             })
     }
 

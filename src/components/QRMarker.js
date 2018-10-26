@@ -5,12 +5,7 @@ import PropTypes from "prop-types";
 import Colors from '../utils/Colors'
 
 export default class QRMarker extends PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-
+    
     render() {
         const {
             instructionText

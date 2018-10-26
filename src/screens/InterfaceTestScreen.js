@@ -1,26 +1,33 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, TouchableNativeFeedback } from 'react-native';
-import { Text, TouchableRipple, Divider, Card, Title, Paragraph } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Text, TouchableRipple, Divider, Card, Title, Button } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/Ionicons';
 import Images from 'assets';
 import InventoryApiService from '../services/InventoryApiService'
-import { Button } from 'react-native-paper'
+import PopupDialog, { ScaleAnimation } from 'react-native-popup-dialog';
+import Colors from '../utils/Colors'
+import FeedbackDialog from '../components/FeedbackDialog'
 
 export default class InterfaceTestScreen extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { feedbackMode: 'failure' };
+    }
 
     addDevice = async () => {
         console.log("Adding Device")
         const device = await InventoryApiService.addDevice(
             {
                 data: {
-                    os: "ios",
-                    type: "tablet",
-                    brand: "apple",
-                    model: "iPad",
-                    version: "iPad",
-                    serial: "431606277",
-                    color: "black",
-                    isRented: true
+                    version: 'Super Teste',
+                    brand: 'android',
+                    type: 'mobile',
+                    model: 'Modelo de Testee',
+                    isRented: true,
+                    serial: '123456',
+                    os: 'ios',
+                    color: 'black'
                 }
             }
         )
@@ -64,6 +71,30 @@ export default class InterfaceTestScreen extends Component {
             }
         })
         console.log(">>>>> UPDATED DEVICE ", device)
+    }
+
+    triggerPopOver = () => {
+        // this.popupDialog.show();
+        this.feedbackDialog.show()
+
+        // this.refs[(`feedbackDialog`)].show()
+        console.log("Under Construction")
+    }
+
+    getSpecificDevice = async () => {
+        // const device = await InventoryApiService.getDeviceBySerial('123456')
+        var device = await InventoryApiService.getDeviceById('x96851pNDHfwbfoBhPAP')
+        device.data.isRented = !device.data.isRented
+        const updatedDevice = await InventoryApiService.updateDevice(device)
+        console.log(">>> Device: ", updatedDevice)
+    }
+
+    _onDimissed = () => {
+        console.log(">>>> onDimissed!")
+    }
+
+    _onShown = () => {
+        console.log(">>>> onShow!")
     }
 
     render() {
@@ -112,11 +143,47 @@ export default class InterfaceTestScreen extends Component {
                 <Button mode="text" onPress={() => this.deleteDevice()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
                     Delete Device
                     </Button>
+                <Button mode="text" onPress={() => this.triggerPopOver()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
+                    Trigger PopOver
+                    </Button>
+                <Button mode="text" onPress={() => this.getSpecificDevice()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
+                    Get specific device
+                    </Button>
+                <FeedbackDialog
+                    mode={this.state.feedbackMode}
+                    description={'Descrição de exemplo'}
+                    onDismissed={() => this._onDimissed()}
+                    onShown={() => this._onShown()}
+                    ref={(feedbackDialog) => { this.feedbackDialog = feedbackDialog }}
+                >
+                </FeedbackDialog>
             </View >
         )
     }
 }
+
+const scaleAnimation = new ScaleAnimation({
+    toValue: 0, // optional
+    useNativeDriver: true, // optional
+})
+
+
 const styles = StyleSheet.create({
+    icon: {
+        textAlign: 'center',
+        marginBottom: 8
+    },
+    title: {
+        fontSize: 28,
+        alignSelf: 'center',
+        color: Colors.titleDarkFont,
+        marginBottom: 6,
+    },
+    descriptionTitle: {
+        fontSize: 16,
+        textAlign: 'center',
+        color: Colors.descriptionLightGray
+    },
     container: {
         flex: 1,
         flexDirection: 'column',

@@ -7,6 +7,8 @@ import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.react.NavigationReactNativeHost;
 import com.reactnativenavigation.react.ReactGateway;
 
+import org.reactnative.camera.RNCameraPackage;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,7 +43,8 @@ public class MainApplication extends NavigationApplication {
                 new RNFirebasePackage(),
                 new RNFirebaseFirestorePackage(),
                 new RNFirebaseLinksPackage(),
-                new RNFirebaseAuthPackage()
+                new RNFirebaseAuthPackage(),
+                new RNCameraPackage()
         );
     }
 

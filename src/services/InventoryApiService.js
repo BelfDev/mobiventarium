@@ -14,6 +14,38 @@ export default class InventoryApiService {
         });
     }
 
+
+    static async getDeviceById(id) {
+        return devicesCollection.doc(id).get()
+            .then((doc) => {
+                console.log(">>> getDeviceById success")
+                return {
+                    id: doc.id,
+                    data: doc.data()
+                }
+            })
+            .catch((error) => {
+                console.log(">>> getDeviceById error: ", error)
+                return error
+            })
+    }
+
+    static async getDeviceBySerial(serial) {
+        return devicesCollection.where("serial", "==", serial).get()
+            .then((snapshot) => {
+                console.log(">>> getDeviceBySerial success")
+                return snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    data: doc.data()
+                })
+                )[0]
+            })
+            .catch((error) => {
+                console.log(">>> getDevices error: ", error)
+                return error
+            })
+    }
+
     static async getDevices() {
         return devicesCollection.get()
             .then((snapshot) => {
@@ -34,11 +66,11 @@ export default class InventoryApiService {
         return devicesCollection.doc(device.id).update(device.data)
             .then((doc) => {
                 console.log(">>> updateDevice success: ", doc)
-                return doc
+                return true
             })
             .catch((error) => {
                 console.log(">>> updateDevice error: ", error)
-                return error
+                return false
             })
     }
 

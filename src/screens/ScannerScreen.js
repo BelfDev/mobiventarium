@@ -42,28 +42,28 @@ export default class ScannerScreen extends Component {
         let databaseItem = await InventoryApiService.getDeviceById(selectedItemId)
         databaseItem.data.isRented = !databaseItem.data.isRented
         let editedItem = Object.assign({}, databaseItem)
-        let successfulyUpdated = await InventoryApiService.updateDevice(editedItem)
-        if (successfulyUpdated) {
+        let successfullyUpdated = await InventoryApiService.updateDevice(editedItem)
+        if (successfullyUpdated) {
           this.setState({
             feedbackMode: 'success',
             descriptionMessage: `Você alugou ${editedItem.data.model}`
           })
-        } else if (!successfulyUpdated || isNil(databaseItem)) {
+        } else if (!successfullyUpdated || isNil(databaseItem)) {
           this.setState({
             feedbackMode: 'failure',
-            descriptionMessage: Strings.scannerConnectionError
+            descriptionMessage: Strings.scanner.connectionError
           })
         }
       } else {
         this.setState({
           feedbackMode: 'failure',
-          descriptionMessage: Strings.scannerIdMismatchError
+          descriptionMessage: Strings.scanner.idMismatchError
         })
       }
     } catch (error) {
       this.setState({
         feedbackMode: 'failure',
-        descriptionMessage: Strings.scannerParsingError
+        descriptionMessage: Strings.scanner.parsingError
       })
       console.log(">>> Check-in error ", error)
     }
@@ -85,13 +85,13 @@ export default class ScannerScreen extends Component {
       } else {
         this.setState({
           feedbackMode: 'failure',
-          descriptionMessage: Strings.scannerValidationError
+          descriptionMessage: Strings.scanner.validationError
         })
       }
     } catch (error) {
       this.setState({
         feedbackMode: 'failure',
-        descriptionMessage: Strings.scannerParsingError
+        descriptionMessage: Strings.scanner.descriptionMessage
       })
       console.log("Data parsing error: ", error)
       this.feedbackDialog.show()
@@ -119,7 +119,9 @@ export default class ScannerScreen extends Component {
           reactivateTimeout={2000}
           showMarker={true}
           customMarker={
-            <QRMarker instructionText={Strings.scannerInstructionText} />
+            <QRMarker 
+            modalTitleText={this.props.modalTitle}
+            instructionText={this.props.instruction} />
           }
         >
         </QRCodeScanner>

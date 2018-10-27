@@ -27,8 +27,12 @@ export default class QRMarker extends PureComponent {
           <View style={styles.centerRectangle}>
             <Icon
               name="ios-qr-scanner"
+              // SCREEN_WIDTH * 0.73
               size={SCREEN_WIDTH * 0.73}
               color={Colors.markerPurple}
+              style={{
+                marginTop: Platform.OS === "ios" ? -16 : 0
+              }}
             />
           </View>
           <View style={styles.leftAndRightOverlay} />
@@ -73,7 +77,7 @@ const styles = StyleSheet.create({
     paddingRight: 46,
     textAlignVertical: "center",
     textAlign: "center",
-	fontSize: 22,
+    fontSize: 22,
     color: Colors.smoothWhite
   },
   centerRectangle: {
@@ -92,8 +96,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.scannerOverlay,
     textAlign: "center",
     textAlignVertical: "center",
-	fontSize: 18,
-	fontWeight: '200',
+    fontSize: 18,
+    fontWeight: "200",
     color: "white"
   },
   bottomOverlay: {

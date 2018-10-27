@@ -3,6 +3,7 @@ import { StyleSheet, Platform, View, Dimensions, Text } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import PropTypes from "prop-types";
 import Colors from "../utils/Colors";
+import { isiPhoneXorAbove } from '../utils/PlatformUtils'
 
 export default class QRMarker extends PureComponent {
   render() {
@@ -19,15 +20,16 @@ export default class QRMarker extends PureComponent {
             {modalTitleText}
           </Text>
         </View>
-        <Text style={styles.topOverlay} numberOfLines={2}>
-          {instructionText}
-        </Text>
+        <View style={styles.topOverlay}>
+          <Text style={styles.instructionText} numberOfLines={2}>
+            {instructionText}
+          </Text>
+        </View>
         <View style={{ flexDirection: "row" }}>
           <View style={styles.leftAndRightOverlay} />
           <View style={styles.centerRectangle}>
             <Icon
               name="ios-qr-scanner"
-              // SCREEN_WIDTH * 0.73
               size={SCREEN_WIDTH * 0.73}
               color={Colors.markerPurple}
               style={{
@@ -37,7 +39,15 @@ export default class QRMarker extends PureComponent {
           </View>
           <View style={styles.leftAndRightOverlay} />
         </View>
-        <View style={styles.bottomOverlay} />
+        <View
+          style={[
+            {
+              paddingBottom:
+                isiPhoneXorAbove() ? SCREEN_WIDTH * 0.4 : SCREEN_WIDTH * 0.25
+            },
+            styles.bottomOverlay
+          ]}
+        />
       </View>
     );
   }
@@ -77,6 +87,7 @@ const styles = StyleSheet.create({
     paddingRight: 46,
     textAlignVertical: "center",
     textAlign: "center",
+    alignSelf: "center",
     fontSize: 22,
     color: Colors.smoothWhite
   },
@@ -93,19 +104,24 @@ const styles = StyleSheet.create({
     flex: 1,
     height: SCREEN_WIDTH,
     width: SCREEN_WIDTH,
-    backgroundColor: Colors.scannerOverlay,
+    justifyContent: "flex-end",
+    backgroundColor: Colors.scannerOverlay
+  },
+  instructionText: {
+    width: SCREEN_WIDTH,
     textAlign: "center",
     textAlignVertical: "center",
     fontSize: 18,
     fontWeight: "200",
-    color: "white"
+    color: "white",
+    paddingBottom: 16,
+    backgroundColor: "transparent"
   },
   bottomOverlay: {
     flex: 1,
     height: SCREEN_WIDTH,
     width: SCREEN_WIDTH,
-    backgroundColor: Colors.scannerOverlay,
-    paddingBottom: SCREEN_WIDTH * 0.25
+    backgroundColor: Colors.scannerOverlay
   },
   leftAndRightOverlay: {
     height: SCREEN_WIDTH * 0.65,

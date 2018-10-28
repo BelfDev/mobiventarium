@@ -7,7 +7,6 @@ import { has } from "ramda";
 import Strings from "../utils/Strings";
 import PropTypes from "prop-types";
 import FeedbackDialog from "../components/FeedbackDialog";
-import { isNil } from "ramda";
 import { Navigation } from "react-native-navigation";
 import NavigationStyle from "../utils/NavigationStyle";
 

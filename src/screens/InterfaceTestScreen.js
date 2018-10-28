@@ -15,12 +15,35 @@ import InventoryApiService from "../services/InventoryApiService";
 import PopupDialog, { ScaleAnimation } from "react-native-popup-dialog";
 import Colors from "../utils/Colors";
 import FeedbackDialog from "../components/FeedbackDialog";
+import { CommandsObserver } from "react-native-navigation/lib/dist/events/CommandsObserver";
 
 export default class InterfaceTestScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = { feedbackMode: "failure" };
+    // this.unsubscribe = null
+    this.state = {
+      feedbackMode: "failure"
+    };
   }
+
+  componentDidMount = () => {
+    this.unsubscribe = await InventoryApiService.subscribeToChanges(
+      this.onItemUpdate
+    );
+  };
+
+  onItemUpdate = snapshot => {
+    console.log("Something has changed", snapshot);
+    console.log("Documents changes: ", snapshot.docChanges);
+    snapshot.docChanges.forEach(element => {
+      console.log("Changed doc: ", element);
+    });
+  };
+
+  unsubscribeCollection = () => {
+    console.log("Trying to unsubscribe...", this.unsubscribe)
+    this.unsubscribe();
+  };
 
   addDevice = async () => {
     console.log("Adding Device");
@@ -34,8 +57,8 @@ export default class InterfaceTestScreen extends Component {
         serial: "123456",
         os: "ios",
         color: "black",
-        rentedBy: '',
-        inventory: ''
+        rentedBy: "",
+        inventory: ""
       }
     });
     console.log(">>>>> DEVICE ", device);
@@ -215,6 +238,18 @@ export default class InterfaceTestScreen extends Component {
           Get specific device
         </Button>
 
+        <Button
+          mode="text"
+          onPress={() => this.unsubscribeCollection()}
+          style={{
+            backgroundColor: "white",
+            width: "50%",
+            alignSelf: "center",
+            marginTop: 16
+          }}
+        >
+         unsubscribe
+        </Button>
         <IconButton
           icon={({ size, color }) => (
             <Icon name="ios-close" size={size} color={color} />

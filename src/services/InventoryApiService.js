@@ -62,6 +62,15 @@ export default class InventoryApiService {
             })
     }
 
+
+
+    static async subscribeToChanges(onItemChange) {
+        return devicesCollection.onSnapshot(onItemChange)
+    }
+
+
+
+
     static async updateDevice(device) {
         return devicesCollection.doc(device.id).update(device.data)
             .then((doc) => {

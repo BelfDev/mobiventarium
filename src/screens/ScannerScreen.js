@@ -99,7 +99,11 @@ export default class ScannerScreen extends Component {
 
   _onDismissed = () => {
     console.log(">>>> onDimissed!");
-    this.scanner.reactivate();
+    if (this.state.feedbackMode === "success") {
+      Navigation.dismissModal(this.props.componentId);
+    } else if (this.state.feedbackMode === "failure") {
+      this.scanner.reactivate();
+    }
   };
 
   _onShown = () => {

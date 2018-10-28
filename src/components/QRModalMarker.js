@@ -1,20 +1,28 @@
 import React, { PureComponent } from "react";
-import { StyleSheet, Platform, View, Dimensions, Text } from "react-native";
+import { StyleSheet, Platform, View, Dimensions } from "react-native";
+import { IconButton, Text } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
 import PropTypes from "prop-types";
 import Colors from "../utils/Colors";
-import { isiPhoneXorAbove } from '../utils/PlatformUtils'
+import { isiPhoneXorAbove } from "../utils/PlatformUtils";
 
-export default class QRMarker extends PureComponent {
+export default class QRModalMarker extends PureComponent {
   render() {
-    const { instructionText, modalTitleText } = this.props;
+    const { instructionText, modalTitleText, onClosePressed } = this.props;
     return (
       <View style={styles.markerContainer}>
         <View style={styles.modalBarContainer}>
-          <Icon
-            name={Platform.OS === "ios" ? "ios-close" : "md-close"}
-            size={32}
+          <IconButton
+            icon={({ size, color }) => (
+              <Icon
+                name={Platform.OS === "ios" ? "ios-close" : "md-close"}
+                size={size}
+                color={color}
+              />
+            )}
             color={Colors.smoothWhite}
+            size={32}
+            onPress={() => (onClosePressed ? onClosePressed() : null)}
           />
           <Text style={styles.modalTitle} numberOfLines={1}>
             {modalTitleText}
@@ -42,8 +50,9 @@ export default class QRMarker extends PureComponent {
         <View
           style={[
             {
-              paddingBottom:
-                isiPhoneXorAbove() ? SCREEN_WIDTH * 0.4 : SCREEN_WIDTH * 0.25
+              paddingBottom: isiPhoneXorAbove()
+                ? SCREEN_WIDTH * 0.4
+                : SCREEN_WIDTH * 0.25
             },
             styles.bottomOverlay
           ]}
@@ -53,13 +62,14 @@ export default class QRMarker extends PureComponent {
   }
 }
 
-QRMarker.defaultProps = {
+QRModalMarker.defaultProps = {
   instructionText: ""
 };
 
-QRMarker.propTypes = {
+QRModalMarker.propTypes = {
   instructionText: PropTypes.string,
-  modalTitleText: PropTypes.string.isRequired
+  modalTitleText: PropTypes.string.isRequired,
+  onClosePressed: PropTypes.func
 };
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -75,7 +85,8 @@ const styles = StyleSheet.create({
   },
   modalBarContainer: {
     paddingTop: 24,
-    paddingHorizontal: 24,
+    paddingLeft: 14,
+    paddingRight: 24,
     flexDirection: "row",
     alignItems: "stretch",
     width: SCREEN_WIDTH,
@@ -83,8 +94,9 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     flex: 1,
-    paddingLeft: 24,
     paddingRight: 46,
+    paddingBottom: 2,
+    paddingLeft: 8,
     textAlignVertical: "center",
     textAlign: "center",
     alignSelf: "center",

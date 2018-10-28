@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Dimensions, SafeAreaView } from "react-native";
 import QRCodeScanner from "react-native-qrcode-scanner";
-import QRMarker from "../components/QRMarker";
+import QRModalMarker from "../components/QRModalMarker";
 import InventoryApiService from "../services/InventoryApiService";
 import { has } from "ramda";
 import Strings from "../utils/Strings";
@@ -102,13 +102,17 @@ export default class ScannerScreen extends Component {
     }
   }
 
-  _onDimissed = () => {
+  _onDismissed = () => {
     console.log(">>>> onDimissed!");
   };
 
   _onShown = () => {
     console.log(">>>> onShow!");
   };
+
+  _onClosePressed = () => {
+    Navigation.dismissModal(this.props.componentId)
+  }
 
   render() {
     return (
@@ -129,7 +133,8 @@ export default class ScannerScreen extends Component {
           reactivateTimeout={2000}
           showMarker={true}
           customMarker={
-            <QRMarker
+            <QRModalMarker
+              onClosePressed={() => this._onClosePressed()}
               modalTitleText={this.props.modalTitle}
               instructionText={this.props.instruction}
             />
@@ -138,7 +143,7 @@ export default class ScannerScreen extends Component {
         <FeedbackDialog
           mode={this.state.feedbackMode}
           description={this.state.descriptionMessage}
-          onDismissed={() => this._onDimissed()}
+          onDismissed={() => this._onDismissed()}
           onShown={() => this._onShown()}
           ref={feedbackDialog => {
             this.feedbackDialog = feedbackDialog;

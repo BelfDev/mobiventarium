@@ -1,106 +1,113 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Image, TouchableNativeFeedback } from 'react-native';
-import { Text, TouchableRipple, Divider, Card, Title, Button } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/Ionicons';
-import Images from 'assets';
-import InventoryApiService from '../services/InventoryApiService'
-import PopupDialog, { ScaleAnimation } from 'react-native-popup-dialog';
-import Colors from '../utils/Colors'
-import FeedbackDialog from '../components/FeedbackDialog'
+import React, { Component } from "react";
+import { StyleSheet, View, Image, TouchableNativeFeedback } from "react-native";
+import {
+  Text,
+  TouchableRipple,
+  Divider,
+  Card,
+  Title,
+  Button,
+  IconButton
+} from "react-native-paper";
+import Icon from "react-native-vector-icons/Ionicons";
+import Images from "assets";
+import InventoryApiService from "../services/InventoryApiService";
+import PopupDialog, { ScaleAnimation } from "react-native-popup-dialog";
+import Colors from "../utils/Colors";
+import FeedbackDialog from "../components/FeedbackDialog";
 
 export default class InterfaceTestScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { feedbackMode: "failure" };
+  }
 
-    constructor(props) {
-        super(props);
-        this.state = { feedbackMode: 'failure' };
-    }
+  addDevice = async () => {
+    console.log("Adding Device");
+    const device = await InventoryApiService.addDevice({
+      data: {
+        version: "Super Teste",
+        brand: "android",
+        type: "mobile",
+        model: "Modelo de Testee",
+        isRented: true,
+        serial: "123456",
+        os: "ios",
+        color: "black"
+      }
+    });
+    console.log(">>>>> DEVICE ", device);
+  };
 
-    addDevice = async () => {
-        console.log("Adding Device")
-        const device = await InventoryApiService.addDevice(
-            {
-                data: {
-                    version: 'Super Teste',
-                    brand: 'android',
-                    type: 'mobile',
-                    model: 'Modelo de Testee',
-                    isRented: true,
-                    serial: '123456',
-                    os: 'ios',
-                    color: 'black'
-                }
-            }
-        )
-        console.log(">>>>> DEVICE ", device)
-    }
+  getDevices = async () => {
+    const devices = await InventoryApiService.getDevices();
+    console.log(">>>>> DEVICES ", devices);
+  };
 
-    getDevices = async () => {
-        const devices = await InventoryApiService.getDevices()
-        console.log(">>>>> DEVICES ", devices)
-    }
+  deleteDevice = async () => {
+    const device = await InventoryApiService.deleteDevice({
+      id: "Is1lgPGPp9kO1k1OALIL",
+      data: {
+        version: "Super Teste",
+        brand: "android",
+        type: "mobile",
+        model: "Modelo de Testee",
+        isRented: true,
+        serial: "431606277",
+        os: "ios",
+        color: "black"
+      }
+    });
+    console.log(">>>>> DEVICE DELETED ", device);
+  };
 
-    deleteDevice = async () => {
-        const device = await InventoryApiService.deleteDevice({
-            id: 'Is1lgPGPp9kO1k1OALIL',
-            data: {
-                version: 'Super Teste',
-                brand: 'android',
-                type: 'mobile',
-                model: 'Modelo de Testee',
-                isRented: true,
-                serial: '431606277',
-                os: 'ios',
-                color: 'black'
-            }
-        })
-        console.log(">>>>> DEVICE DELETED ", device)
-    }
+  updateDevice = async () => {
+    const device = await InventoryApiService.updateDevice({
+      id: "qPCd6eOFlIyu2vunqFvF",
+      data: {
+        version: "Super Teste",
+        brand: "android",
+        type: "mobile",
+        model: "Modelo de Testee",
+        isRented: true,
+        serial: "431606277",
+        os: "ios",
+        color: "black"
+      }
+    });
+    console.log(">>>>> UPDATED DEVICE ", device);
+  };
 
-    updateDevice = async () => {
-        const device = await InventoryApiService.updateDevice({
-            id: 'qPCd6eOFlIyu2vunqFvF',
-            data: {
-                version: 'Super Teste',
-                brand: 'android',
-                type: 'mobile',
-                model: 'Modelo de Testee',
-                isRented: true,
-                serial: '431606277',
-                os: 'ios',
-                color: 'black'
-            }
-        })
-        console.log(">>>>> UPDATED DEVICE ", device)
-    }
+  triggerPopOver = () => {
+    // this.popupDialog.show();
+    this.feedbackDialog.show();
 
-    triggerPopOver = () => {
-        // this.popupDialog.show();
-        this.feedbackDialog.show()
+    // this.refs[(`feedbackDialog`)].show()
+    console.log("Under Construction");
+  };
 
-        // this.refs[(`feedbackDialog`)].show()
-        console.log("Under Construction")
-    }
+  getSpecificDevice = async () => {
+    // const device = await InventoryApiService.getDeviceBySerial('123456')
+    var device = await InventoryApiService.getDeviceById(
+      "x96851pNDHfwbfoBhPAP"
+    );
+    device.data.isRented = !device.data.isRented;
+    const updatedDevice = await InventoryApiService.updateDevice(device);
+    console.log(">>> Device: ", updatedDevice);
+  };
 
-    getSpecificDevice = async () => {
-        // const device = await InventoryApiService.getDeviceBySerial('123456')
-        var device = await InventoryApiService.getDeviceById('x96851pNDHfwbfoBhPAP')
-        device.data.isRented = !device.data.isRented
-        const updatedDevice = await InventoryApiService.updateDevice(device)
-        console.log(">>> Device: ", updatedDevice)
-    }
+  _onDimissed = () => {
+    console.log(">>>> onDimissed!");
+  };
 
-    _onDimissed = () => {
-        console.log(">>>> onDimissed!")
-    }
+  _onShown = () => {
+    console.log(">>>> onShow!");
+  };
 
-    _onShown = () => {
-        console.log(">>>> onShow!")
-    }
-
-    render() {
-        return (
-            <View style={styles.container}>
-                {/* <TouchableRipple
+  render() {
+    return (
+      <View style={styles.container}>
+        {/* <TouchableRipple
                     onPress={() => console.log('Pressed')}
                     rippleColor="rgba(0, 0, 0, .32)"
                     style={styles.card}
@@ -128,129 +135,187 @@ export default class InterfaceTestScreen extends Component {
                         </View>
                     </View>
                 </TouchableRipple> */}
-                <Button mode="contained" onPress={() => this.addDevice()} style={{ width: '50%', alignSelf: 'center' }}>
-                    Add Device
-                    </Button>
+        <Button
+          mode="contained"
+          onPress={() => this.addDevice()}
+          style={{ width: "50%", alignSelf: "center" }}
+        >
+          Add Device
+        </Button>
 
-                <Button mode="outlined" onPress={() => this.getDevices()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
-                    Get Devices
-                    </Button>
+        <Button
+          mode="outlined"
+          onPress={() => this.getDevices()}
+          style={{
+            backgroundColor: "white",
+            width: "50%",
+            alignSelf: "center",
+            marginTop: 16
+          }}
+        >
+          Get Devices
+        </Button>
 
-                <Button mode="text" onPress={() => this.updateDevice()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
-                    Update Device
-                    </Button>
+        <Button
+          mode="text"
+          onPress={() => this.updateDevice()}
+          style={{
+            backgroundColor: "white",
+            width: "50%",
+            alignSelf: "center",
+            marginTop: 16
+          }}
+        >
+          Update Device
+        </Button>
 
-                <Button mode="text" onPress={() => this.deleteDevice()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
-                    Delete Device
-                    </Button>
-                <Button mode="text" onPress={() => this.triggerPopOver()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
-                    Trigger PopOver
-                    </Button>
-                <Button mode="text" onPress={() => this.getSpecificDevice()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
-                    Get specific device
-                    </Button>
-                <FeedbackDialog
-                    mode={this.state.feedbackMode}
-                    description={'Descrição de exemplo'}
-                    onDismissed={() => this._onDimissed()}
-                    onShown={() => this._onShown()}
-                    ref={(feedbackDialog) => { this.feedbackDialog = feedbackDialog }}
-                >
-                </FeedbackDialog>
-            </View >
-        )
-    }
+        <Button
+          mode="text"
+          onPress={() => this.deleteDevice()}
+          style={{
+            backgroundColor: "white",
+            width: "50%",
+            alignSelf: "center",
+            marginTop: 16
+          }}
+        >
+          Delete Device
+        </Button>
+        <Button
+          mode="text"
+          onPress={() => this.triggerPopOver()}
+          style={{
+            backgroundColor: "white",
+            width: "50%",
+            alignSelf: "center",
+            marginTop: 16
+          }}
+        >
+          Trigger PopOver
+        </Button>
+        <Button
+          mode="text"
+          onPress={() => this.getSpecificDevice()}
+          style={{
+            backgroundColor: "white",
+            width: "50%",
+            alignSelf: "center",
+            marginTop: 16
+          }}
+        >
+          Get specific device
+        </Button>
+
+        <IconButton
+          icon={({ size, color }) => (
+            <Icon name="ios-close" size={size} color={color} />
+          )}
+          color={Colors.red500}
+          size={48}
+          onPress={() => console.log("Pressed")}
+        />
+        <FeedbackDialog
+          mode={this.state.feedbackMode}
+          description={"Descrição de exemplo"}
+          onDismissed={() => this._onDimissed()}
+          onShown={() => this._onShown()}
+          ref={feedbackDialog => {
+            this.feedbackDialog = feedbackDialog;
+          }}
+        />
+      </View>
+    );
+  }
 }
 
 const scaleAnimation = new ScaleAnimation({
-    toValue: 0, // optional
-    useNativeDriver: true, // optional
-})
-
+  toValue: 0, // optional
+  useNativeDriver: true // optional
+});
 
 const styles = StyleSheet.create({
-    icon: {
-        textAlign: 'center',
-        marginBottom: 8
-    },
-    title: {
-        fontSize: 28,
-        alignSelf: 'center',
-        color: Colors.titleDarkFont,
-        marginBottom: 6,
-    },
-    descriptionTitle: {
-        fontSize: 16,
-        textAlign: 'center',
-        color: Colors.descriptionLightGray
-    },
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        backgroundColor: 'dimgray',
-        justifyContent: 'center',
-    },
-    card: {
-        height: 144,
-        backgroundColor: 'white',
-        borderRadius: 8,
-        margin: 8,
-        elevation: 8,
-    },
-    cardContent: {
-        flex: 1,
-        padding: 16,
-        flexDirection: 'row'
-    },
-    imageContainer: {
-        width: 100,
-        backgroundColor: '#F5F5F5',
-        borderRadius: 4,
-    },
-    image: {
-        flex: 1,
-        alignSelf: 'stretch',
-        width: null,
-        height: null,
-    },
-    infoContainer: {
-        flex: 1,
-        justifyContent: 'space-between',
-        marginLeft: 8,
-        borderRadius: 4,
-    },
-    itemTitle: {
-        fontSize: 22,
-        fontWeight: '400',
-        color: '#404040',
-    },
-    descriptionContainer: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center'
-    },
-    descriptionText: {
-        textAlignVertical: 'bottom',
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#A4C639',
-    },
-    divider: {
-        height: 1,
-        backgroundColor: '#D8D8D8',
-        marginBottom: 8,
-        marginTop: 4,
-    },
-    statusLabel: {
-        alignSelf: 'baseline',
-        color: 'white',
-        fontSize: 18,
-        fontWeight: 'bold',
-        backgroundColor: '#3ED470',
-        padding: 8,
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: '#2DA455',
-        overflow: 'hidden',
-    }
-})
+  icon: {
+    textAlign: "center",
+    marginBottom: 8
+  },
+  title: {
+    fontSize: 28,
+    alignSelf: "center",
+    color: Colors.titleDarkFont,
+    marginBottom: 6
+  },
+  descriptionTitle: {
+    fontSize: 16,
+    textAlign: "center",
+    color: Colors.descriptionLightGray
+  },
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: "dimgray",
+    justifyContent: "center"
+  },
+  card: {
+    height: 144,
+    backgroundColor: "white",
+    borderRadius: 8,
+    margin: 8,
+    elevation: 8
+  },
+  cardContent: {
+    flex: 1,
+    padding: 16,
+    flexDirection: "row"
+  },
+  imageContainer: {
+    width: 100,
+    backgroundColor: "#F5F5F5",
+    borderRadius: 4
+  },
+  image: {
+    flex: 1,
+    alignSelf: "stretch",
+    width: null,
+    height: null
+  },
+  infoContainer: {
+    flex: 1,
+    justifyContent: "space-between",
+    marginLeft: 8,
+    borderRadius: 4
+  },
+  itemTitle: {
+    fontSize: 22,
+    fontWeight: "400",
+    color: "#404040"
+  },
+  descriptionContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center"
+  },
+  descriptionText: {
+    textAlignVertical: "bottom",
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#A4C639"
+  },
+  divider: {
+    height: 1,
+    backgroundColor: "#D8D8D8",
+    marginBottom: 8,
+    marginTop: 4
+  },
+  statusLabel: {
+    alignSelf: "baseline",
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+    backgroundColor: "#3ED470",
+    padding: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#2DA455",
+    overflow: "hidden"
+  }
+});

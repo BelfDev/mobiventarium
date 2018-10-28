@@ -3,6 +3,7 @@ const colors = {
   vividGreen: "#3ED470",
   red: "#9A4242",
   green: "#2DA455",
+  smoothWhite: "#EDEDED",
   androidGreen: "#A4C639",
   iosGray: "#7d7d7d",
   backgroundGray: "#EDEDED",

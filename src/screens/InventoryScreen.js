@@ -7,6 +7,8 @@ import ItemFormatter from '../utils/ItemFormatter'
 import Colors from '../utils/Colors'
 import { Navigation } from 'react-native-navigation'
 import { Screens } from '../screens'
+import NavigationStyle from '../utils/NavigationStyle';
+import Strings from '../utils/Strings'
 
 @inject("itemStore")
 @observer
@@ -46,21 +48,11 @@ export default class InventoryScreen extends Component {
           component: {
             name: Screens.ScannerScreen,
             passProps: {
-              id: id,
-              selectedItemId: 'stack with one child'
+              selectedItemId: id,
+              modalTitle: Strings.scanner.screenTitle,
+              instruction: Strings.scanner.instructionText
             },
-            options: {
-              modalPresentationStyle: 'overCurrentContext',
-              layout: {
-                orientation: ['portrait']
-              },
-              topBar: {
-                visible: true,
-                title: {
-                  text: 'QR Code Scanner'
-                }
-              }
-            }
+            options: NavigationStyle.ScannerScreen
           }
         }]
       }

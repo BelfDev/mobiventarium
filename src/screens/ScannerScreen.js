@@ -1,136 +1,154 @@
-import React, { Component } from 'react'
-import {
-  StyleSheet,
-  Dimensions,
-  View
-} from 'react-native'
-import QRCodeScanner from 'react-native-qrcode-scanner'
-import QRMarker from '../components/QRMarker'
-import InventoryApiService from '../services/InventoryApiService'
+import React, { Component } from "react";
+import { StyleSheet, Dimensions, SafeAreaView } from "react-native";
+import QRCodeScanner from "react-native-qrcode-scanner";
+import QRModalMarker from "../components/QRModalMarker";
+import InventoryApiService from "../services/InventoryApiService";
 import { has } from "ramda";
-import Strings from '../utils/Strings'
+import Strings from "../utils/Strings";
 import PropTypes from "prop-types";
-import FeedbackDialog from '../components/FeedbackDialog'
-import { isNil } from 'ramda'
-import { Navigation } from 'react-native-navigation'
-
-const selectedItemId = 'x96851pNDHfwbfoBhPAP'
+import FeedbackDialog from "../components/FeedbackDialog";
+import { isNil } from "ramda";
+import { Navigation } from "react-native-navigation";
+import NavigationStyle from "../utils/NavigationStyle";
 
 export default class ScannerScreen extends Component {
-
   state = {
-    feedbackMode: 'success',
-    descriptionMessage: 'none'
-  }
+    feedbackMode: "success",
+    descriptionMessage: "none"
+  };
 
   constructor(props) {
-    super(props)
-    // this.props.selectedId = 'x96851pNDHfwbfoBhPAP'
-    console.log(">>> Setup selectedId ", selectedItemId)
+    super(props);
+    console.log(">>> Setup selectedId ", this.props.selectedItemId);
   }
-  
+
   async _onSuccess(code) {
+    console.log(">>> SCANNED CODE: ", code);
     if (this._isValidCode(code)) {
-      this._checkInItem(code)
+      this._checkInItem(code);
     }
   }
 
   async _checkInItem(validatedCode) {
+    const { selectedItemId } = this.props;
     try {
-      let scannedItem = JSON.parse(validatedCode.data)
+      let scannedItem = JSON.parse(validatedCode.data);
       if (this._itemConformsWithProtocol(scannedItem, selectedItemId)) {
-        let databaseItem = await InventoryApiService.getDeviceById(selectedItemId)
-        databaseItem.data.isRented = !databaseItem.data.isRented
-        let editedItem = Object.assign({}, databaseItem)
-        let successfulyUpdated = await InventoryApiService.updateDevice(editedItem)
-        if (successfulyUpdated) {
+        try {
+          let databaseItem = await InventoryApiService.getDeviceById(
+            selectedItemId
+          );
+          databaseItem.data.isRented = !databaseItem.data.isRented;
+          let editedItem = Object.assign({}, databaseItem);
+          await InventoryApiService.updateDevice(editedItem);
           this.setState({
-            feedbackMode: 'success',
+            feedbackMode: "success",
             descriptionMessage: `Você alugou ${editedItem.data.model}`
-          })
-        } else if (!successfulyUpdated || isNil(databaseItem)) {
+          });
+        } catch (error) {
           this.setState({
-            feedbackMode: 'failure',
-            descriptionMessage: Strings.scannerConnectionError
-          })
+            feedbackMode: "failure",
+            descriptionMessage: Strings.scanner.connectionError
+          });
         }
       } else {
         this.setState({
-          feedbackMode: 'failure',
-          descriptionMessage: Strings.scannerIdMismatchError
-        })
+          feedbackMode: "failure",
+          descriptionMessage: Strings.scanner.idMismatchError
+        });
       }
     } catch (error) {
       this.setState({
-        feedbackMode: 'failure',
-        descriptionMessage: Strings.scannerParsingError
-      })
-      console.log(">>> Check-in error ", error)
+        feedbackMode: "failure",
+        descriptionMessage: Strings.scanner.parsingError
+      });
     }
-    this.feedbackDialog.show()
+    this.feedbackDialog.show();
   }
 
   _itemConformsWithProtocol(scannedItem, selectedItemId) {
-    return (scannedItem.id === selectedItemId)
+    return scannedItem.id === selectedItemId;
   }
 
   _isValidCode(code) {
     try {
-      let scannedDevice = JSON.parse(code.data)
-      let hasSerialNumber = has('serial');
-      let hasRentedStatus = has('isRented')
+      let scannedDevice = JSON.parse(code.data);
+      let hasSerialNumber = has("serial");
+      let hasRentedStatus = has("isRented");
 
-      if (hasSerialNumber(scannedDevice.data) && hasRentedStatus(scannedDevice.data)) {
-        return true
+      if (
+        hasSerialNumber(scannedDevice.data) &&
+        hasRentedStatus(scannedDevice.data)
+      ) {
+        return true;
       } else {
         this.setState({
-          feedbackMode: 'failure',
-          descriptionMessage: Strings.scannerValidationError
-        })
+          feedbackMode: "failure",
+          descriptionMessage: Strings.scanner.validationError
+        });
       }
     } catch (error) {
       this.setState({
-        feedbackMode: 'failure',
-        descriptionMessage: Strings.scannerParsingError
-      })
-      console.log("Data parsing error: ", error)
-      this.feedbackDialog.show()
-      return false
+        feedbackMode: "failure",
+        descriptionMessage: Strings.scanner.parsingError
+      });
+      this.feedbackDialog.show();
+      return false;
     }
   }
 
-  _onDimissed = () => {
-    console.log(">>>> onDimissed!")
-  }
+  _onDismissed = () => {
+    console.log(">>>> onDimissed!");
+    if (this.state.feedbackMode === "success") {
+      Navigation.dismissModal(this.props.componentId);
+    } else if (this.state.feedbackMode === "failure") {
+      this.scanner.reactivate();
+    }
+  };
 
   _onShown = () => {
-    console.log(">>>> onShow!")
-  }
+    console.log(">>>> onShow!");
+  };
+
+  _onClosePressed = () => {
+    Navigation.dismissModal(this.props.componentId);
+  };
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: NavigationStyle.ScannerScreen.topBar.background.color
+        }}
+      >
         <QRCodeScanner
-          ref={(node) => { this.scanner = node }}
-          onRead={(code) => this._onSuccess(code)}
+          ref={node => {
+            this.scanner = node;
+          }}
+          onRead={code => this._onSuccess(code)}
           cameraStyle={styles.cameraContainer}
           fadeIn={false}
-          reactivate={true}
-          reactivateTimeout={2000}
+          reactivate={false}
           showMarker={true}
           customMarker={
-            <QRMarker instructionText={Strings.scannerInstructionText} />
+            <QRModalMarker
+              onClosePressed={() => this._onClosePressed()}
+              modalTitleText={this.props.modalTitle}
+              instructionText={this.props.instruction}
+            />
           }
-        >
-        </QRCodeScanner>
+        />
         <FeedbackDialog
           mode={this.state.feedbackMode}
           description={this.state.descriptionMessage}
-          onDismissed={() => this._onDimissed()}
+          onDismissed={() => this._onDismissed()}
           onShown={() => this._onShown()}
-          ref={(feedbackDialog) => { this.feedbackDialog = feedbackDialog }}
+          ref={feedbackDialog => {
+            this.feedbackDialog = feedbackDialog;
+          }}
         />
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -141,6 +159,6 @@ ScannerScreen.propTypes = {
 
 const styles = StyleSheet.create({
   cameraContainer: {
-    height: Dimensions.get('window').height,
+    height: Dimensions.get("window").height
   }
 });

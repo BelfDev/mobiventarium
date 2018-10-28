@@ -11,8 +11,6 @@ import { isNil } from "ramda";
 import { Navigation } from "react-native-navigation";
 import NavigationStyle from "../utils/NavigationStyle";
 
-const selectedItemId = "x96851pNDHfwbfoBhPAP";
-
 export default class ScannerScreen extends Component {
   state = {
     feedbackMode: "success",
@@ -21,34 +19,33 @@ export default class ScannerScreen extends Component {
 
   constructor(props) {
     super(props);
-    // this.props.selectedId = 'x96851pNDHfwbfoBhPAP'
-    console.log(">>> Setup selectedId ", selectedItemId);
+    console.log(">>> Setup selectedId ", this.props.selectedItemId);
   }
 
   async _onSuccess(code) {
+    console.log(">>> SCANNED CODE: ", code);
     if (this._isValidCode(code)) {
       this._checkInItem(code);
     }
   }
 
   async _checkInItem(validatedCode) {
+    const { selectedItemId } = this.props;
     try {
       let scannedItem = JSON.parse(validatedCode.data);
       if (this._itemConformsWithProtocol(scannedItem, selectedItemId)) {
-        let databaseItem = await InventoryApiService.getDeviceById(
-          selectedItemId
-        );
-        databaseItem.data.isRented = !databaseItem.data.isRented;
-        let editedItem = Object.assign({}, databaseItem);
-        let successfullyUpdated = await InventoryApiService.updateDevice(
-          editedItem
-        );
-        if (successfullyUpdated) {
+        try {
+          let databaseItem = await InventoryApiService.getDeviceById(
+            selectedItemId
+          );
+          databaseItem.data.isRented = !databaseItem.data.isRented;
+          let editedItem = Object.assign({}, databaseItem);
+          await InventoryApiService.updateDevice(editedItem);
           this.setState({
             feedbackMode: "success",
             descriptionMessage: `Você alugou ${editedItem.data.model}`
           });
-        } else if (!successfullyUpdated || isNil(databaseItem)) {
+        } catch (error) {
           this.setState({
             feedbackMode: "failure",
             descriptionMessage: Strings.scanner.connectionError
@@ -65,7 +62,6 @@ export default class ScannerScreen extends Component {
         feedbackMode: "failure",
         descriptionMessage: Strings.scanner.parsingError
       });
-      console.log(">>> Check-in error ", error);
     }
     this.feedbackDialog.show();
   }
@@ -94,9 +90,8 @@ export default class ScannerScreen extends Component {
     } catch (error) {
       this.setState({
         feedbackMode: "failure",
-        descriptionMessage: Strings.scanner.descriptionMessage
+        descriptionMessage: Strings.scanner.parsingError
       });
-      console.log("Data parsing error: ", error);
       this.feedbackDialog.show();
       return false;
     }
@@ -104,6 +99,7 @@ export default class ScannerScreen extends Component {
 
   _onDismissed = () => {
     console.log(">>>> onDimissed!");
+    this.scanner.reactivate();
   };
 
   _onShown = () => {
@@ -111,8 +107,8 @@ export default class ScannerScreen extends Component {
   };
 
   _onClosePressed = () => {
-    Navigation.dismissModal(this.props.componentId)
-  }
+    Navigation.dismissModal(this.props.componentId);
+  };
 
   render() {
     return (
@@ -129,8 +125,7 @@ export default class ScannerScreen extends Component {
           onRead={code => this._onSuccess(code)}
           cameraStyle={styles.cameraContainer}
           fadeIn={false}
-          reactivate={true}
-          reactivateTimeout={2000}
+          reactivate={false}
           showMarker={true}
           customMarker={
             <QRModalMarker

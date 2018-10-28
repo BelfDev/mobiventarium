@@ -33,7 +33,9 @@ export default class InterfaceTestScreen extends Component {
         isRented: true,
         serial: "123456",
         os: "ios",
-        color: "black"
+        color: "black",
+        rentedBy: '',
+        inventory: ''
       }
     });
     console.log(">>>>> DEVICE ", device);
@@ -46,7 +48,7 @@ export default class InterfaceTestScreen extends Component {
 
   deleteDevice = async () => {
     const device = await InventoryApiService.deleteDevice({
-      id: "Is1lgPGPp9kO1k1OALIL",
+      id: "P44h28GSu2wSysk0CIUq",
       data: {
         version: "Super Teste",
         brand: "android",
@@ -60,6 +62,13 @@ export default class InterfaceTestScreen extends Component {
     });
     console.log(">>>>> DEVICE DELETED ", device);
   };
+
+  // Pyz511wvzUGey6byz5Dk
+  // TikBhe02hRlZw8UOyztD
+  // Wbdtsxt4ywxSFqyj90JL
+  // bdlD4slgu49P55ZP1wZ2
+  // wgTLjmsBRQ0EeScBkoQ7
+  // x96851pNDHfwbfoBhPAP
 
   updateDevice = async () => {
     const device = await InventoryApiService.updateDevice({

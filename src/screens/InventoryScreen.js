@@ -48,9 +48,8 @@ export default class InventoryScreen extends Component {
           component: {
             name: Screens.ScannerScreen,
             passProps: {
-              id: id,
+              selectedItemId: id,
               modalTitle: Strings.scanner.screenTitle,
-              selectedItemId: 'stack with one child',
               instruction: Strings.scanner.instructionText
             },
             options: NavigationStyle.ScannerScreen

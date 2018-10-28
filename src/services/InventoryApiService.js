@@ -18,15 +18,15 @@ export default class InventoryApiService {
     static async getDeviceById(id) {
         return devicesCollection.doc(id).get()
             .then((doc) => {
+                if (doc.metadata.fromCache) {
+                    console.log(">>> getDeviceById failed -- returned cached item.")
+                    throw "Request failed."
+                }
                 console.log(">>> getDeviceById success")
                 return {
                     id: doc.id,
                     data: doc.data()
                 }
-            })
-            .catch((error) => {
-                console.log(">>> getDeviceById error: ", error)
-                return error
             })
     }
 
@@ -66,11 +66,7 @@ export default class InventoryApiService {
         return devicesCollection.doc(device.id).update(device.data)
             .then((doc) => {
                 console.log(">>> updateDevice success: ", doc)
-                return true
-            })
-            .catch((error) => {
-                console.log(">>> updateDevice error: ", error)
-                return false
+                return doc
             })
     }
 

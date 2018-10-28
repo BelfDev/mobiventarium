@@ -21,7 +21,7 @@ export default class QRModalMarker extends PureComponent {
               />
             )}
             color={Colors.smoothWhite}
-            size={32}
+            size={Platform.OS === "ios" ? 32 : 24}
             onPress={() => (onClosePressed ? onClosePressed() : null)}
           />
           <Text style={styles.modalTitle} numberOfLines={1}>

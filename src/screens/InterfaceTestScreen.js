@@ -26,7 +26,7 @@ export default class InterfaceTestScreen extends Component {
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     this.unsubscribe = await InventoryApiService.subscribeToChanges(
       this.onItemUpdate
     );
@@ -40,14 +40,14 @@ export default class InterfaceTestScreen extends Component {
     });
   };
 
-  unsubscribeCollection = () => {
+  unsubscribeCollection = async () => {
     console.log("Trying to unsubscribe...", this.unsubscribe)
     this.unsubscribe();
   };
 
-  addDevice = async () => {
+  addItem = async () => {
     console.log("Adding Device");
-    const device = await InventoryApiService.addDevice({
+    const device = await InventoryApiService.addItem({
       data: {
         version: "Super Teste",
         brand: "android",
@@ -64,13 +64,13 @@ export default class InterfaceTestScreen extends Component {
     console.log(">>>>> DEVICE ", device);
   };
 
-  getDevices = async () => {
-    const devices = await InventoryApiService.getDevices();
+  getItems = async () => {
+    const devices = await InventoryApiService.getItems();
     console.log(">>>>> DEVICES ", devices);
   };
 
-  deleteDevice = async () => {
-    const device = await InventoryApiService.deleteDevice({
+  deleteItem = async () => {
+    const device = await InventoryApiService.deleteItem({
       id: "P44h28GSu2wSysk0CIUq",
       data: {
         version: "Super Teste",
@@ -93,8 +93,8 @@ export default class InterfaceTestScreen extends Component {
   // wgTLjmsBRQ0EeScBkoQ7
   // x96851pNDHfwbfoBhPAP
 
-  updateDevice = async () => {
-    const device = await InventoryApiService.updateDevice({
+  updateItem = async () => {
+    const device = await InventoryApiService.updateItem({
       id: "qPCd6eOFlIyu2vunqFvF",
       data: {
         version: "Super Teste",
@@ -118,13 +118,12 @@ export default class InterfaceTestScreen extends Component {
     console.log("Under Construction");
   };
 
-  getSpecificDevice = async () => {
-    // const device = await InventoryApiService.getDeviceBySerial('123456')
-    var device = await InventoryApiService.getDeviceById(
+  getSpecificItem = async () => {
+    var device = await InventoryApiService.getItemById(
       "x96851pNDHfwbfoBhPAP"
     );
     device.data.isRented = !device.data.isRented;
-    const updatedDevice = await InventoryApiService.updateDevice(device);
+    const updatedDevice = await InventoryApiService.updateItem(device);
     console.log(">>> Device: ", updatedDevice);
   };
 
@@ -169,15 +168,15 @@ export default class InterfaceTestScreen extends Component {
                 </TouchableRipple> */}
         <Button
           mode="contained"
-          onPress={() => this.addDevice()}
+          onPress={() => this.addItem()}
           style={{ width: "50%", alignSelf: "center" }}
         >
-          Add Device
+          Add Item
         </Button>
 
         <Button
           mode="outlined"
-          onPress={() => this.getDevices()}
+          onPress={() => this.getItems()}
           style={{
             backgroundColor: "white",
             width: "50%",
@@ -185,12 +184,12 @@ export default class InterfaceTestScreen extends Component {
             marginTop: 16
           }}
         >
-          Get Devices
+          Get Items
         </Button>
 
         <Button
           mode="text"
-          onPress={() => this.updateDevice()}
+          onPress={() => this.updateItem()}
           style={{
             backgroundColor: "white",
             width: "50%",
@@ -198,12 +197,12 @@ export default class InterfaceTestScreen extends Component {
             marginTop: 16
           }}
         >
-          Update Device
+          Update Item
         </Button>
 
         <Button
           mode="text"
-          onPress={() => this.deleteDevice()}
+          onPress={() => this.deleteItem()}
           style={{
             backgroundColor: "white",
             width: "50%",
@@ -211,7 +210,7 @@ export default class InterfaceTestScreen extends Component {
             marginTop: 16
           }}
         >
-          Delete Device
+          Delete Item
         </Button>
         <Button
           mode="text"
@@ -227,7 +226,7 @@ export default class InterfaceTestScreen extends Component {
         </Button>
         <Button
           mode="text"
-          onPress={() => this.getSpecificDevice()}
+          onPress={() => this.getSpecificItem()}
           style={{
             backgroundColor: "white",
             width: "50%",
@@ -235,7 +234,7 @@ export default class InterfaceTestScreen extends Component {
             marginTop: 16
           }}
         >
-          Get specific device
+          Get specific Item
         </Button>
 
         <Button

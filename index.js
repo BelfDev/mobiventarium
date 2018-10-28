@@ -23,7 +23,7 @@ Navigation.events().registerAppLaunchedListener(() => {
         children: [
           {
             component: {
-              name: Screens.InterfaceTestScreen,
+              name: Screens.InventoryScreen,
               options: NavigationStyle.InventoryScreen
             }
           }

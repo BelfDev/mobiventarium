@@ -34,12 +34,12 @@ export default class ScannerScreen extends Component {
       let scannedItem = JSON.parse(validatedCode.data);
       if (this._itemConformsWithProtocol(scannedItem, selectedItemId)) {
         try {
-          let databaseItem = await InventoryApiService.getDeviceById(
+          let databaseItem = await InventoryApiService.getItemById(
             selectedItemId
           );
           databaseItem.data.isRented = !databaseItem.data.isRented;
           let editedItem = Object.assign({}, databaseItem);
-          await InventoryApiService.updateDevice(editedItem);
+          await InventoryApiService.updateItem(editedItem);
           this.setState({
             feedbackMode: "success",
             descriptionMessage: `Você alugou ${editedItem.data.model}`
@@ -71,13 +71,13 @@ export default class ScannerScreen extends Component {
 
   _isValidCode(code) {
     try {
-      let scannedDevice = JSON.parse(code.data);
+      let scannedItem = JSON.parse(code.data);
       let hasSerialNumber = has("serial");
       let hasRentedStatus = has("isRented");
 
       if (
-        hasSerialNumber(scannedDevice.data) &&
-        hasRentedStatus(scannedDevice.data)
+        hasSerialNumber(scannedItem.data) &&
+        hasRentedStatus(scannedItem.data)
       ) {
         return true;
       } else {

@@ -1,0 +1,116 @@
+import React, { Component } from "react";
+import { FlatList, RefreshControl, StyleSheet } from "react-native";
+import Item from "../components/Item";
+import { observer, inject } from "mobx-react/native";
+import { toJS } from "mobx";
+import ItemFormatter from "../utils/ItemFormatter";
+import Colors from "../utils/Colors";
+import { Navigation } from "react-native-navigation";
+import { Screens } from "../screens";
+import NavigationStyle from "../utils/NavigationStyle";
+import Strings from "../utils/Strings";
+
+@inject("itemStore")
+@observer
+export default class InventoryScreen extends Component {
+  state = {
+    itemPressed: false
+  };
+
+  constructor(props) {
+    super(props);
+    Navigation.events().bindComponent(this)
+  }
+
+  componentDidAppear() {
+    this.setState({
+      itemPressed: false
+    });
+  }
+
+  componentDidMount = async () => {
+    const { itemStore } = this.props;
+    this.unsubscribe = await itemStore.subscribeToInventory()
+  };
+
+  componentWillUnmount = () => {
+    this.unsubscribe();
+  };
+
+  _onItemPressed = id => {
+    this.setState({
+      itemPressed: true
+    });
+    this._showScannerScreen(id)
+  };
+
+  _showScannerScreen = id => {
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: Screens.ScannerScreen,
+              passProps: {
+                selectedItemId: id,
+                modalTitle: Strings.scanner.screenTitle,
+                instruction: Strings.scanner.instructionText
+              },
+              options: NavigationStyle.ScannerScreen
+            }
+          }
+        ]
+      }
+    });
+  };
+
+  _keyExtractor = item => item.id.toString();
+
+  _renderItem = ({ item }) => {
+    const data = Object.assign({}, item.data);
+    return (
+      <Item
+        id={item.id}
+        onPress={this._onItemPressed}
+        itemTitle={data.model}
+        disabled={this.state.itemPressed}
+        descriptionText={ItemFormatter.getDescriptionTextFormat(data.os)}
+        descriptionTextColor={ItemFormatter.getPlatformTextColor(data.os)}
+        statusLabelText={ItemFormatter.getStatusLabelText(data.isRented)}
+        statusLabelColor={ItemFormatter.getStatusLabelColor(data.isRented)}
+        statusLabelBorderColor={ItemFormatter.getStatusLabelBorderColor(
+          data.isRented
+        )}
+        iconName={ItemFormatter.getIconName(data.os)}
+        iconColor={ItemFormatter.getPlatformTextColor(data.os)}
+      />
+    );
+  };
+
+  render() {
+    const { itemStore } = this.props;
+    return (
+      <FlatList
+        contentContainerStyle={{ paddingTop: 8 }}
+        style={styles.itemList}
+        data={toJS(itemStore.itemList)}
+        refreshing={itemStore.isRefresing}
+        refreshControl={
+          <RefreshControl
+            refreshing={itemStore.isRefresing}
+            onRefresh={async () => await itemStore.getItems()}
+          />
+        }
+        extraData={this.props}
+        keyExtractor={this._keyExtractor.bind(this)}
+        renderItem={this._renderItem.bind(this)}
+      />
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  itemList: {
+    backgroundColor: Colors.backgroundGray
+  }
+});

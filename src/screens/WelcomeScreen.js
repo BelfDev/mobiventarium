@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import { Navigation } from 'react-native-navigation'
+import { Button } from 'react-native-paper';
 
 export default class WelcomeScreen extends Component {
   constructor(props) {
     super(props);
-
     this.pushLoginScreen = this.pushLoginScreen.bind(this);
     this.pushSignUpScreen = this.pushSignUpScreen.bind(this);
   }
@@ -17,6 +17,9 @@ export default class WelcomeScreen extends Component {
           buttonColor: 'black',
           topBar: {
             visible: true,
+            drawBehind: true,
+            transparent: true,
+            elevation: 0,
             background: {
               color: 'transparent',
             },
@@ -32,6 +35,9 @@ export default class WelcomeScreen extends Component {
         options: {
           topBar: {
             visible: true,
+            drawBehind: true,
+            transparent: true,
+            elevation: 0,
             background: {
               color: 'transparent',
             },
@@ -59,21 +65,24 @@ export default class WelcomeScreen extends Component {
         </View>
         <View style={{ height: '10%', width: '100%', flexDirection: 'row', backgroundColor: 'white' }}>
       <View style={{width:'50%',alignItems:'center',justifyContent:'center'}}>
-          <TouchableOpacity
+          <Button
+            compact
             style={styles.signUpButton}
             onPress={this.pushSignUpScreen}
           >
             <Text style={{fontSize:18,color:'#5861C5'}}> Cadastrar </Text>
-          </TouchableOpacity>
+          </Button>
           </View>
           <View style={{height:'50%',width:1,backgroundColor:'#F2F2F2',alignSelf:'center'}}></View>
           <View style={{width:'50%',backgroundColor:' green',justifyContent:'center',alignItems:'center'}}>
-          <TouchableOpacity
+          <Button
+            mode="contained"
+            compact
             style={styles.loginButton}
             onPress={this.pushLoginScreen}
           >
-            <Text style={{color:'white',fontSize:18}}> Login  </Text>
-          </TouchableOpacity>
+            <Text style={{color:'white',fontSize:18}}> Login </Text>
+            </Button>
           </View>
         </View>
 
@@ -108,13 +117,13 @@ const styles = StyleSheet.create({
     justifyContent:'center',
   },
   loginButton: {
-    
     width:'70%',
     backgroundColor: '#5861C5',
-    padding: 15,
+    padding: 8,
     alignItems:'center',
     justifyContent:'center',
-    borderRadius:50
+    borderRadius:60,
+    marginVertical:5
     
   },
 })

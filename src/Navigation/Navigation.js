@@ -11,7 +11,13 @@ root: {
             name: 'WelcomeScreen',
             options:{
                 topBar:{
-                    visible: false
+                  visible: true,
+                  drawBehind: true,
+                  transparent: true,
+                  elevation: 0,
+                  background: {
+                    color: 'transparent',
+                  },
                 }
             }
             
@@ -32,7 +38,15 @@ export const goHome = () => Navigation.setRoot({
           component: {
             name: 'WelcomeScreen',
             options:{
-                navBarHidden: true
+              topBar:{
+                visible: true,
+                drawBehind: true,
+                transparent: true,
+                elevation: 0,
+                background: {
+                  color: 'transparent',
+                },
+              }
             },
             navigatorStyle: {
                 navBarHidden: true

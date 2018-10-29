@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Image, Alert,ScrollView } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Image,ScrollView } from 'react-native'
 import firebase from 'react-native-firebase'
-import { Button,TouchableRipple } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default class SignUpScreen extends Component {
     state = {
         email: '',
-        password: '',
-        errorMessage: null,
-        errorMessage_signUp:null
+        errorMessage_signUp:null,
+        password1:'',
+        password2:''
     }
 
     handleSignUp = () => {
+        if (!this.state.email || !this.state.password1 || !this.state.password2) return null
         this.setState({
             errorMessage_signUp: null
         })
@@ -22,16 +23,18 @@ export default class SignUpScreen extends Component {
                 .auth()
                 .createUserAndRetrieveDataWithEmailAndPassword(this.state.email, this.state.password1)
                 .then(() => console.log("criado"))
-                //.catch(error => this.setState({ errorMessage: error.message }))
                 .catch(err => {
                     console.log("erro no cadastro========>",err.code)
                     this.handleSignUpError(err.code)
                 })
         )
-       else alert("Senhas diferentes!")
+       else {
+        this.setState({
+            errorMessage_signUp: "Senhas diferentes"
+        })
+       }
     }
     handleSignUpError = (error) => {
-        console.log("handleSignUpError=======>",error)
         if(error==='auth/email-already-in-use'){
             this.setState({
                 errorMessage_signUp:'Email já cadastrado!'

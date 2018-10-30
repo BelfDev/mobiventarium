@@ -8,7 +8,7 @@ root: {
       children: [
         {
           component: {
-            name: 'WelcomeScreen',
+            name: 'com.mobiventarium.WelcomeScreen',
             options:{
                 topBar:{
                   visible: true,
@@ -36,7 +36,7 @@ export const goHome = () => Navigation.setRoot({
       children: [
         {
           component: {
-            name: 'WelcomeScreen',
+            name: 'com.mobiventarium.InventoryScreen',
             options:{
               topBar:{
                 visible: true,
@@ -57,5 +57,6 @@ export const goHome = () => Navigation.setRoot({
     }
   }
 })
+
 
 

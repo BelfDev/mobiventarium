@@ -24,8 +24,8 @@ Navigation.events().registerAppLaunchedListener(() => {
         children: [
           {
             component: {
-              name: Screens.InventoryScreen,
-              options: NavigationStyle.InventoryScreen
+              name: Screens.StartScreen,
+              options: NavigationStyle.StartScreen
             }
           }
         ]

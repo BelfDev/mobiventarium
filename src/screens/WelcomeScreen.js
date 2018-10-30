@@ -12,7 +12,7 @@ export default class WelcomeScreen extends Component {
   pushLoginScreen() {
     Navigation.push(this.props.componentId, {
       component: {
-        name: 'LoginScreen',
+        name: 'com.mobiventarium.LoginScreen',
         options: {
           buttonColor: 'black',
           topBar: {
@@ -31,7 +31,7 @@ export default class WelcomeScreen extends Component {
   pushSignUpScreen() {
     Navigation.push(this.props.componentId, {
       component: {
-        name: 'SignUpScreen',
+        name: 'com.mobiventarium.SignUpScreen',
         options: {
           topBar: {
             visible: true,

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Image, ScrollView } from 'react-native'
 import firebase from 'react-native-firebase'
-import { Button } from 'react-native-paper';
+import { Button } from 'react-native-paper'
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Strings from "../utils/Strings"
+import Colors from "../utils/Colors"
 
 export default class LoginScreen extends Component {
 
@@ -38,27 +40,27 @@ export default class LoginScreen extends Component {
     handleLoginError = (error) => {
         if (error === 'auth/invalid-email') {
             this.setState({
-                errorMessage_login: "email inválido!"
+                errorMessage_login: Strings.longin.invalidEmail
             })
         }
         else if (error === 'auth/user-not-found') {
             this.setState({
-                errorMessage_login: "Usuário não encontrado!"
+                errorMessage_login: Strings.longin.userNotFound
             })
         }
         else if (error === 'auth/wrong-password') {
             this.setState({
-                errorMessage_login: "Senha incorreta!"
+                errorMessage_login: Strings.longin.wrongPassword
             })
         }
         else if (error === 'auth/user-disabled') {
             this.setState({
-                errorMessage_login: "Seu usuário foi desabilitado!"
+                errorMessage_login: Strings.longin.userDisabled
             })
         }
         else {
             this.setState({
-                errorMessage_login: "Erro no login, tente novamente mais tarde"
+                errorMessage_login: Strings.longin.loginError
             })
         }
     }
@@ -81,7 +83,7 @@ export default class LoginScreen extends Component {
                         <TextInput
                             style={styles.textInput}
                             autoCapitalize="none"
-                            placeholder="Email"
+                            placeholder={Strings.longin.firstPlaceholder}
                             placeholderTextColor="white"
                             onChangeText={email_login => this.setState({ email_login })}
                             value={this.state.email_login}
@@ -93,7 +95,7 @@ export default class LoginScreen extends Component {
                             secureTextEntry
                             style={styles.textInput}
                             autoCapitalize="none"
-                            placeholder="Senha"
+                            placeholder={Strings.longin.secondPlaceholder}
                             placeholderTextColor="white"
                             onChangeText={password_login => this.setState({ password_login })}
                             value={this.state.password_login}
@@ -124,7 +126,7 @@ export default class LoginScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#5861C5'
+        backgroundColor: Colors.backgroundPurple
     },
     profileContainer: {
         height: '50%',
@@ -161,7 +163,7 @@ const styles = StyleSheet.create({
     textInput: {
         height: 50,
         width: '100%',
-        borderBottomColor: '#FCFBFD',
+        borderBottomColor: Colors.textInputBorderGray,
         borderBottomWidth: 1,
         backgroundColor: 'transparent',
         paddingTop: 10,
@@ -182,12 +184,12 @@ const styles = StyleSheet.create({
     forgot: {
         fontSize: 15,
         alignSelf: 'flex-end',
-        color: 'gray',
+        color: Colors.iosGray,
         marginTop: 5,
         paddingEnd: 5
     },
     errorMessage: {
-        color: 'red',
+        color: Colors.red,
         marginLeft: 20,
         fontSize: 20
     },
@@ -204,12 +206,12 @@ const styles = StyleSheet.create({
         padding: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white',
+        backgroundColor: Colors.white,
         borderRadius: 50
     },
     buttonText: {
         fontSize: 18,
-        color: '#5861C5'
+        color: Colors.backgroundPurple
     },
 
 })

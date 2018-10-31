@@ -14,7 +14,10 @@ const colors = {
   scannerOverlay: "#33333D8C",
   scannerGrayBorder: "#9798A9",
   titleDarkFont: "#33333D",
-  descriptionLightGray: "#7B8A9D"
+  descriptionLightGray: "#7B8A9D",
+  backgroundPurple:'#5861C5',
+  textInputBorderGray: '#FCFBFD',
+  white: "#FFFFFF",
 };
 
 export default colors;

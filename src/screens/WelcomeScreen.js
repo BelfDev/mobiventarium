@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import { Button } from 'react-native-paper';
+import NavigationStyle from "../utils/NavigationStyle";
 
 export default class WelcomeScreen extends Component {
   constructor(props) {
@@ -13,18 +14,7 @@ export default class WelcomeScreen extends Component {
     Navigation.push(this.props.componentId, {
       component: {
         name: 'com.mobiventarium.LoginScreen',
-        options: {
-          buttonColor: 'black',
-          topBar: {
-            visible: true,
-            drawBehind: true,
-            transparent: true,
-            elevation: 0,
-            background: {
-              color: 'transparent',
-            },
-          },
-        }
+        options: NavigationStyle.LoginScreen
       }
     });
   }
@@ -32,17 +22,7 @@ export default class WelcomeScreen extends Component {
     Navigation.push(this.props.componentId, {
       component: {
         name: 'com.mobiventarium.SignUpScreen',
-        options: {
-          topBar: {
-            visible: true,
-            drawBehind: true,
-            transparent: true,
-            elevation: 0,
-            background: {
-              color: 'transparent',
-            },
-          },
-        }
+        options: NavigationStyle.SignUpScreen
       }
     });
   }

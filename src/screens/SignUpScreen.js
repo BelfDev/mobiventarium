@@ -4,24 +4,27 @@ import firebase from 'react-native-firebase'
 import { Button } from 'react-native-paper';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Strings from "../utils/Strings"
+import Colors from "../utils/Colors"
+import AuthenticationService from "../services/AuthenticationService";
 
 export default class SignUpScreen extends Component {
     state = {
         email: '',
-        errorMessage_signUp:null,
-        password1:'',
-        password2:''
+        errorMessage_signUp: null,
+        password:'',
+        confirmedPassword:''
     }
 
     handleSignUp = () => {
-        if (!this.state.email || !this.state.password1 || !this.state.password2) return null
+        if (!this.state.email || !this.state.password || !this.state.confirmedPassword) return null
         this.setState({
             errorMessage_signUp: null
         })
-        if (this.state.password1 === this.state.password2) (
+        if (this.state.password === this.state.confirmedPassword) (
             firebase
                 .auth()
-                .createUserAndRetrieveDataWithEmailAndPassword(this.state.email, this.state.password1)
+                .createUserAndRetrieveDataWithEmailAndPassword(this.state.email, this.state.password)
                 .then(() => console.log("criado"))
                 .catch(err => {
                     console.log("erro no cadastro========>",err.code)
@@ -30,37 +33,35 @@ export default class SignUpScreen extends Component {
         )
        else {
         this.setState({
-            errorMessage_signUp: "Senhas diferentes"
+            errorMessage_signUp: Strings.signUp.differentPassword
         })
        }
     }
     handleSignUpError = (error) => {
         if(error==='auth/email-already-in-use'){
             this.setState({
-                errorMessage_signUp:'Email já cadastrado!'
+                errorMessage_signUp: Strings.signUp.emailAlreadyInUse
             })
         }
         else if(error==='auth/invalid-email'){
             this.setState({
-                errorMessage_signUp:"Email inválido!"
+                errorMessage_signUp: Strings.signUp.invalidEmail
             })
         }
         else if(error==='auth/weak-password'){
             this.setState({
-                errorMessage_signUp:"Essa senha é muito fraca!"
+                errorMessage_signUp:Strings.signUp.weakPassword
             })
         }
         else{
             this.setState({
-                errorMessage_signUp:"Erro ao cadastrar, tente novamente mais tarde"
+                errorMessage_signUp:Strings.signUp.signUpError
             })
         }
 
     }
     render() {
         return (
-    
-            
             <ScrollView style={styles.container}>
             
                 <View style={styles.profileContainer}>
@@ -78,7 +79,7 @@ export default class SignUpScreen extends Component {
                         <TextInput
                             style={styles.textInput}
                             autoCapitalize="none"
-                            placeholder="Email"
+                            placeholder= {Strings.signUp.firstPlaceholder}
                             keyboardType="email-address"
                             placeholderTextColor="white"
                             onChangeText={email => this.setState({ email })}
@@ -90,9 +91,9 @@ export default class SignUpScreen extends Component {
                             secureTextEntry
                             style={styles.textInput}
                             autoCapitalize="none"
-                            placeholder="Senha"
+                            placeholder={Strings.signUp.secondPlaceholder}
                             placeholderTextColor="white"
-                            onChangeText={password1 => this.setState({ password1 })}
+                            onChangeText={password => this.setState({ password })}
                         />
                     </View>
                     <View style={styles.passwordContainer}>
@@ -101,9 +102,9 @@ export default class SignUpScreen extends Component {
                             secureTextEntry
                             style={styles.textInput}
                             autoCapitalize="none"
-                            placeholder="Repita a senha"
+                            placeholder={Strings.signUp.thirdlaceholder}
                             placeholderTextColor="white"
-                            onChangeText={password2 => this.setState({ password2 })}
+                            onChangeText={confirmedPassword => this.setState({ confirmedPassword })}
                         />
                     </View>
                 </View>
@@ -123,16 +124,13 @@ export default class SignUpScreen extends Component {
                 </View>
                
                 </ScrollView>
-                
-          
-
         )
     }
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#5861C5'
+        backgroundColor: Colors.backgroundPurple
     },
     profileContainer: {
         height: '50%',
@@ -147,7 +145,7 @@ const styles = StyleSheet.create({
     },
     profileName: {
         fontSize: 18,
-        color: 'white',
+        color: Colors.white,
         marginTop: 5
     },
     inputContainer: {
@@ -168,7 +166,7 @@ const styles = StyleSheet.create({
     textInput: {
         height: 50,
         width: '100%',
-        borderBottomColor: '#FCFBFD',
+        borderBottomColor: Colors.textInputBorderGray,
         borderBottomWidth: 1,
         backgroundColor: 'transparent',
         paddingTop: 10,
@@ -210,7 +208,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 18,
-        color: '#5861C5'
+        color: Colors.backgroundPurple
     },
 
 })

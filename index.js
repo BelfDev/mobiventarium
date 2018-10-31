@@ -14,6 +14,59 @@ Navigation.events().registerAppLaunchedListener(() => {
       visible: true,
       backgroundColor: Colors.topBarPurple,
       style: "light"
+    },
+    animations: {
+      setRoot: {
+        alpha: {
+          from: 0,
+          to: 1,
+          duration: 250,
+          interpolation: 'accelerate'
+        }
+      },
+      push: {
+        enabled: 'true',
+        waitForRender: false,
+        topBar: {
+          alpha: {
+            from: 0,
+            to: 1
+          }
+        },
+        content: {
+          x: {
+            from: 1000,
+            to: 0,
+            duration: 250,
+            interpolation: 'accelerate',
+          },
+          alpha: {
+            from: 0,
+            to: 1,
+            duration: 250,
+            interpolation: 'accelerate'
+          }
+        },
+
+      },
+      pop: {
+        enabled: 'true',
+        waitForRender: false,
+        content: {
+          x: {
+            from: 0,
+            to: 1000,
+            duration: 250,
+            interpolation: 'decelerate',
+          },
+          alpha: {
+            from: 1,
+            to: 0,
+            duration: 250,
+            interpolation: 'decelerate'
+          }
+        }
+      }
     }
   });
 
@@ -23,7 +76,7 @@ Navigation.events().registerAppLaunchedListener(() => {
         children: [
           {
             component: {
-              name: Screens.InventoryScreen,
+              name: Screens.InterfaceTestScreen,
               options: NavigationStyle.InventoryScreen
             }
           }

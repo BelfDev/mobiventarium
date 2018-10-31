@@ -16,6 +16,9 @@ import PopupDialog, { ScaleAnimation } from "react-native-popup-dialog";
 import Colors from "../utils/Colors";
 import FeedbackDialog from "../components/FeedbackDialog";
 import { CommandsObserver } from "react-native-navigation/lib/dist/events/CommandsObserver";
+import { Screens } from './index'
+import NavigationStyle from '../utils/NavigationStyle'
+import { Navigation } from 'react-native-navigation'
 
 export default class InterfaceTestScreen extends Component {
   constructor(props) {
@@ -27,9 +30,9 @@ export default class InterfaceTestScreen extends Component {
   }
 
   componentDidMount = async () => {
-    this.unsubscribe = await InventoryApiService.subscribeToChanges(
-      this.onItemUpdate
-    );
+    // this.unsubscribe = await InventoryApiService.subscribeToChanges(
+    //   this.onItemUpdate
+    // );
   };
 
   onItemUpdate = snapshot => {
@@ -135,6 +138,19 @@ export default class InterfaceTestScreen extends Component {
     console.log(">>>> onShow!");
   };
 
+  toItemScreen = () => {
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: Screens.RentedItemScreen,
+        passProps: {
+          text: 'Pushed screen'
+        },
+        options:
+          NavigationStyle.RentedItemScreen
+      }
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -236,7 +252,6 @@ export default class InterfaceTestScreen extends Component {
         >
           Get specific Item
         </Button>
-
         <Button
           mode="text"
           onPress={() => this.unsubscribeCollection()}
@@ -247,7 +262,19 @@ export default class InterfaceTestScreen extends Component {
             marginTop: 16
           }}
         >
-         unsubscribe
+          unsubscribe
+        </Button>
+        <Button
+          mode="text"
+          onPress={() => this.toItemScreen()}
+          style={{
+            backgroundColor: "white",
+            width: "50%",
+            alignSelf: "center",
+            marginTop: 16
+          }}
+        >
+          ITEM SCREEN
         </Button>
         <IconButton
           icon={({ size, color }) => (

@@ -3,6 +3,10 @@ import Colors from "./Colors";
 const topBarDefaultStyle = {
   visible: true,
   elevation: 4,
+  backButton: {
+    color: 'black'
+  },
+  buttonColor: 'white',
   title: {
     fontSize: 22,
     color: "white",
@@ -26,9 +30,11 @@ const NavigationStyle = {
     topBar: {
       visible: topBarDefaultStyle.visible,
       elevation: topBarDefaultStyle.elevation,
-      title: Object.assign(topBarDefaultStyle.title, {
-        text: "Inventory Manager"
-      }),
+      backButton: topBarDefaultStyle.backButton,
+      buttonColor: topBarDefaultStyle.buttonColor,
+      title: Object.assign({
+        text: 'Inventory Manager'
+      }, topBarDefaultStyle.title),
       background: topBarDefaultStyle.background,
       largeTitle: topBarDefaultStyle.largeTitle
     }
@@ -40,9 +46,31 @@ const NavigationStyle = {
     topBar: {
       visible: false,
       drawBehind: true,
+      backButton: topBarDefaultStyle.backButton,
+      buttonColor: topBarDefaultStyle.buttonColor,
       elevation: topBarDefaultStyle.elevation,
-      title: Object.assign(topBarDefaultStyle.title, {}),
+      title: Object.assign({}, topBarDefaultStyle.title),
       background: topBarDefaultStyle.background,
+      largeTitle: topBarDefaultStyle.largeTitle
+    }
+  },
+  RentedItemScreen: {
+    topBar: {
+      visible: topBarDefaultStyle.visible,
+      animate: true,
+      drawBehind: true,
+      elevation: 0,
+      backButton: {
+        color: 'black'
+      },
+      buttonColor: 'black',
+      title: {
+        text: ''
+      },
+      background: {
+        color: 'transparent',
+        translucent: true,
+      },
       largeTitle: topBarDefaultStyle.largeTitle
     }
   },

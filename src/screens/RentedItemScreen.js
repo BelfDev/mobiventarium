@@ -25,11 +25,9 @@ export default class RentedItemScreen extends Component {
                 source={Images.galaxy}
               />
         </Surface>
-
         <Text style={styles.itemTitle}>
           Galaxy J7
         </Text>
-
         <View style={styles.calendarContainer}>
           <Surface style={styles.calendar}>
             <Text style={styles.calendarHeaderText}>

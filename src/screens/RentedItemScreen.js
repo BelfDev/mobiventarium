@@ -10,6 +10,7 @@ import InventoryApiService from "../services/InventoryApiService";
 import moment from 'moment';
 import 'moment/locale/pt-br';
 import StorageApiService from '../services/StorageApiService'
+import FeedbackDialog from "../components/FeedbackDialog"
 
 export default class RentedItemScreen extends Component {
 
@@ -17,8 +18,13 @@ export default class RentedItemScreen extends Component {
     retrievalDate: null,
     returnDate: null,
     imageUrl: '',
+    itemTitle: this.props.itemTitle,
+    itemType: this.props.itemType,
     isLoadingDates: true,
     isLoadingImage: true,
+    isCheckingOut: false,
+    feedbackMode: 'success',
+    descriptionMessage: ''
   }
 
   constructor(props) {
@@ -45,10 +51,11 @@ export default class RentedItemScreen extends Component {
 
   async componentDidAppear() {
     try {
-      let item = await InventoryApiService.getItemById(this.props.selectedItemId)
-      this.props.itemTitle = item.data.model
-      this.props.itemType = item.data.os
+      const { selectedItemId } = this.props;
+      let item = await InventoryApiService.getItemById(selectedItemId)
       this.setState({
+        itemTitle: item.data.model,
+        itemType: item.data.os,
         retrievalDate: item.data.retrievalDate,
         returnDate: item.data.returnDate,
         isLoadingDates: false,
@@ -57,6 +64,58 @@ export default class RentedItemScreen extends Component {
       console.log('>>> getItemById error: ', error)
     }
   }
+
+  _onReturnPress = async () => {
+    try {
+      const { selectedItemId } = this.props;
+      this.setState({
+        isCheckingOut: true,
+      })
+      let databaseItem = await InventoryApiService.getItemById(selectedItemId)
+      this._checkOutItem(databaseItem)
+    } catch (error) {
+      this.setState({
+        feedbackMode: "failure",
+        descriptionMessage: 'Falha ao se comunicar com o servidor, por favor, tente mais tarde.',
+        isCheckingOut: false,
+      })
+      console.log('>>> getItemById (onReturn) error: ', error)
+    }
+  }
+
+  _checkOutItem = async (databaseItem) => {
+    try {
+      databaseItem.data.isRented = false
+      let editedItem = Object.assign({}, databaseItem);
+      await InventoryApiService.updateItem(editedItem);
+      this.setState({
+        feedbackMode: "success",
+        descriptionMessage: 'Item devolvido com sucesso',
+        isCheckingOut: false,
+      })
+    } catch (error) {
+      this.setState({
+        feedbackMode: "failure",
+        descriptionMessage: 'Falha ao se comunicar com o servidor, por favor, tente mais tarde.',
+        isCheckingOut: false,
+      })
+      console.log('>>> checkOutItem error: ', error)
+    }
+    this.feedbackDialog.show();
+  }
+
+  _onDismissed = () => {
+    console.log(">>>> onDimissed!");
+    if (this.state.feedbackMode === "success") {
+      // Navigation.dismissModal(this.props.componentId);
+    } else if (this.state.feedbackMode === "failure") {
+
+    }
+  };
+
+  _onShown = () => {
+    console.log(">>>> onShow!");
+  };
 
   _getItemImage = (isLoadingImage, imageUrl) => {
     if (isLoadingImage) {
@@ -82,48 +141,56 @@ export default class RentedItemScreen extends Component {
   }
 
   render() {
-    const {
-      itemTitle,
-      itemType,
-    } = this.props;
     return (
       <SafeAreaView style={styles.backgroundContainer}>
-        <Image style={styles.headerImage}
-          resizeMode='cover'
-          source={itemType === 'ios' ? Images.iosBackground : Images.androidBackground}
-        />
-        <Surface style={styles.itemContainer}>
-          {this._getItemImage(this.state.isLoadingImage, this.state.imageUrl)}
-        </Surface>
-        <Text style={styles.itemTitle}>
-          {itemTitle}
-        </Text>
-        <View style={styles.calendarContainer}>
-          <CalendarBox
-            headerText={'Retirada'}
-            contentText={moment(this.state.retrievalDate).format('DD/MM')}
-            isLoading={this.state.isLoadingDates}
+        <View style={{ flex: 1 }}>
+          <Image style={styles.headerImage}
+            resizeMode='cover'
+            source={this.state.itemType === 'ios' ? Images.iosBackground : Images.androidBackground}
           />
-          <View style={styles.calendarSpacing} />
-          <CalendarBox
-            headerText={'Devolução'}
-            contentText={moment(this.state.returnDate).format('DD/MM')}
-            isLoading={this.state.isLoadingDates}
-          />
+          <Surface style={styles.itemContainer}>
+            {this._getItemImage(this.state.isLoadingImage, this.state.imageUrl)}
+          </Surface>
+          <Text style={styles.itemTitle}>
+            {this.state.itemTitle}
+          </Text>
+          <View style={styles.calendarContainer}>
+            <CalendarBox
+              headerText={'Retirada'}
+              contentText={moment(this.state.retrievalDate).format('DD/MM')}
+              isLoading={this.state.isLoadingDates}
+            />
+            <View style={styles.calendarSpacing} />
+            <CalendarBox
+              headerText={'Devolução'}
+              contentText={moment(this.state.returnDate).format('DD/MM')}
+              isLoading={this.state.isLoadingDates}
+            />
+          </View>
+          <Button
+            mode="contained"
+            loading={this.state.isCheckingOut}
+            color={Colors.vividPurple}
+            dark={true}
+            style={styles.returnButton}
+            onPress={() => this._onReturnPress()}>
+            {'Retornar'.toUpperCase()}
+          </Button>
+          <Text
+            style={styles.deadlineWarningText}
+          >
+            {this._getDeadlineWarning(this.state.isLoadingDates)}
+          </Text>
         </View>
-        <Button
-          mode="contained"
-          color={Colors.vividPurple}
-          dark={true}
-          style={styles.returnButton}
-          onPress={() => console.log('Pressed')}>
-          {'Retornar'.toUpperCase()}
-        </Button>
-        <Text
-          style={styles.deadlineWarningText}
-        >
-          {this._getDeadlineWarning(this.state.isLoadingDates)}
-        </Text>
+        <FeedbackDialog
+          mode={this.state.feedbackMode}
+          description={this.state.descriptionMessage}
+          onDismissed={() => this._onDismissed()}
+          onShown={() => this._onShown()}
+          ref={feedbackDialog => {
+            this.feedbackDialog = feedbackDialog;
+          }}
+        />
       </SafeAreaView>
     );
   }
@@ -133,7 +200,6 @@ RentedItemScreen.propTypes = {
   selectedItemId: PropTypes.string,
   itemTitle: PropTypes.string,
   itemType: PropTypes.oneOf(['ios', 'android']),
-  itemImagePath: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 }
 
 const SCREEN_WIDTH = Dimensions.get("window").width

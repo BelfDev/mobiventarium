@@ -55,6 +55,13 @@
 	<array>
 		<string>FontAwesome.ttf</string>
 		<string>MaterialIcons.ttf</string>
+		<string>Ionicons.ttf</string>
 	</array>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string></string>
 </dict>
 </plist>

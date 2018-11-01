@@ -1,8 +1,11 @@
+
 import Stores from "./src/stores/RootStores";
 import { registerScreens } from "./src/screens";
 import { Navigation } from "react-native-navigation";
 import { Provider } from "mobx-react";
 import Colors from "./src/utils/Colors";
+import NavigationStyle from "./src/utils/NavigationStyle";
+import { Screens } from "./src/screens";
 
 registerScreens(Stores, Provider);
 
@@ -12,27 +15,6 @@ Navigation.events().registerAppLaunchedListener(() => {
       visible: true,
       backgroundColor: Colors.topBarPurple,
       style: "light"
-    },
-    topBar: {
-      visible: true,
-      elevation: 4,
-      title: {
-        text: "Inventory Manager",
-        fontSize: 20,
-        color: "white",
-        fontWeight: "500",
-        alignment: "center"
-      },
-      background: {
-        color: Colors.topBarPurple,
-        translucent: true,
-        blur: false
-      },
-      largeTitle: {
-        visible: true,
-        fontSize: 30,
-        color: "white"
-      }
     }
   });
 
@@ -42,7 +24,8 @@ Navigation.events().registerAppLaunchedListener(() => {
         children: [
           {
             component: {
-              name: "com.mobiventarium.InventoryScreen"
+              name: Screens.StartScreen,
+              options: NavigationStyle.StartScreen
             }
           }
         ]

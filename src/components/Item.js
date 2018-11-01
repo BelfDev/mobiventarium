@@ -8,8 +8,10 @@ import { toUpper } from "ramda";
 import Colors from "../utils/Colors";
 
 export default class Item extends PureComponent {
+
   render() {
     const {
+      id,
       elevation,
       itemTitle,
       descriptionText,
@@ -22,7 +24,8 @@ export default class Item extends PureComponent {
       iconColor,
       rippleColor,
       underlayColor,
-      onPress
+      onPress,
+      disabled,
     } = this.props;
 
     return (
@@ -33,7 +36,8 @@ export default class Item extends PureComponent {
       }]}>
         <TouchableRipple
           borderless={true}
-          onPress={() => (onPress ? onPress() : null)}
+          disabled={disabled}
+          onPress={() => (onPress ? onPress(id) : null)}
           rippleColor={rippleColor}
           underlayColor={underlayColor}
           style={styles.touchableContainer}
@@ -98,6 +102,7 @@ Item.defaultProps = {
 };
 
 Item.propTypes = {
+  id: PropTypes.string.isRequired,
   color: PropTypes.string,
   loading: PropTypes.bool,
   iconName: PropTypes.string,

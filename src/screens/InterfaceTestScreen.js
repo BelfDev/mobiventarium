@@ -1,75 +1,144 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Image, TouchableNativeFeedback } from 'react-native';
-import { Text, TouchableRipple, Divider, Card, Title, Paragraph } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import Images from 'assets';
-import InventoryApiService from '../services/InventoryApiService'
-import { Button } from 'react-native-paper'
+import React, { Component } from "react";
+import { StyleSheet, View, Image, TouchableNativeFeedback } from "react-native";
+import {
+  Text,
+  TouchableRipple,
+  Divider,
+  Card,
+  Title,
+  Button,
+  IconButton
+} from "react-native-paper";
+import Icon from "react-native-vector-icons/Ionicons";
+import Images from "assets";
+import InventoryApiService from "../services/InventoryApiService";
+import PopupDialog, { ScaleAnimation } from "react-native-popup-dialog";
+import Colors from "../utils/Colors";
+import FeedbackDialog from "../components/FeedbackDialog";
+import { CommandsObserver } from "react-native-navigation/lib/dist/events/CommandsObserver";
 
 export default class InterfaceTestScreen extends Component {
+  constructor(props) {
+    super(props);
+    // this.unsubscribe = null
+    this.state = {
+      feedbackMode: "failure"
+    };
+  }
 
-    addDevice = async () => {
-        console.log("Adding Device")
-        const device = await InventoryApiService.addDevice(
-            {
-                data: {
-                    os: "ios",
-                    type: "tablet",
-                    brand: "apple",
-                    model: "iPad",
-                    version: "iPad",
-                    serial: "431606277",
-                    color: "black",
-                    isRented: true
-                }
-            }
-        )
-        console.log(">>>>> DEVICE ", device)
-    }
+  componentDidMount = async () => {
+    this.unsubscribe = await InventoryApiService.subscribeToChanges(
+      this.onItemUpdate
+    );
+  };
 
-    getDevices = async () => {
-        const devices = await InventoryApiService.getDevices()
-        console.log(">>>>> DEVICES ", devices)
-    }
+  onItemUpdate = snapshot => {
+    console.log("Something has changed", snapshot);
+    console.log("Documents changes: ", snapshot.docChanges);
+    snapshot.docChanges.forEach(element => {
+      console.log("Changed doc: ", element);
+    });
+  };
 
-    deleteDevice = async () => {
-        const device = await InventoryApiService.deleteDevice({
-            id: 'Is1lgPGPp9kO1k1OALIL',
-            data: {
-                version: 'Super Teste',
-                brand: 'android',
-                type: 'mobile',
-                model: 'Modelo de Testee',
-                isRented: true,
-                serial: '431606277',
-                os: 'ios',
-                color: 'black'
-            }
-        })
-        console.log(">>>>> DEVICE DELETED ", device)
-    }
+  unsubscribeCollection = async () => {
+    console.log("Trying to unsubscribe...", this.unsubscribe)
+    this.unsubscribe();
+  };
 
-    updateDevice = async () => {
-        const device = await InventoryApiService.updateDevice({
-            id: 'qPCd6eOFlIyu2vunqFvF',
-            data: {
-                version: 'Super Teste',
-                brand: 'android',
-                type: 'mobile',
-                model: 'Modelo de Testee',
-                isRented: true,
-                serial: '431606277',
-                os: 'ios',
-                color: 'black'
-            }
-        })
-        console.log(">>>>> UPDATED DEVICE ", device)
-    }
+  addItem = async () => {
+    console.log("Adding Device");
+    const device = await InventoryApiService.addItem({
+      data: {
+        version: "Super Teste",
+        brand: "android",
+        type: "mobile",
+        model: "Modelo de Testee",
+        isRented: true,
+        serial: "123456",
+        os: "ios",
+        color: "black",
+        rentedBy: "",
+        inventory: ""
+      }
+    });
+    console.log(">>>>> DEVICE ", device);
+  };
 
-    render() {
-        return (
-            <View style={styles.container}>
-                {/* <TouchableRipple
+  getItems = async () => {
+    const devices = await InventoryApiService.getItems();
+    console.log(">>>>> DEVICES ", devices);
+  };
+
+  deleteItem = async () => {
+    const device = await InventoryApiService.deleteItem({
+      id: "P44h28GSu2wSysk0CIUq",
+      data: {
+        version: "Super Teste",
+        brand: "android",
+        type: "mobile",
+        model: "Modelo de Testee",
+        isRented: true,
+        serial: "431606277",
+        os: "ios",
+        color: "black"
+      }
+    });
+    console.log(">>>>> DEVICE DELETED ", device);
+  };
+
+  // Pyz511wvzUGey6byz5Dk
+  // TikBhe02hRlZw8UOyztD
+  // Wbdtsxt4ywxSFqyj90JL
+  // bdlD4slgu49P55ZP1wZ2
+  // wgTLjmsBRQ0EeScBkoQ7
+  // x96851pNDHfwbfoBhPAP
+
+  updateItem = async () => {
+    const device = await InventoryApiService.updateItem({
+      id: "qPCd6eOFlIyu2vunqFvF",
+      data: {
+        version: "Super Teste",
+        brand: "android",
+        type: "mobile",
+        model: "Modelo de Testee",
+        isRented: true,
+        serial: "431606277",
+        os: "ios",
+        color: "black"
+      }
+    });
+    console.log(">>>>> UPDATED DEVICE ", device);
+  };
+
+  triggerPopOver = () => {
+    // this.popupDialog.show();
+    this.feedbackDialog.show();
+
+    // this.refs[(`feedbackDialog`)].show()
+    console.log("Under Construction");
+  };
+
+  getSpecificItem = async () => {
+    var device = await InventoryApiService.getItemById(
+      "x96851pNDHfwbfoBhPAP"
+    );
+    device.data.isRented = !device.data.isRented;
+    const updatedDevice = await InventoryApiService.updateItem(device);
+    console.log(">>> Device: ", updatedDevice);
+  };
+
+  _onDimissed = () => {
+    console.log(">>>> onDimissed!");
+  };
+
+  _onShown = () => {
+    console.log(">>>> onShow!");
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        {/* <TouchableRipple
                     onPress={() => console.log('Pressed')}
                     rippleColor="rgba(0, 0, 0, .32)"
                     style={styles.card}
@@ -97,93 +166,199 @@ export default class InterfaceTestScreen extends Component {
                         </View>
                     </View>
                 </TouchableRipple> */}
-                <Button mode="contained" onPress={() => this.addDevice()} style={{ width: '50%', alignSelf: 'center' }}>
-                    Add Device
-                    </Button>
+        <Button
+          mode="contained"
+          onPress={() => this.addItem()}
+          style={{ width: "50%", alignSelf: "center" }}
+        >
+          Add Item
+        </Button>
 
-                <Button mode="outlined" onPress={() => this.getDevices()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
-                    Get Devices
-                    </Button>
+        <Button
+          mode="outlined"
+          onPress={() => this.getItems()}
+          style={{
+            backgroundColor: "white",
+            width: "50%",
+            alignSelf: "center",
+            marginTop: 16
+          }}
+        >
+          Get Items
+        </Button>
 
-                <Button mode="text" onPress={() => this.updateDevice()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
-                    Update Device
-                    </Button>
+        <Button
+          mode="text"
+          onPress={() => this.updateItem()}
+          style={{
+            backgroundColor: "white",
+            width: "50%",
+            alignSelf: "center",
+            marginTop: 16
+          }}
+        >
+          Update Item
+        </Button>
 
-                <Button mode="text" onPress={() => this.deleteDevice()} style={{ backgroundColor: 'white', width: '50%', alignSelf: 'center', marginTop: 16 }}>
-                    Delete Device
-                    </Button>
-            </View >
-        )
-    }
+        <Button
+          mode="text"
+          onPress={() => this.deleteItem()}
+          style={{
+            backgroundColor: "white",
+            width: "50%",
+            alignSelf: "center",
+            marginTop: 16
+          }}
+        >
+          Delete Item
+        </Button>
+        <Button
+          mode="text"
+          onPress={() => this.triggerPopOver()}
+          style={{
+            backgroundColor: "white",
+            width: "50%",
+            alignSelf: "center",
+            marginTop: 16
+          }}
+        >
+          Trigger PopOver
+        </Button>
+        <Button
+          mode="text"
+          onPress={() => this.getSpecificItem()}
+          style={{
+            backgroundColor: "white",
+            width: "50%",
+            alignSelf: "center",
+            marginTop: 16
+          }}
+        >
+          Get specific Item
+        </Button>
+
+        <Button
+          mode="text"
+          onPress={() => this.unsubscribeCollection()}
+          style={{
+            backgroundColor: "white",
+            width: "50%",
+            alignSelf: "center",
+            marginTop: 16
+          }}
+        >
+         unsubscribe
+        </Button>
+        <IconButton
+          icon={({ size, color }) => (
+            <Icon name="ios-close" size={size} color={color} />
+          )}
+          color={Colors.red500}
+          size={48}
+          onPress={() => console.log("Pressed")}
+        />
+        <FeedbackDialog
+          mode={this.state.feedbackMode}
+          description={"Descrição de exemplo"}
+          onDismissed={() => this._onDimissed()}
+          onShown={() => this._onShown()}
+          ref={feedbackDialog => {
+            this.feedbackDialog = feedbackDialog;
+          }}
+        />
+      </View>
+    );
+  }
 }
+
+const scaleAnimation = new ScaleAnimation({
+  toValue: 0, // optional
+  useNativeDriver: true // optional
+});
+
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        backgroundColor: 'dimgray',
-        justifyContent: 'center',
-    },
-    card: {
-        height: 144,
-        backgroundColor: 'white',
-        borderRadius: 8,
-        margin: 8,
-        elevation: 8,
-    },
-    cardContent: {
-        flex: 1,
-        padding: 16,
-        flexDirection: 'row'
-    },
-    imageContainer: {
-        width: 100,
-        backgroundColor: '#F5F5F5',
-        borderRadius: 4,
-    },
-    image: {
-        flex: 1,
-        alignSelf: 'stretch',
-        width: null,
-        height: null,
-    },
-    infoContainer: {
-        flex: 1,
-        justifyContent: 'space-between',
-        marginLeft: 8,
-        borderRadius: 4,
-    },
-    itemTitle: {
-        fontSize: 22,
-        fontWeight: '400',
-        color: '#404040',
-    },
-    descriptionContainer: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center'
-    },
-    descriptionText: {
-        textAlignVertical: 'bottom',
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#A4C639',
-    },
-    divider: {
-        height: 1,
-        backgroundColor: '#D8D8D8',
-        marginBottom: 8,
-        marginTop: 4,
-    },
-    statusLabel: {
-        alignSelf: 'baseline',
-        color: 'white',
-        fontSize: 18,
-        fontWeight: 'bold',
-        backgroundColor: '#3ED470',
-        padding: 8,
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: '#2DA455',
-        overflow: 'hidden',
-    }
-})
+  icon: {
+    textAlign: "center",
+    marginBottom: 8
+  },
+  title: {
+    fontSize: 28,
+    alignSelf: "center",
+    color: Colors.titleDarkFont,
+    marginBottom: 6
+  },
+  descriptionTitle: {
+    fontSize: 16,
+    textAlign: "center",
+    color: Colors.descriptionLightGray
+  },
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: "dimgray",
+    justifyContent: "center"
+  },
+  card: {
+    height: 144,
+    backgroundColor: "white",
+    borderRadius: 8,
+    margin: 8,
+    elevation: 8
+  },
+  cardContent: {
+    flex: 1,
+    padding: 16,
+    flexDirection: "row"
+  },
+  imageContainer: {
+    width: 100,
+    backgroundColor: "#F5F5F5",
+    borderRadius: 4
+  },
+  image: {
+    flex: 1,
+    alignSelf: "stretch",
+    width: null,
+    height: null
+  },
+  infoContainer: {
+    flex: 1,
+    justifyContent: "space-between",
+    marginLeft: 8,
+    borderRadius: 4
+  },
+  itemTitle: {
+    fontSize: 22,
+    fontWeight: "400",
+    color: "#404040"
+  },
+  descriptionContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center"
+  },
+  descriptionText: {
+    textAlignVertical: "bottom",
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#A4C639"
+  },
+  divider: {
+    height: 1,
+    backgroundColor: "#D8D8D8",
+    marginBottom: 8,
+    marginTop: 4
+  },
+  statusLabel: {
+    alignSelf: "baseline",
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+    backgroundColor: "#3ED470",
+    padding: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#2DA455",
+    overflow: "hidden"
+  }
+});

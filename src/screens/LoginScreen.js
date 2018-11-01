@@ -6,7 +6,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Strings from "../utils/Strings"
 import Colors from "../utils/Colors"
-import AuthenticationService from "../services/AuthenticationService";
+import AuthenticationApiService from "../services/AuthenticationApiService";
 import images from '../assets';
 
 export default class LoginScreen extends Component {
@@ -26,7 +26,7 @@ export default class LoginScreen extends Component {
         })
         if (!this.state.emailLogIn || !this.state.passwordLogIn) return null
         const { emailLogIn, passwordLogIn } = this.state
-        AuthenticationService.login(emailLogIn, passwordLogIn)
+        AuthenticationApiService.login(emailLogIn, passwordLogIn)
             .then((credential) => {
                 console.log("==========autenticado=======")
                 console.log('user=======>', credential.user.toJSON())

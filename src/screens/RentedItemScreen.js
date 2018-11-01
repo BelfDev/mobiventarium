@@ -9,19 +9,38 @@ import { Navigation } from "react-native-navigation"
 import InventoryApiService from "../services/InventoryApiService";
 import moment from 'moment';
 import 'moment/locale/pt-br';
+import StorageApiService from '../services/StorageApiService'
 
 export default class RentedItemScreen extends Component {
 
   state = {
     retrievalDate: null,
     returnDate: null,
-    isLoading: true,
+    imageUrl: '',
+    isLoadingDates: true,
+    isLoadingImage: true,
   }
 
   constructor(props) {
     super(props);
     Navigation.events().bindComponent(this)
     moment.locale('pt-BR')
+  }
+
+  async componentDidMount() {
+    try {
+      const imageUrl = await StorageApiService.getInventoryItemImageUrl('b2w-inventory', this.props.selectedItemId)
+      this.setState({
+        imageUrl: imageUrl,
+        isLoadingImage: false,
+      })
+    } catch (error) {
+      console.log('>>> image url error: ', error)
+      this.setState({
+        imageUrl: '',
+        isLoadingImage: false,
+      })
+    }
   }
 
   async componentDidAppear() {
@@ -32,38 +51,40 @@ export default class RentedItemScreen extends Component {
       this.setState({
         retrievalDate: item.data.retrievalDate,
         returnDate: item.data.returnDate,
-        isLoading: false,
+        isLoadingDates: false,
       })
     } catch (error) {
       console.log('>>> getItemById error: ', error)
     }
   }
 
-  _getItemImage = (isLoading, itemImagePath) => {
-    if (isLoading) {
+  _getItemImage = (isLoadingImage, imageUrl) => {
+    if (isLoadingImage) {
       return <ActivityIndicator size="large" color={Colors.vividPurple} style={styles.loadingIndicator} />
     }
     return <Image
       style={styles.itemImage}
-      resizeMode="cover"
-      source={itemImagePath}
+      resizeMode="contain"
+      source={{ uri: imageUrl }}
+      onError={(error) => {
+        console.log('>>> error loading image: ', error)
+      }}
     />
   }
 
-  _getDeadlineWarning = (isLoading) => {
-    if (isLoading) {
+  _getDeadlineWarning = (isLoadingDates) => {
+    if (isLoadingDates) {
       return 'Carregando...'.toUpperCase()
     }
     let initialDate = moment(this.state.retrievalDate)
     let finalDate = moment(this.state.returnDate)
-    return `Restam ${finalDate.diff(initialDate, 'days')} dias`.toUpperCase()
+    return `Restam ${finalDate.diff(initialDate, 'days') + 1} dias`.toUpperCase()
   }
 
   render() {
     const {
       itemTitle,
       itemType,
-      itemImagePath,
     } = this.props;
     return (
       <SafeAreaView style={styles.backgroundContainer}>
@@ -72,8 +93,7 @@ export default class RentedItemScreen extends Component {
           source={itemType === 'ios' ? Images.iosBackground : Images.androidBackground}
         />
         <Surface style={styles.itemContainer}>
-
-          {this._getItemImage(this.state.isLoading, itemImagePath)}
+          {this._getItemImage(this.state.isLoadingImage, this.state.imageUrl)}
         </Surface>
         <Text style={styles.itemTitle}>
           {itemTitle}
@@ -82,13 +102,13 @@ export default class RentedItemScreen extends Component {
           <CalendarBox
             headerText={'Retirada'}
             contentText={moment(this.state.retrievalDate).format('DD/MM')}
-            isLoading={this.state.isLoading}
+            isLoading={this.state.isLoadingDates}
           />
           <View style={styles.calendarSpacing} />
           <CalendarBox
             headerText={'Devolução'}
             contentText={moment(this.state.returnDate).format('DD/MM')}
-            isLoading={this.state.isLoading}
+            isLoading={this.state.isLoadingDates}
           />
         </View>
         <Button
@@ -102,7 +122,7 @@ export default class RentedItemScreen extends Component {
         <Text
           style={styles.deadlineWarningText}
         >
-          {this._getDeadlineWarning(this.state.isLoading)}
+          {this._getDeadlineWarning(this.state.isLoadingDates)}
         </Text>
       </SafeAreaView>
     );
@@ -142,13 +162,13 @@ const styles = StyleSheet.create({
     width: ITEM_CONTAINER_DIAMETER,
     borderRadius: ITEM_CONTAINER_DIAMETER,
     alignSelf: 'center',
+    justifyContent: 'center',
     backgroundColor: 'white',
   },
   itemImage: {
-    flex: 1,
-    alignSelf: "stretch",
+    flex: 0.7,
     width: null,
-    height: null
+    height: null,
   },
   itemTitle: {
     marginTop: HEADER_IMAGE_HEIGHT * 0.55,

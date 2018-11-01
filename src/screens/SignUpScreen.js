@@ -6,7 +6,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Strings from "../utils/Strings"
 import Colors from "../utils/Colors"
-import AuthenticationService from "../services/AuthenticationService";
+import AuthenticationApiService from "../services/AuthenticationApiService";
 import images from '../assets';
 
 export default class SignUpScreen extends Component {
@@ -23,7 +23,7 @@ export default class SignUpScreen extends Component {
             errorMessage_signUp: null
         })
         if (this.state.password === this.state.confirmedPassword) (
-            AuthenticationService.signUp(this.state.email, this.state.password)
+            AuthenticationApiService.signUp(this.state.email, this.state.password)
                 .then(() => console.log("criado"))
                 .catch(err => {
                     console.log("erro no cadastro========>",err.code)

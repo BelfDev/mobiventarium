@@ -47,6 +47,12 @@ const strings = {
     thirdlaceholder:
       "Repita a Senha"
   },
+  rentedItem: {
+    connectionError:
+    "Não foi possível conectar-se com o servidor. Por favor, tente mais tarde.",
+    checkoutSuccess:
+    "Obrigado, o item foi devolvido com sucesso."
+  }
 };
 
 export default strings;

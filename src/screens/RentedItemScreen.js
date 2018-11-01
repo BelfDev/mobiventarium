@@ -11,6 +11,7 @@ import moment from 'moment';
 import 'moment/locale/pt-br';
 import StorageApiService from '../services/StorageApiService'
 import FeedbackDialog from "../components/FeedbackDialog"
+import Strings from "../utils/Strings";
 
 export default class RentedItemScreen extends Component {
 
@@ -76,7 +77,7 @@ export default class RentedItemScreen extends Component {
     } catch (error) {
       this.setState({
         feedbackMode: "failure",
-        descriptionMessage: 'Falha ao se comunicar com o servidor, por favor, tente mais tarde.',
+        descriptionMessage: Strings.rentedItem.connectionError,
         isCheckingOut: false,
       })
       console.log('>>> getItemById (onReturn) error: ', error)
@@ -90,13 +91,13 @@ export default class RentedItemScreen extends Component {
       await InventoryApiService.updateItem(editedItem);
       this.setState({
         feedbackMode: "success",
-        descriptionMessage: 'Item devolvido com sucesso',
+        descriptionMessage: Strings.rentedItem.checkoutSuccess,
         isCheckingOut: false,
       })
     } catch (error) {
       this.setState({
         feedbackMode: "failure",
-        descriptionMessage: 'Falha ao se comunicar com o servidor, por favor, tente mais tarde.',
+        descriptionMessage: Strings.rentedItem.connectionError,
         isCheckingOut: false,
       })
       console.log('>>> checkOutItem error: ', error)

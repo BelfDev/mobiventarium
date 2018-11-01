@@ -11,7 +11,9 @@ import moment from 'moment';
 import 'moment/locale/pt-br';
 import StorageApiService from '../services/StorageApiService'
 import FeedbackDialog from "../components/FeedbackDialog"
-import Strings from "../utils/Strings";
+import Strings from "../utils/Strings"
+import { Screens } from "../screens"
+import NavigationStyle from "../utils/NavigationStyle"
 
 export default class RentedItemScreen extends Component {
 
@@ -35,6 +37,7 @@ export default class RentedItemScreen extends Component {
   }
 
   async componentDidMount() {
+    // this._setNewRoot(Screens.InterfaceTestScreen, NavigationStyle.InventoryScreen)
     try {
       const imageUrl = await StorageApiService.getInventoryItemImageUrl('b2w-inventory', this.props.selectedItemId)
       this.setState({
@@ -64,6 +67,18 @@ export default class RentedItemScreen extends Component {
     } catch (error) {
       console.log('>>> getItemById error: ', error)
     }
+  }
+
+  _setNewRoot = (screenName, navigationStyle) => {
+    Navigation.setStackRoot(this.props.componentId, {
+      component: {
+        name: screenName,
+        options: navigationStyle,
+        passProps: {
+          text: 'Root screen'
+        },
+      }
+    })
   }
 
   _onReturnPress = async () => {
@@ -108,7 +123,7 @@ export default class RentedItemScreen extends Component {
   _onDismissed = () => {
     console.log(">>>> onDimissed!");
     if (this.state.feedbackMode === "success") {
-      // Navigation.dismissModal(this.props.componentId);
+      Navigation.dismissModal(this.props.componentId);
     } else if (this.state.feedbackMode === "failure") {
 
     }

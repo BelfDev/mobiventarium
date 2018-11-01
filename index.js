@@ -4,8 +4,7 @@ import { registerScreens } from "./src/screens";
 import { Navigation } from "react-native-navigation";
 import { Provider } from "mobx-react";
 import Colors from "./src/utils/Colors";
-import NavigationStyle from "./src/utils/NavigationStyle";
-import { Screens } from "./src/screens";
+import { AppRootComponent } from "./src/screens";
 
 registerScreens(Stores, Provider);
 
@@ -71,15 +70,18 @@ Navigation.events().registerAppLaunchedListener(() => {
     }
   });
 
+  console.log("AppRoot: ", AppRootComponent)
+
   Navigation.setRoot({
     root: {
       stack: {
         children: [
           {
             component: {
-              name: Screens.InterfaceTestScreen,
-              options: NavigationStyle.InventoryScreen
-            }
+              name: AppRootComponent.name,
+              options: AppRootComponent.options,
+              // passProps: AppRootComponent.props
+            } 
           }
         ]
       }

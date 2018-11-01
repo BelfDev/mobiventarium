@@ -8,11 +8,12 @@ import StartScreen from "./StartScreen"
 import LoginScreen from "./LoginScreen"
 import SignUpScreen from "./SignUpScreen"
 import RentedItemScreen from './RentedItemScreen'
+import NavigationStyle from '../utils/NavigationStyle'
 
 const APP_BUNDLE_ID = "com.mobiventarium";
 
 export const Screens = {
-  StartScreen:`${APP_BUNDLE_ID}.StartScreen`,
+  StartScreen: `${APP_BUNDLE_ID}.StartScreen`,
   InventoryScreen: `${APP_BUNDLE_ID}.InventoryScreen`,
   WelcomeScreen: `${APP_BUNDLE_ID}.WelcomeScreen`,
   InterfaceTestScreen: `${APP_BUNDLE_ID}.InterfaceTestScreen`,
@@ -57,6 +58,16 @@ const screenList = [
     component: RentedItemScreen
   }
 ];
+
+export const AppRootComponent = {
+  name: Screens.InterfaceTestScreen,
+  options: NavigationStyle.InventoryScreen,
+  props: {
+    selectedItemId: '6QAm11mygRhFqo4ZU4rz',
+    itemTitle: 'Device De Teste',
+    itemType: 'ios',
+  },
+}
 
 export function registerScreens(store, provider) {
   screenList.forEach(screen => {

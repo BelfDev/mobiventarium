@@ -73,7 +73,7 @@ const NavigationStyle = {
 
   RentedItemScreen: {
     topBar: {
-      visible: topBarDefaultStyle.visible,
+      visible: false,
       animate: true,
       drawBehind: true,
       elevation: 0,

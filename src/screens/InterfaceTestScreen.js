@@ -16,7 +16,7 @@ import PopupDialog, { ScaleAnimation } from "react-native-popup-dialog";
 import Colors from "../utils/Colors";
 import FeedbackDialog from "../components/FeedbackDialog";
 import { CommandsObserver } from "react-native-navigation/lib/dist/events/CommandsObserver";
-import { Screens } from './index'
+import { Screens, AppRootComponent } from './index'
 import NavigationStyle from '../utils/NavigationStyle'
 import { Navigation } from 'react-native-navigation'
 
@@ -139,18 +139,41 @@ export default class InterfaceTestScreen extends Component {
   };
 
   toItemScreen = () => {
-    Navigation.push(this.props.componentId, {
+    this._setNewRoot(Screens.RentedItemScreen, NavigationStyle.RentedItemScreen)
+
+    // Navigation.showModal({
+    //   stack: {
+    //     children: [
+    //       {
+    //         component: {
+    //           name: Screens.RentedItemScreen,
+    //           passProps: {
+    //             selectedItemId: '6QAm11mygRhFqo4ZU4rz',
+    //             itemTitle: 'Device De Teste',
+    //             itemType: 'ios',
+    //           },
+    //           options: NavigationStyle.RentedItemScreen
+    //         }
+    //       }
+    //     ]
+    //   }
+    // });
+  }
+
+  _setNewRoot = (screenName, navigationStyle) => {
+    AppRootComponent.name = screenName
+    AppRootComponent.options = navigationStyle
+    Navigation.setStackRoot(this.props.componentId, {
       component: {
-        name: Screens.RentedItemScreen,
+        name: screenName,
+        options: navigationStyle,
         passProps: {
           selectedItemId: '6QAm11mygRhFqo4ZU4rz',
           itemTitle: 'Device De Teste',
           itemType: 'ios',
         },
-        options:
-          NavigationStyle.RentedItemScreen
       }
-    });
+    })
   }
 
   render() {

@@ -146,8 +146,6 @@ export default class InterfaceTestScreen extends Component {
           selectedItemId: '6QAm11mygRhFqo4ZU4rz',
           itemTitle: 'Device De Teste',
           itemType: 'android',
-          retrievalText: '07/09',
-          returnText: '10/10',
         },
         options:
           NavigationStyle.RentedItemScreen

@@ -1,25 +1,69 @@
 import React, { Component } from 'react';
-import { View, SafeAreaView, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, SafeAreaView, StyleSheet, Image, Dimensions, ActivityIndicator } from 'react-native';
 import { Surface, Text, Button } from 'react-native-paper'
 import CalendarBox from '../components/CalendarBox'
 import Images from "assets";
 import Colors from '../utils/Colors'
 import PropTypes from "prop-types"
+import { Navigation } from "react-native-navigation"
+import InventoryApiService from "../services/InventoryApiService";
+import moment from 'moment';
+import 'moment/locale/pt-br';
 
 export default class RentedItemScreen extends Component {
 
   state = {
+    retrievalDate: null,
+    returnDate: null,
+    isLoading: true,
+  }
 
+  constructor(props) {
+    super(props);
+    Navigation.events().bindComponent(this)
+    moment.locale('pt-BR')
+  }
+
+  async componentDidAppear() {
+    try {
+      let item = await InventoryApiService.getItemById(this.props.selectedItemId)
+      this.props.itemTitle = item.data.model
+      this.props.itemType = item.data.os
+      this.setState({
+        retrievalDate: item.data.retrievalDate,
+        returnDate: item.data.returnDate,
+        isLoading: false,
+      })
+    } catch (error) {
+      console.log('>>> getItemById error: ', error)
+    }
+  }
+
+  _getItemImage = (isLoading, itemImagePath) => {
+    if (isLoading) {
+      return <ActivityIndicator size="large" color={Colors.vividPurple} style={styles.loadingIndicator} />
+    }
+    return <Image
+      style={styles.itemImage}
+      resizeMode="cover"
+      source={itemImagePath}
+    />
+  }
+
+  _getDeadlineWarning = (isLoading) => {
+    if (isLoading) {
+      return 'Carregando...'.toUpperCase()
+    }
+    let initialDate = moment(this.state.retrievalDate)
+    let finalDate = moment(this.state.returnDate)
+    return `Restam ${finalDate.diff(initialDate, 'days')} dias`.toUpperCase()
   }
 
   render() {
     const {
-      // selectedItemId,
       itemTitle,
       itemType,
       itemImagePath,
-      retrievalText,
-      returnText
     } = this.props;
     return (
       <SafeAreaView style={styles.backgroundContainer}>
@@ -28,11 +72,8 @@ export default class RentedItemScreen extends Component {
           source={itemType === 'ios' ? Images.iosBackground : Images.androidBackground}
         />
         <Surface style={styles.itemContainer}>
-          <Image
-            style={styles.itemImage}
-            resizeMode="cover"
-            source={itemImagePath}
-          />
+
+          {this._getItemImage(this.state.isLoading, itemImagePath)}
         </Surface>
         <Text style={styles.itemTitle}>
           {itemTitle}
@@ -40,12 +81,14 @@ export default class RentedItemScreen extends Component {
         <View style={styles.calendarContainer}>
           <CalendarBox
             headerText={'Retirada'}
-            contentText={retrievalText}
+            contentText={moment(this.state.retrievalDate).format('DD/MM')}
+            isLoading={this.state.isLoading}
           />
           <View style={styles.calendarSpacing} />
           <CalendarBox
             headerText={'Devolução'}
-            contentText={returnText}
+            contentText={moment(this.state.returnDate).format('DD/MM')}
+            isLoading={this.state.isLoading}
           />
         </View>
         <Button
@@ -59,7 +102,7 @@ export default class RentedItemScreen extends Component {
         <Text
           style={styles.deadlineWarningText}
         >
-          {'Restam 7 dias'.toUpperCase()}
+          {this._getDeadlineWarning(this.state.isLoading)}
         </Text>
       </SafeAreaView>
     );
@@ -67,12 +110,10 @@ export default class RentedItemScreen extends Component {
 }
 
 RentedItemScreen.propTypes = {
-  // selectedItemId: selectedItemId,
-  itemTitle: PropTypes.string.isRequired,
-  itemType: PropTypes.oneOf(['ios', 'android']).isRequired,
+  selectedItemId: PropTypes.string,
+  itemTitle: PropTypes.string,
+  itemType: PropTypes.oneOf(['ios', 'android']),
   itemImagePath: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  retrievalText: PropTypes.string.isRequired,
-  returnText: PropTypes.string.isRequired,
 }
 
 const SCREEN_WIDTH = Dimensions.get("window").width
@@ -141,5 +182,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '200',
     color: Colors.warningGrayFont
+  },
+  loadingIndicator: {
+    flex: 1,
+    justifyContent: 'center',
   }
 })

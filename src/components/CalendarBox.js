@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import {StyleSheet} from 'react-native'
+import { StyleSheet, ActivityIndicator } from 'react-native'
 import Colors from '../utils/Colors'
 import { Surface, Text } from 'react-native-paper'
 import PropTypes from 'prop-types'
@@ -7,19 +7,24 @@ import { toUpper } from 'ramda'
 
 export default class CalendarBox extends PureComponent {
 
+    _getCalendarBoxContent = (isLoading) => {
+        if (isLoading) {
+            return <ActivityIndicator size="small" color={Colors.vividPurple} style={styles.loadingIndicator}/>
+        }
+        return <Text style={styles.calendarContentText}> {toUpper(this.props.contentText)} </Text>
+    }
+
     render() {
         const {
             headerText,
-            contentText
+            isLoading,
         } = this.props;
         return (
             <Surface style={styles.calendar}>
                 <Text style={styles.calendarHeaderText}>
                     {toUpper(headerText)}
                 </Text>
-                <Text style={styles.calendarContentText}>
-                    {toUpper(contentText)}
-                </Text>
+                {this._getCalendarBoxContent(isLoading)}
             </Surface>
         );
     }
@@ -28,6 +33,7 @@ export default class CalendarBox extends PureComponent {
 CalendarBox.propTypes = {
     headerText: PropTypes.string.isRequired,
     contentText: PropTypes.string.isRequired,
+    isLoading: PropTypes.bool.isRequired,
 }
 
 
@@ -57,4 +63,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 8,
         borderTopLeftRadius: 8,
     },
+    loadingIndicator: {
+        marginTop: 20,
+    }
 });

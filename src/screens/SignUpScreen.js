@@ -22,9 +22,7 @@ export default class SignUpScreen extends Component {
             errorMessage_signUp: null
         })
         if (this.state.password === this.state.confirmedPassword) (
-            firebase
-                .auth()
-                .createUserAndRetrieveDataWithEmailAndPassword(this.state.email, this.state.password)
+            AuthenticationService.signUp(this.state.email, this.state.password)
                 .then(() => console.log("criado"))
                 .catch(err => {
                     console.log("erro no cadastro========>",err.code)

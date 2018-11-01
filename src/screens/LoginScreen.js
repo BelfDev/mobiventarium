@@ -6,6 +6,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Strings from "../utils/Strings"
 import Colors from "../utils/Colors"
+import AuthenticationService from "../services/AuthenticationService";
 
 export default class LoginScreen extends Component {
 
@@ -24,9 +25,7 @@ export default class LoginScreen extends Component {
         })
         if (!this.state.email_login || !this.state.password_login) return null
         const { email_login, password_login } = this.state
-        firebase
-            .auth()
-            .signInAndRetrieveDataWithEmailAndPassword(email_login, password_login)
+        AuthenticationService.login(email_login, password_login)
             .then((credential) => {
                 console.log("==========autenticado=======")
                 console.log('user=======>', credential.user.toJSON())

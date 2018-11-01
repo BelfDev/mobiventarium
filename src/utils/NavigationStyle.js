@@ -54,6 +54,23 @@ const NavigationStyle = {
       largeTitle: topBarDefaultStyle.largeTitle
     }
   },
+  LoginScreen: {
+    topBar: {
+      visible: topBarDefaultStyle.visible,
+      elevation: topBarDefaultStyle.elevation,
+      transparent:true,
+      background: topBarDefaultStyle.background,
+    }
+  },
+  SignUpScreen: {
+    topBar: {
+      visible: topBarDefaultStyle.visible,
+      elevation: topBarDefaultStyle.elevation,
+      transparent:true,
+      background: topBarDefaultStyle.background,
+    }
+  },
+
   RentedItemScreen: {
     topBar: {
       visible: topBarDefaultStyle.visible,

@@ -1,34 +1,33 @@
 import React, { PureComponent } from 'react'
-import { View } from 'react-native'
+import {StyleSheet} from 'react-native'
+import Colors from '../utils/Colors'
 import { Surface, Text } from 'react-native-paper'
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
+import { toUpper } from 'ramda'
 
 export default class CalendarBox extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
 
-  render() {
-    const {
-        calendarText
-      } = this.props;
-    return (
-        <Surface style={styles.calendar}>
-        <Text style={styles.calendarHeaderText}>
-          {calendarText.toUpperCase()}
-        </Text>
-        <Text style={styles.calendarContentText}>
-          10/09
-        </Text>
-      </Surface>
-    );
-  }
+    render() {
+        const {
+            headerText,
+            contentText
+        } = this.props;
+        return (
+            <Surface style={styles.calendar}>
+                <Text style={styles.calendarHeaderText}>
+                    {toUpper(headerText)}
+                </Text>
+                <Text style={styles.calendarContentText}>
+                    {toUpper(contentText)}
+                </Text>
+            </Surface>
+        );
+    }
 }
 
 CalendarBox.propTypes = {
-    
+    headerText: PropTypes.string.isRequired,
+    contentText: PropTypes.string.isRequired,
 }
 
 
@@ -37,8 +36,8 @@ const styles = StyleSheet.create({
         flex: 0.5,
         borderRadius: 8,
         elevation: 4,
-      },
-      calendarHeaderText: {
+    },
+    calendarHeaderText: {
         height: 22,
         backgroundColor: Colors.calendarRed,
         fontSize: 14,
@@ -47,8 +46,8 @@ const styles = StyleSheet.create({
         color: Colors.lightGrayFont,
         borderTopRightRadius: 8,
         borderTopLeftRadius: 8,
-      },
-      calendarContentText: {
+    },
+    calendarContentText: {
         fontSize: 22,
         marginTop: 14,
         textAlign: 'center',
@@ -57,5 +56,5 @@ const styles = StyleSheet.create({
         color: Colors.titleDarkFont,
         borderTopRightRadius: 8,
         borderTopLeftRadius: 8,
-      },
+    },
 });

@@ -1,51 +1,52 @@
 import React, { Component } from 'react';
-import { View, SafeAreaView, StyleSheet, Image, Dimensions, Platform } from 'react-native';
+import { View, SafeAreaView, StyleSheet, Image, Dimensions } from 'react-native';
 import { Surface, Text, Button } from 'react-native-paper'
+import CalendarBox from '../components/CalendarBox'
 import Images from "assets";
 import Colors from '../utils/Colors'
+import PropTypes from "prop-types"
 
 export default class RentedItemScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
+
+  state = {
+
   }
 
   render() {
+    const {
+      // selectedItemId,
+      itemTitle,
+      itemType,
+      itemImagePath,
+      retrievalText,
+      returnText
+    } = this.props;
     return (
       <SafeAreaView style={styles.backgroundContainer}>
         <Image style={styles.headerImage}
           resizeMode='cover'
-          source={Platform.OS === 'ios' ? Images.iosBackground : Images.androidBackground }
+          source={itemType === 'ios' ? Images.iosBackground : Images.androidBackground}
         />
         <Surface style={styles.itemContainer}>
-        <Image
-                style={styles.itemImage}
-                resizeMode="cover"
-                source={Images.galaxy}
-              />
+          <Image
+            style={styles.itemImage}
+            resizeMode="cover"
+            source={itemImagePath}
+          />
         </Surface>
         <Text style={styles.itemTitle}>
-          Galaxy J7
+          {itemTitle}
         </Text>
         <View style={styles.calendarContainer}>
-          <Surface style={styles.calendar}>
-            <Text style={styles.calendarHeaderText}>
-              {'Retirada'.toUpperCase()}
-            </Text>
-            <Text style={styles.calendarContentText}>
-              10/09
-            </Text>
-          </Surface>
+          <CalendarBox
+            headerText={'Retirada'}
+            contentText={retrievalText}
+          />
           <View style={styles.calendarSpacing} />
-          <Surface style={styles.calendar}>
-            <Text style={styles.calendarHeaderText}>
-              {'Devolução'.toUpperCase()}
-            </Text>
-            <Text style={styles.calendarContentText}>
-              17/09
-            </Text>
-          </Surface>
+          <CalendarBox
+            headerText={'Devolução'}
+            contentText={returnText}
+          />
         </View>
         <Button
           mode="contained"
@@ -63,6 +64,15 @@ export default class RentedItemScreen extends Component {
       </SafeAreaView>
     );
   }
+}
+
+RentedItemScreen.propTypes = {
+  // selectedItemId: selectedItemId,
+  itemTitle: PropTypes.string.isRequired,
+  itemType: PropTypes.oneOf(['ios', 'android']).isRequired,
+  itemImagePath: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  retrievalText: PropTypes.string.isRequired,
+  returnText: PropTypes.string.isRequired,
 }
 
 const SCREEN_WIDTH = Dimensions.get("window").width
@@ -116,31 +126,6 @@ const styles = StyleSheet.create({
   },
   calendarSpacing: {
     flex: 0.2
-  },
-  calendar: {
-    flex: 0.5,
-    borderRadius: 8,
-    elevation: 4,
-  },
-  calendarHeaderText: {
-    height: 22,
-    backgroundColor: Colors.calendarRed,
-    fontSize: 14,
-    textAlign: 'center',
-    fontWeight: '500',
-    color: Colors.lightGrayFont,
-    borderTopRightRadius: 8,
-    borderTopLeftRadius: 8,
-  },
-  calendarContentText: {
-    fontSize: 22,
-    marginTop: 14,
-    textAlign: 'center',
-    fontWeight: '500',
-    fontSize: 24,
-    color: Colors.titleDarkFont,
-    borderTopRightRadius: 8,
-    borderTopLeftRadius: 8,
   },
   returnButton: {
     marginTop: 32,

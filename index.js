@@ -1,3 +1,4 @@
+
 import Stores from "./src/stores/RootStores";
 import { registerScreens } from "./src/screens";
 import { Navigation } from "react-native-navigation";

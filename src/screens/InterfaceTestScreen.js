@@ -143,7 +143,11 @@ export default class InterfaceTestScreen extends Component {
       component: {
         name: Screens.RentedItemScreen,
         passProps: {
-          text: 'Pushed screen'
+          selectedItemId: '6QAm11mygRhFqo4ZU4rz',
+          itemTitle: 'Device De Teste',
+          itemType: 'android',
+          retrievalText: '07/09',
+          returnText: '10/10',
         },
         options:
           NavigationStyle.RentedItemScreen

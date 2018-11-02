@@ -15,9 +15,8 @@ import InventoryApiService from "../data/remote/services/InventoryApiService";
 import PopupDialog, { ScaleAnimation } from "react-native-popup-dialog";
 import Colors from "../utils/Colors";
 import FeedbackDialog from "../components/FeedbackDialog";
-import { CommandsObserver } from "react-native-navigation/lib/dist/events/CommandsObserver";
 import { Screens, AppRootComponent } from './index'
-import NavigationStyle from '../utils/NavigationStyle'
+import NavigationStyle from '../navigation/NavigationStyle'
 import { Navigation } from 'react-native-navigation'
 import LocalStorage from '../data/local/LocalStorage'
 

@@ -7,7 +7,7 @@ import ItemFormatter from "../utils/ItemFormatter"
 import Colors from "../utils/Colors"
 import { Navigation } from "react-native-navigation"
 import { Screens } from "../screens"
-import NavigationStyle from "../utils/NavigationStyle"
+import NavigationStyle from "../navigation/NavigationStyle"
 import Strings from "../utils/Strings"
 
 @inject("itemStore")

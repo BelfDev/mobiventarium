@@ -13,7 +13,7 @@ import StorageApiService from '../data/remote/services/StorageApiService'
 import FeedbackDialog from "../components/FeedbackDialog"
 import Strings from "../utils/Strings"
 import { Screens } from "../screens"
-import NavigationStyle from "../utils/NavigationStyle"
+import NavigationStyle from "../navigation/NavigationStyle"
 
 export default class RentedItemScreen extends Component {
 

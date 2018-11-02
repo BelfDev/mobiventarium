@@ -8,7 +8,7 @@ import Strings from "../utils/Strings";
 import PropTypes from "prop-types";
 import FeedbackDialog from "../components/FeedbackDialog";
 import { Navigation } from "react-native-navigation";
-import NavigationStyle from "../utils/NavigationStyle";
+import NavigationStyle from "../navigation/NavigationStyle";
 
 export default class ScannerScreen extends Component {
   state = {

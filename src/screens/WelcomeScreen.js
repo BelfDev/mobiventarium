@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import { Button } from 'react-native-paper';
-import NavigationStyle from "../utils/NavigationStyle";
+import NavigationStyle from "../navigation/NavigationStyle";
 import Images from '../assets';
 
 export default class WelcomeScreen extends Component {

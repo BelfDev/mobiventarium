@@ -6,7 +6,7 @@ import {
   AsyncStorage
 } from 'react-native'
 
-import { goToAuth, goHome } from '../Navigation/Navigation'
+import { goToAuth, goHome } from '../navigation/Navigator'
 
 import { USER_KEY } from '../data/remote/stores/LoginStore'
 

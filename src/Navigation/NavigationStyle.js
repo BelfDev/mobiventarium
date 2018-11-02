@@ -157,7 +157,18 @@ const NavigationStyle = {
       },
       largeTitle: topBarDefaultStyle.largeTitle
     }
-  }
+  },
+  WelcomeScreen: {
+    topBar: {
+      visible: true,
+      drawBehind: true,
+      transparent: true,
+      elevation: 0,
+      background: {
+        color: "transparent"
+      }
+    }
+  },
 };
 
 export function getNavigationStyle(componentName) {

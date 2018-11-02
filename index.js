@@ -75,7 +75,7 @@ Navigation.events().registerAppLaunchedListener(async () => {
 
   const rootComponentName = await LocalStorage.getAppRootComponentName()
   if (!isNil(rootComponentName)) { AppRootComponent.name = rootComponentName}
-  AppRootComponent.options = getNavigationStyle(rootComponentName)
+  AppRootComponent.options = getNavigationStyle(AppRootComponent.name)
 
   Navigation.setRoot({
     root: {

@@ -6,10 +6,10 @@ import Images from "assets";
 import Colors from '../utils/Colors'
 import PropTypes from "prop-types"
 import { Navigation } from "react-native-navigation"
-import InventoryApiService from "../services/InventoryApiService";
+import InventoryApiService from "../data/remote/services/InventoryApiService"
 import moment from 'moment';
 import 'moment/locale/pt-br';
-import StorageApiService from '../services/StorageApiService'
+import StorageApiService from '../data/remote/services/StorageApiService'
 import FeedbackDialog from "../components/FeedbackDialog"
 import Strings from "../utils/Strings"
 import { Screens } from "../screens"

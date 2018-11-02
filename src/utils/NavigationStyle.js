@@ -1,4 +1,12 @@
 import Colors from "./Colors";
+import { takeLast } from 'ramda'
+import { APP_BUNDLE_ID } from '../screens'
+
+export function getNavigationStyle(componentName) {
+  let bundleIdSize = APP_BUNDLE_ID.length - 1
+  let shortComponentName = takeLast(bundleIdSize, componentName)
+  return NavigationStyle[shortComponentName]
+}
 
 const topBarDefaultStyle = {
   visible: true,
@@ -70,7 +78,6 @@ const NavigationStyle = {
       background: topBarDefaultStyle.background,
     }
   },
-
   RentedItemScreen: {
     topBar: {
       visible: false,

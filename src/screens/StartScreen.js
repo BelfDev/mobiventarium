@@ -8,7 +8,7 @@ import {
 
 import { goToAuth, goHome } from '../Navigation/Navigation'
 
-import { USER_KEY } from '../stores/LoginStore'
+import { USER_KEY } from '../data/remote/stores/LoginStore'
 
 export default class StartScreen extends Component {
  

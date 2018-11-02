@@ -10,7 +10,7 @@ import SignUpScreen from "./SignUpScreen"
 import RentedItemScreen from './RentedItemScreen'
 import NavigationStyle from '../utils/NavigationStyle'
 
-const APP_BUNDLE_ID = "com.mobiventarium";
+export const APP_BUNDLE_ID = "com.mobiventarium";
 
 export const Screens = {
   StartScreen: `${APP_BUNDLE_ID}.StartScreen`,

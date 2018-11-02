@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, Dimensions, SafeAreaView } from "react-native";
 import QRCodeScanner from "react-native-qrcode-scanner";
 import QRModalMarker from "../components/QRModalMarker";
-import InventoryApiService from "../services/InventoryApiService";
+import InventoryApiService from "../data/remote/services/InventoryApiService";
 import { has } from "ramda";
 import Strings from "../utils/Strings";
 import PropTypes from "prop-types";

@@ -6,7 +6,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Strings from "../utils/Strings"
 import Colors from "../utils/Colors"
-import AuthenticationApiService from "../services/AuthenticationApiService";
+import AuthenticationApiService from "../data/remote/services/AuthenticationApiService";
 import images from '../assets';
 
 export default class LoginScreen extends Component {

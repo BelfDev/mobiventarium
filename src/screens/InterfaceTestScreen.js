@@ -11,7 +11,7 @@ import {
 } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
 import Images from "assets";
-import InventoryApiService from "../services/InventoryApiService";
+import InventoryApiService from "../data/remote/services/InventoryApiService";
 import PopupDialog, { ScaleAnimation } from "react-native-popup-dialog";
 import Colors from "../utils/Colors";
 import FeedbackDialog from "../components/FeedbackDialog";
@@ -19,6 +19,7 @@ import { CommandsObserver } from "react-native-navigation/lib/dist/events/Comman
 import { Screens, AppRootComponent } from './index'
 import NavigationStyle from '../utils/NavigationStyle'
 import { Navigation } from 'react-native-navigation'
+import LocalStorage from '../data/local/LocalStorage'
 
 export default class InterfaceTestScreen extends Component {
   constructor(props) {
@@ -160,9 +161,10 @@ export default class InterfaceTestScreen extends Component {
     // });
   }
 
-  _setNewRoot = (screenName, navigationStyle) => {
+  _setNewRoot = async (screenName, navigationStyle) => {
     AppRootComponent.name = screenName
     AppRootComponent.options = navigationStyle
+    await LocalStorage.saveAppRootComponentName(screenName)
     Navigation.setStackRoot(this.props.componentId, {
       component: {
         name: screenName,

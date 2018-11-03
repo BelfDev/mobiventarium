@@ -158,7 +158,7 @@ const NavigationStyle = {
       largeTitle: topBarDefaultStyle.largeTitle
     }
   },
-  WelcomeScreen: {
+  OnboardingScreen: {
     topBar: {
       visible: true,
       drawBehind: true,

@@ -1,6 +1,10 @@
 import { AsyncStorage } from "react-native";
 
+const USER_KEY = 'USER_KEY'
+
 export default class LocalStorage {
+
+  
   
   static async saveAppRootComponentName(name) {
     try {
@@ -33,6 +37,24 @@ export default class LocalStorage {
       return JSON.parse(stringifiedProps)
     } catch (error) {
       console.log(">>> rootComponentInitialProps: ", error);
+    }
+  }
+
+  static async getAppRootInitialProps() {
+    try {
+      let stringifiedProps = await AsyncStorage.getItem("rootComponentInitialProps");
+      return JSON.parse(stringifiedProps)
+    } catch (error) {
+      console.log(">>> rootComponentInitialProps: ", error);
+    }
+  }
+
+  static async getAuthenticatedUser() {
+    try {
+      return await AsyncStorage.getItem(USER_KEY)
+    } catch (error) {
+      console.log(">>> getAuthenticatedUser: ", error);
+      throw('No authenticated user found')
     }
   }
 

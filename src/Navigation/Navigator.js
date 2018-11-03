@@ -6,6 +6,7 @@ import LocalStorage from "../data/local/LocalStorage";
 import Strings from "../utils/Strings";
 
 export default class Navigator {
+  
   static async handleAppLaunch() {
     Navigation.events().registerAppLaunchedListener(async () => {
       Navigation.setDefaultOptions(NavigationStyle.Shared);
@@ -24,7 +25,7 @@ export default class Navigator {
     });
   }
 
-  static async goToAuthenticationScreen() {
+  static async goToOnboardingScreen() {
     Navigation.setRoot({
       root: {
         stack: {
@@ -32,8 +33,8 @@ export default class Navigator {
           children: [
             {
               component: {
-                name: Screens.WelcomeScreen,
-                options: NavigationStyle.WelcomeScreen
+                name: Screens.OnboardingScreen,
+                options: NavigationStyle.OnboardingScreen
               }
             }
           ]

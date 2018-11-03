@@ -15,10 +15,11 @@ import InventoryApiService from "../data/remote/services/InventoryApiService";
 import PopupDialog, { ScaleAnimation } from "react-native-popup-dialog";
 import Colors from "../utils/Colors";
 import FeedbackDialog from "../components/FeedbackDialog";
-import { Screens, AppRootComponent } from './index'
-import NavigationStyle from '../navigation/NavigationStyle'
-import { Navigation } from 'react-native-navigation'
-import LocalStorage from '../data/local/LocalStorage'
+import { Screens, AppRootComponent } from "./index";
+import NavigationStyle from "../navigation/NavigationStyle";
+import { Navigation } from "react-native-navigation";
+import LocalStorage from "../data/local/LocalStorage";
+import Navigator from "../navigation/Navigator";
 
 export default class InterfaceTestScreen extends Component {
   constructor(props) {
@@ -44,7 +45,7 @@ export default class InterfaceTestScreen extends Component {
   };
 
   unsubscribeCollection = async () => {
-    console.log("Trying to unsubscribe...", this.unsubscribe)
+    console.log("Trying to unsubscribe...", this.unsubscribe);
     this.unsubscribe();
   };
 
@@ -122,9 +123,7 @@ export default class InterfaceTestScreen extends Component {
   };
 
   getSpecificItem = async () => {
-    var device = await InventoryApiService.getItemById(
-      "x96851pNDHfwbfoBhPAP"
-    );
+    var device = await InventoryApiService.getItemById("x96851pNDHfwbfoBhPAP");
     device.data.isRented = !device.data.isRented;
     const updatedDevice = await InventoryApiService.updateItem(device);
     console.log(">>> Device: ", updatedDevice);
@@ -139,7 +138,22 @@ export default class InterfaceTestScreen extends Component {
   };
 
   toItemScreen = () => {
-    this._setNewRoot(Screens.RentedItemScreen, NavigationStyle.RentedItemScreen)
+    Navigator.goToRentedItemScreen(this.props.componentId, {
+      id: "6QAm11mygRhFqo4ZU4rz",
+      data: {
+        version: "Super Teste",
+        brand: "android",
+        type: "mobile",
+        model: "Modelo de Testee",
+        isRented: true,
+        serial: "431606277",
+        os: "ios",
+        color: "black"
+      }
+    });
+
+    // this._setNewRoot(Screens.RentedItemScreen, NavigationStyle.RentedItemScreen)
+    // Navigator.goToScannerScreen()
 
     // Navigation.showModal({
     //   stack: {
@@ -147,35 +161,35 @@ export default class InterfaceTestScreen extends Component {
     //       {
     //         component: {
     //           name: Screens.RentedItemScreen,
-    //           passProps: {
-    //             selectedItemId: '6QAm11mygRhFqo4ZU4rz',
-    //             itemTitle: 'Device De Teste',
-    //             itemType: 'ios',
-    //           },
+    // passProps: {
+    //   selectedItemId: '6QAm11mygRhFqo4ZU4rz',
+    //   itemTitle: 'Device De Teste',
+    //   itemType: 'ios',
+    // },
     //           options: NavigationStyle.RentedItemScreen
     //         }
     //       }
     //     ]
     //   }
     // });
-  }
+  };
 
   _setNewRoot = async (screenName, navigationStyle) => {
-    AppRootComponent.name = screenName
-    AppRootComponent.options = navigationStyle
-    await LocalStorage.saveAppRootComponentName(screenName)
+    AppRootComponent.name = screenName;
+    AppRootComponent.options = navigationStyle;
+    await LocalStorage.saveAppRootComponentName(screenName);
     Navigation.setStackRoot(this.props.componentId, {
       component: {
         name: screenName,
         options: navigationStyle,
         passProps: {
-          selectedItemId: '6QAm11mygRhFqo4ZU4rz',
-          itemTitle: 'Device De Teste',
-          itemType: 'ios',
-        },
+          selectedItemId: "6QAm11mygRhFqo4ZU4rz",
+          itemTitle: "Device De Teste",
+          itemType: "ios"
+        }
       }
-    })
-  }
+    });
+  };
 
   render() {
     return (

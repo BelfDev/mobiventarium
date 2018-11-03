@@ -10,6 +10,15 @@ export default class LocalStorage {
     }
   }
 
+  static async saveAppRootInitialProps(props) {
+    try {
+      let stringifiedProps = JSON.stringify(props)
+      await AsyncStorage.setItem("rootComponentInitialProps", stringifiedProps);
+    } catch (error) {
+      console.log(">>> rootComponentInitialProps: ", error);
+    }
+  }
+
   static async getAppRootComponentName() {
     try {
       return AsyncStorage.getItem("rootComponentName");
@@ -17,4 +26,14 @@ export default class LocalStorage {
       console.log(">>> getAppRootComponentName: ", error);
     }
   }
+
+  static async getAppRootInitialProps() {
+    try {
+      let stringifiedProps = await AsyncStorage.getItem("rootComponentInitialProps");
+      return JSON.parse(stringifiedProps)
+    } catch (error) {
+      console.log(">>> rootComponentInitialProps: ", error);
+    }
+  }
+
 }

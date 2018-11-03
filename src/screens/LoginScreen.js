@@ -8,6 +8,7 @@ import Strings from "../utils/Strings"
 import Colors from "../utils/Colors"
 import AuthenticationApiService from "../data/remote/services/AuthenticationApiService";
 import images from '../assets';
+import Navigator from '../navigation/Navigator'
 
 export default class LoginScreen extends Component {
 
@@ -30,6 +31,7 @@ export default class LoginScreen extends Component {
             .then((credential) => {
                 console.log("==========autenticado=======")
                 console.log('user=======>', credential.user.toJSON())
+                Navigator.goToInventoryScreen()
             })
             .catch(err => {
                 console.log("erro no login=====>", err.code)

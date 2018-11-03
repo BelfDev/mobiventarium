@@ -6,7 +6,7 @@ import {
   AsyncStorage
 } from 'react-native'
 
-import { goToAuthenticationScreen, goToHomeScreen } from '../navigation/Navigator'
+import Navigator from '../navigation/Navigator'
 
 import { USER_KEY } from '../data/remote/stores/LoginStore'
 
@@ -17,13 +17,13 @@ export default class StartScreen extends Component {
       const user = await AsyncStorage.getItem(USER_KEY)
       console.log('user: ', user)
       if (user) {
-        goToHomeScreen()
+        Navigator.goToInventoryScreen()
       } else {
-        goToAuthenticationScreen()
+        Navigator.goToAuthenticationScreen()
       }
     } catch (err) {
       console.log('error: ', err)
-      goToAuthenticationScreen()
+      Navigator.goToAuthenticationScreen()
     }
   }
   

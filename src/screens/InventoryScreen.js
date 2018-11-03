@@ -1,73 +1,55 @@
-import React, { Component } from "react"
-import { FlatList, RefreshControl, StyleSheet } from "react-native"
-import Item from "../components/Item"
-import { observer, inject } from "mobx-react/native"
-import { toJS } from "mobx"
-import ItemFormatter from "../utils/ItemFormatter"
-import Colors from "../utils/Colors"
-import { Navigation } from "react-native-navigation"
-import { Screens } from "../screens"
-import NavigationStyle from "../navigation/NavigationStyle"
-import Strings from "../utils/Strings"
+import React, { Component } from "react";
+import { FlatList, RefreshControl, StyleSheet } from "react-native";
+import Item from "../components/Item";
+import { observer, inject } from "mobx-react/native";
+import { toJS } from "mobx";
+import ItemFormatter from "../utils/ItemFormatter";
+import Colors from "../utils/Colors";
+import { Navigation } from "react-native-navigation";
+import Navigator from "../navigation/Navigator";
 
 @inject("itemStore")
 @observer
 export default class InventoryScreen extends Component {
   state = {
     itemPressed: false
-  }
+  };
 
   constructor(props) {
     super(props);
-    Navigation.events().bindComponent(this)
+    Navigation.events().bindComponent(this);
   }
 
   componentDidAppear() {
     this.setState({
       itemPressed: false
-    })
+    });
   }
 
   componentDidMount = async () => {
     const { itemStore } = this.props;
-    this.unsubscribe = await itemStore.subscribeToInventory()
-  }
+    this.unsubscribe = await itemStore.subscribeToInventory();
+  };
 
   componentWillUnmount = () => {
     this.unsubscribe();
-  }
+  };
 
   _onItemPressed = id => {
     this.setState({
       itemPressed: true
-    })
-    this._showScannerScreen(id)
-  }
-
-  _showScannerScreen = id => {
-    Navigation.showModal({
-      stack: {
-        children: [
-          {
-            component: {
-              name: Screens.ScannerScreen,
-              passProps: {
-                selectedItemId: id,
-                modalTitle: Strings.scanner.screenTitle,
-                instruction: Strings.scanner.instructionText
-              },
-              options: NavigationStyle.ScannerScreen
-            }
-          }
-        ]
-      }
     });
+    this._showScannerScreen(id);
   };
 
-  _keyExtractor = item => item.id.toString()
+  _showScannerScreen = id => {
+    Navigator.goToScannerScreen(id);
+  };
+
+  _keyExtractor = item => item.id.toString();
 
   _renderItem = ({ item }) => {
-    const data = Object.assign({}, item.data)
+    const data = Object.assign({}, item.data);
     return (
       <Item
         id={item.id}

@@ -104,7 +104,7 @@ const NavigationStyle = {
         topBarDefaultStyle.title
       ),
       background: topBarDefaultStyle.background,
-      largeTitle: topBarDefaultStyle.largeTitle
+      largeTitle: topBarDefaultStyle.largeTitle,
     }
   },
   ScannerScreen: {

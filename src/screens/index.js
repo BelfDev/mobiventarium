@@ -23,16 +23,10 @@ export const Screens = {
 };
 
 export const AppRootComponent = {
-  name: Screens.InventoryScreen,
+  name: Screens.InterfaceTestScreen,
   options: NavigationStyle.InventoryScreen,
   passProps: {}
 };
-
-// passProps: {
-//   selectedItemId: "6QAm11mygRhFqo4ZU4rz",
-//   itemTitle: "Device De Teste",
-//   itemType: "ios"
-// }
 
 const screenList = [
   {

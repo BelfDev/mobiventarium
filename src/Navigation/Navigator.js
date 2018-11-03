@@ -93,7 +93,16 @@ export default class Navigator {
       componentId,
       Screens.RentedItemScreen,
       NavigationStyle.RentedItemScreen,
-      props
+      props,
+    );
+  }
+
+  static async leaveRentedItemScreen(componentId) {
+    this._setNewStackRoot(
+      componentId,
+      Screens.InventoryScreen,
+      NavigationStyle.InventoryScreen,
+      {},
     );
   }
 
@@ -105,12 +114,15 @@ export default class Navigator {
     componentId,
     screenName,
     navigationStyle,
-    props
+    props,
   ) {
     try {
       AppRootComponent.name = screenName;
-      AppRootComponent.options = navigationStyle;
+      AppRootComponent.options = navigationStyle
       AppRootComponent.passProps = props;
+
+      console.log(">>> OPTIONS: ", AppRootComponent.options);
+
       await LocalStorage.saveAppRootComponentName(screenName);
       await LocalStorage.saveAppRootInitialProps(props);
       Navigation.setStackRoot(componentId, {

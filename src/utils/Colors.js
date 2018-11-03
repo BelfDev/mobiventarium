@@ -1,6 +1,8 @@
 const colors = {
   vividRed: "#FF6D6D",
+  calendarRed: '#F96C6C',
   vividGreen: "#3ED470",
+  vividPurple: '#8D98F2',
   red: "#9A4242",
   green: "#2DA455",
   smoothWhite: "#EDEDED",
@@ -18,6 +20,9 @@ const colors = {
   backgroundPurple:'#5861C5',
   textInputBorderGray: '#FCFBFD',
   white: "#FFFFFF",
+  lightGrayFont: '#FAFAFA',
+  descriptionLightGray: "#7B8A9D",
+  warningGrayFont: '#B2B2B2'
 };
 
 export default colors;

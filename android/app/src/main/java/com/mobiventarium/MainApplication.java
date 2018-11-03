@@ -1,5 +1,9 @@
 package com.mobiventarium;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -16,6 +20,7 @@ import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
 import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
 import io.invertase.firebase.links.RNFirebaseLinksPackage;
+import io.invertase.firebase.storage.RNFirebaseStoragePackage;
 
 public class MainApplication extends NavigationApplication {
 
@@ -37,7 +42,17 @@ public class MainApplication extends NavigationApplication {
 
     protected List<ReactPackage> getPackages() {
         // Add additional packages you require here
-        // No need to add RnnPackage and MainReactPackage
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            return Arrays.<ReactPackage>asList(
+                    new VectorIconsPackage(),
+                    new RNFirebasePackage(),
+                    new RNFirebaseFirestorePackage(),
+                    new RNFirebaseLinksPackage(),
+                    new RNFirebaseAuthPackage(),
+                    new RNCameraPackage(),
+                    new RNFirebaseStoragePackage()
+            );
+        }
         return Arrays.<ReactPackage>asList(
                 new VectorIconsPackage(),
                 new RNFirebasePackage(),

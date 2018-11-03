@@ -7,8 +7,9 @@ target 'mobiventarium' do
 
   # Pods for mobiventarium
   pod 'Firebase/Core'
+  pod 'Firebase/Storage', '~> 5.9.0'
   pod 'Firebase/Auth'
-  pod 'Firebase/Firestore', '~>5.0.0'
+  pod 'Firebase/Firestore'
   
   pod 'React', :path => '../node_modules/react-native'
   pod 'yoga', path: '../node_modules/react-native/ReactCommon/yoga'

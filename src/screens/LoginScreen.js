@@ -6,7 +6,9 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Strings from "../utils/Strings"
 import Colors from "../utils/Colors"
-import AuthenticationService from "../services/AuthenticationService";
+import AuthenticationApiService from "../data/remote/services/AuthenticationApiService";
+import images from '../assets';
+import Navigator from '../navigation/Navigator'
 
 export default class LoginScreen extends Component {
 
@@ -14,8 +16,8 @@ export default class LoginScreen extends Component {
         email: '',
         password: '',
         errorMessage: null,
-        email_login: null,
-        password_login: null,
+        emailLogIn: null,
+        passwordLogIn: null,
         errorMessage_login: null,
     }
 
@@ -23,43 +25,44 @@ export default class LoginScreen extends Component {
         this.setState({
             errorMessage_login: null
         })
-        if (!this.state.email_login || !this.state.password_login) return null
-        const { email_login, password_login } = this.state
-        AuthenticationService.login(email_login, password_login)
+        if (!this.state.emailLogIn || !this.state.passwordLogIn) return null
+        const { emailLogIn, passwordLogIn } = this.state
+        AuthenticationApiService.login(emailLogIn, passwordLogIn)
             .then((credential) => {
                 console.log("==========autenticado=======")
                 console.log('user=======>', credential.user.toJSON())
+                Navigator.goToInventoryScreen()
             })
             .catch(err => {
                 console.log("erro no login=====>", err.code)
-                this.handleLoginError(err.code)
+                this.handleLogInError(err.code)
             })
     }
 
-    handleLoginError = (error) => {
+    handleLogInError = (error) => {
         if (error === 'auth/invalid-email') {
             this.setState({
-                errorMessage_login: Strings.longin.invalidEmail
+                errorMessage_login: Strings.logIn.invalidEmail
             })
         }
         else if (error === 'auth/user-not-found') {
             this.setState({
-                errorMessage_login: Strings.longin.userNotFound
+                errorMessage_login: Strings.logIn.userNotFound
             })
         }
         else if (error === 'auth/wrong-password') {
             this.setState({
-                errorMessage_login: Strings.longin.wrongPassword
+                errorMessage_login: Strings.logIn.wrongPassword
             })
         }
         else if (error === 'auth/user-disabled') {
             this.setState({
-                errorMessage_login: Strings.longin.userDisabled
+                errorMessage_login: Strings.logIn.userDisabled
             })
         }
         else {
             this.setState({
-                errorMessage_login: Strings.longin.loginError
+                errorMessage_login: Strings.logIn.logInError
             })
         }
     }
@@ -70,7 +73,7 @@ export default class LoginScreen extends Component {
                 <View style={styles.profileContainer}>
                     <Image
                         style={styles.profilePhoto}
-                        source={require('../Images/avatar.png')}
+                        source={images.avatarPlaceholder}
                         resizeMode="contain"
                     />
                     <Text style={styles.profileName}> Olá, Pessoa</Text>
@@ -82,10 +85,10 @@ export default class LoginScreen extends Component {
                         <TextInput
                             style={styles.textInput}
                             autoCapitalize="none"
-                            placeholder={Strings.longin.firstPlaceholder}
+                            placeholder={Strings.logIn.firstPlaceholder}
                             placeholderTextColor="white"
-                            onChangeText={email_login => this.setState({ email_login })}
-                            value={this.state.email_login}
+                            onChangeText={emailLogIn => this.setState({ emailLogIn })}
+                            value={this.state.emailLogIn}
                         />
                     </View>
                     <View style={styles.passwordContainer}>
@@ -94,10 +97,10 @@ export default class LoginScreen extends Component {
                             secureTextEntry
                             style={styles.textInput}
                             autoCapitalize="none"
-                            placeholder={Strings.longin.secondPlaceholder}
+                            placeholder={Strings.logIn.secondPlaceholder}
                             placeholderTextColor="white"
-                            onChangeText={password_login => this.setState({ password_login })}
-                            value={this.state.password_login}
+                            onChangeText={passwordLogIn => this.setState({ passwordLogIn })}
+                            value={this.state.passwordLogIn}
                         />
                     </View>
                     <Text onPress={() => console.log("esqueci minha senha")} style={styles.forgot}> Esqueci minha senha</Text>

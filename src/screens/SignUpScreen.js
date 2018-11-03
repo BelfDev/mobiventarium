@@ -6,7 +6,8 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Strings from "../utils/Strings"
 import Colors from "../utils/Colors"
-import AuthenticationService from "../services/AuthenticationService";
+import AuthenticationApiService from "../data/remote/services/AuthenticationApiService";
+import images from '../assets';
 
 export default class SignUpScreen extends Component {
     state = {
@@ -22,7 +23,7 @@ export default class SignUpScreen extends Component {
             errorMessage_signUp: null
         })
         if (this.state.password === this.state.confirmedPassword) (
-            AuthenticationService.signUp(this.state.email, this.state.password)
+            AuthenticationApiService.signUp(this.state.email, this.state.password)
                 .then(() => console.log("criado"))
                 .catch(err => {
                     console.log("erro no cadastro========>",err.code)
@@ -65,7 +66,7 @@ export default class SignUpScreen extends Component {
                 <View style={styles.profileContainer}>
                     <Image
                         style={styles.profilePhoto}
-                        source={require('../Images/avatar.png')}
+                        source={images.avatarPlaceholder}
                         resizeMode="contain"
                     />
                     <Text style={styles.profileName}> Olá, Pessoa</Text>

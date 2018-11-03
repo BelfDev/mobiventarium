@@ -13,7 +13,7 @@ const strings = {
     parsingError:
       "Infelizmente, este QR-Code se encontra mal formatado. Consulte o dono do inventário."
   },
-  longin:{
+  logIn:{
     invalidEmail:
     " email inválido!",
     userNotFound:
@@ -22,7 +22,7 @@ const strings = {
       "Senha incorreta!",
     userDisabled :
       "Seu usuário foi desabilitado!",
-    loginError:
+    logInError:
       "Erro no login, tente novamente mais tarde!",
     firstPlaceholder:
       "Email",
@@ -47,6 +47,12 @@ const strings = {
     thirdlaceholder:
       "Repita a Senha"
   },
+  rentedItem: {
+    connectionError:
+    "Não foi possível conectar-se com o servidor. Por favor, tente mais tarde.",
+    checkoutSuccess:
+    "Obrigado, o item foi devolvido com sucesso."
+  }
 };
 
 export default strings;

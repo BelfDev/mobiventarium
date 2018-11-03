@@ -1,93 +1,112 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
-import firebase from 'react-native-firebase'
+import { StyleSheet, Text, View, Image } from 'react-native'
+import { Navigation } from 'react-native-navigation'
+import { Button } from 'react-native-paper';
+import NavigationStyle from "../navigation/NavigationStyle";
+import Images from '../assets';
 
-export default class auth extends Component {
-  state = {
-    email: '',
-    password: '',
-    errorMessage: null,
-    email_login: '',
-    password_login: '',
-    errorMessage_login: null
+export default class WelcomeScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.pushLoginScreen = this.pushLoginScreen.bind(this);
+    this.pushSignUpScreen = this.pushSignUpScreen.bind(this);
   }
-
-  handleSignUp = () => {
-    firebase
-      .auth()
-      .createUserAndRetrieveDataWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => console.log("criado"))
-      .catch(error => this.setState({ errorMessage: error.message }))
+  pushLoginScreen() {
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: 'com.mobiventarium.LoginScreen',
+        options: NavigationStyle.LoginScreen
+      }
+    });
   }
-  handleLogin = () => {
-    const { email_login, password_login } = this.state
-    firebase
-      .auth()
-      .signInAndRetrieveDataWithEmailAndPassword(email_login, password_login)
-      .then((credential) =>{
-        console.log("==========autenticado=======")
-        console.log('user=======>', credential.user.toJSON())
-      })
-      .catch(error => this.setState({ errorMessage: error.errorMessage_login }))
+  pushSignUpScreen() {
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: 'com.mobiventarium.SignUpScreen',
+        options: NavigationStyle.SignUpScreen
+      }
+    });
   }
-
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{fontSize: 20,color:'red'}}>Sign Up</Text>
-        {this.state.errorMessage &&
-          <Text style={{ color: 'red' }}>
-            {this.state.errorMessage}
-          </Text>}
-        <TextInput
-          placeholder="Email"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-        />
-        <TextInput
-          secureTextEntry
-          placeholder="Password"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-        />
-        <Button title="Sign Up" onPress={this.handleSignUp} />
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.image}
+            source={Images.mainIcon}
+            resizeMode="contain"
+          />
+          <Text style={styles.title}>INVENTORY</Text>
+        </View>
+        <View style={styles.textContainer}>
+          <Text style={[styles.text, { marginTop: 10 }]}>Controle de</Text>
+          <Text style={[styles.text, { marginTop: 5 }]}>Inventário</Text>
+          <Text style={[styles.secondaryText, { marginTop: 15 }]}>Chega de devices</Text>
+          <Text style={[styles.secondaryText, { marginTop: 5 }]}>perdidos</Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          <View style={styles.signUpContainer}>
+            <Button
+              compact
+              style={styles.signUpButton}
+              onPress={this.pushSignUpScreen}
+            >
+              <Text style={styles.signUpText}> Cadastrar </Text>
+            </Button>
+          </View>
+          <View style={styles.loginContainer}>
+            <Button
+              mode="contained"
+              compact
+              style={styles.loginButton}
+              onPress={this.pushLoginScreen}
+            >
+              <Text style={styles.loginText}> Login </Text>
+            </Button>
+          </View>
+        </View>
 
-        <View style={styles.separator}></View>
-        
-        <Text style={{fontSize: 20,color:'red'}}>Login</Text>
-        {this.state.errorMessage_login &&
-          <Text style={{ color: 'red' }}>
-            {this.state.errorMessage_login}
-          </Text>}
-        <TextInput
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Email"
-          onChangeText={email_login => this.setState({ email_login })}
-          value={this.state.email_login}
-        />
-        <TextInput
-          secureTextEntry
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Password"
-          onChangeText={password_login => this.setState({ password_login })}
-          value={this.state.password_login}
-        />
-        <Button title="Login" onPress={this.handleLogin} />
       </View>
     )
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    backgroundColor: '#636BD2'
+  },
+  imageContainer: {
+    height: '50%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  image: {
+    width: 100,
+    height: 100
+  },
+  title: {
+    fontSize: 16,
+    marginTop: 10,
+    color: '#E2E4F6'
+  },
+  textContainer: {
+    height: '40%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  text: {
+    fontSize: 30,
+    color: '#FFFFFF',
+    textAlign: 'center',
+  },
+  secondaryText: {
+    fontSize: 15,
+    color: '#E2E4F6',
+    marginTop: 15,
+    textAlign: 'center'
   },
   textInput: {
     height: 40,
@@ -96,10 +115,51 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginTop: 8
   },
-  separator:{
-    height:30,
-    width:'100%',
-    backgroundColor:'green',
-    marginVertical:20,
+  buttonContainer:{
+    height: '10%', 
+    width: '100%', 
+    flexDirection: 'row', 
+    backgroundColor: 'white' 
+  },
+  signUpContainer:{
+    width: '50%', 
+    alignItems: 'center', 
+    justifyContent: 'center'
+  },
+  signUpText:{
+    fontSize: 18, 
+    color: '#5861C5'
+  },
+  separator: {
+    height: 30,
+    width: '100%',
+    backgroundColor: 'green',
+    marginVertical: 20,
+  },
+  signUpButton: {
+    flex: 1,
+    width: '100%',
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  loginContainer:{
+    width: '50%', 
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
+  loginText:{
+    color: 'white', 
+    fontSize: 18
+  },
+  loginButton: {
+    width: '70%',
+    backgroundColor: '#5861C5',
+    padding: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 60,
+    marginVertical: 5
+
   },
 })

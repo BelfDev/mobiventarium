@@ -11,11 +11,15 @@ import {
 } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
 import Images from "assets";
-import InventoryApiService from "../services/InventoryApiService";
+import InventoryApiService from "../data/remote/services/InventoryApiService";
 import PopupDialog, { ScaleAnimation } from "react-native-popup-dialog";
 import Colors from "../utils/Colors";
 import FeedbackDialog from "../components/FeedbackDialog";
-import { CommandsObserver } from "react-native-navigation/lib/dist/events/CommandsObserver";
+import { Screens, AppRootComponent } from "./index";
+import NavigationStyle from "../navigation/NavigationStyle";
+import { Navigation } from "react-native-navigation";
+import LocalStorage from "../data/local/LocalStorage";
+import Navigator from "../navigation/Navigator";
 
 export default class InterfaceTestScreen extends Component {
   constructor(props) {
@@ -27,9 +31,9 @@ export default class InterfaceTestScreen extends Component {
   }
 
   componentDidMount = async () => {
-    this.unsubscribe = await InventoryApiService.subscribeToChanges(
-      this.onItemUpdate
-    );
+    // this.unsubscribe = await InventoryApiService.subscribeToChanges(
+    //   this.onItemUpdate
+    // );
   };
 
   onItemUpdate = snapshot => {
@@ -41,7 +45,7 @@ export default class InterfaceTestScreen extends Component {
   };
 
   unsubscribeCollection = async () => {
-    console.log("Trying to unsubscribe...", this.unsubscribe)
+    console.log("Trying to unsubscribe...", this.unsubscribe);
     this.unsubscribe();
   };
 
@@ -119,9 +123,7 @@ export default class InterfaceTestScreen extends Component {
   };
 
   getSpecificItem = async () => {
-    var device = await InventoryApiService.getItemById(
-      "x96851pNDHfwbfoBhPAP"
-    );
+    var device = await InventoryApiService.getItemById("x96851pNDHfwbfoBhPAP");
     device.data.isRented = !device.data.isRented;
     const updatedDevice = await InventoryApiService.updateItem(device);
     console.log(">>> Device: ", updatedDevice);
@@ -133,6 +135,60 @@ export default class InterfaceTestScreen extends Component {
 
   _onShown = () => {
     console.log(">>>> onShow!");
+  };
+
+  toItemScreen = () => {
+    Navigator.goToRentedItemScreen(this.props.componentId, {
+      id: "6QAm11mygRhFqo4ZU4rz",
+      data: {
+        version: "Super Teste",
+        brand: "android",
+        type: "mobile",
+        model: "Modelo de Testee",
+        isRented: true,
+        serial: "431606277",
+        os: "ios",
+        color: "black"
+      }
+    });
+
+    // this._setNewRoot(Screens.RentedItemScreen, NavigationStyle.RentedItemScreen)
+    // Navigator.goToScannerScreen()
+
+    // Navigation.showModal({
+    //   stack: {
+    //     children: [
+    //       {
+    //         component: {
+    //           name: Screens.RentedItemScreen,
+    // passProps: {
+    //   selectedItemId: '6QAm11mygRhFqo4ZU4rz',
+    //   itemTitle: 'Device De Teste',
+    //   itemType: 'ios',
+    // },
+    //           options: NavigationStyle.RentedItemScreen
+    //         }
+    //       }
+    //     ]
+    //   }
+    // });
+  };
+
+  _setNewRoot = async (screenName, navigationStyle) => {
+    AppRootComponent.name = screenName;
+    AppRootComponent.options = navigationStyle;
+    await LocalStorage.saveAppRootComponentName(screenName);
+    Navigation.setStackRoot(this.props.componentId, {
+      component: {
+        name: screenName,
+        options: navigationStyle,
+        passProps: {
+          selectedItemId: "6QAm11mygRhFqo4ZU4rz",
+          itemTitle: "Device De Teste",
+          itemType: "ios"
+        }
+      }
+    });
   };
 
   render() {
@@ -236,7 +292,6 @@ export default class InterfaceTestScreen extends Component {
         >
           Get specific Item
         </Button>
-
         <Button
           mode="text"
           onPress={() => this.unsubscribeCollection()}
@@ -247,7 +302,19 @@ export default class InterfaceTestScreen extends Component {
             marginTop: 16
           }}
         >
-         unsubscribe
+          unsubscribe
+        </Button>
+        <Button
+          mode="text"
+          onPress={() => this.toItemScreen()}
+          style={{
+            backgroundColor: "white",
+            width: "50%",
+            alignSelf: "center",
+            marginTop: 16
+          }}
+        >
+          ITEM SCREEN
         </Button>
         <IconButton
           icon={({ size, color }) => (

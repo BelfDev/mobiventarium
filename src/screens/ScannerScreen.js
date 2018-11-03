@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import { StyleSheet, Dimensions, SafeAreaView } from "react-native";
 import QRCodeScanner from "react-native-qrcode-scanner";
 import QRModalMarker from "../components/QRModalMarker";
-import InventoryApiService from "../services/InventoryApiService";
+import InventoryApiService from "../data/remote/services/InventoryApiService";
 import { has } from "ramda";
 import Strings from "../utils/Strings";
 import PropTypes from "prop-types";
 import FeedbackDialog from "../components/FeedbackDialog";
 import { Navigation } from "react-native-navigation";
-import NavigationStyle from "../utils/NavigationStyle";
+import NavigationStyle from "../navigation/NavigationStyle";
+import Navigator from "../navigation/Navigator";
 
 export default class ScannerScreen extends Component {
   state = {
@@ -39,10 +40,11 @@ export default class ScannerScreen extends Component {
           );
           databaseItem.data.isRented = !databaseItem.data.isRented;
           let editedItem = Object.assign({}, databaseItem);
-          await InventoryApiService.updateItem(editedItem);
+          const rentedItem = await InventoryApiService.updateItem(editedItem);
+          this.props.rentedItem = rentedItem
           this.setState({
             feedbackMode: "success",
-            descriptionMessage: `Você alugou ${editedItem.data.model}`
+            descriptionMessage: `Você alugou ${editedItem.data.model}`,
           });
         } catch (error) {
           this.setState({
@@ -99,7 +101,7 @@ export default class ScannerScreen extends Component {
   _onDismissed = () => {
     console.log(">>>> onDimissed!");
     if (this.state.feedbackMode === "success") {
-      Navigation.dismissModal(this.props.componentId);
+      Navigator.goToRentedItemScreen(this.props.rentedItem)
     } else if (this.state.feedbackMode === "failure") {
       this.scanner.reactivate();
     }
@@ -110,7 +112,7 @@ export default class ScannerScreen extends Component {
   };
 
   _onClosePressed = () => {
-    Navigation.dismissModal(this.props.componentId);
+    Navigator.dismissModal(this.props.componentId);
   };
 
   render() {

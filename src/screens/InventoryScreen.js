@@ -6,9 +6,7 @@ import { toJS } from "mobx";
 import ItemFormatter from "../utils/ItemFormatter";
 import Colors from "../utils/Colors";
 import { Navigation } from "react-native-navigation";
-import { Screens } from "../screens";
-import NavigationStyle from "../utils/NavigationStyle";
-import Strings from "../utils/Strings";
+import Navigator from "../navigation/Navigator";
 
 @inject("itemStore")
 @observer
@@ -19,7 +17,7 @@ export default class InventoryScreen extends Component {
 
   constructor(props) {
     super(props);
-    Navigation.events().bindComponent(this)
+    Navigation.events().bindComponent(this);
   }
 
   componentDidAppear() {
@@ -30,7 +28,7 @@ export default class InventoryScreen extends Component {
 
   componentDidMount = async () => {
     const { itemStore } = this.props;
-    this.unsubscribe = await itemStore.subscribeToInventory()
+    this.unsubscribe = await itemStore.subscribeToInventory();
   };
 
   componentWillUnmount = () => {
@@ -41,27 +39,11 @@ export default class InventoryScreen extends Component {
     this.setState({
       itemPressed: true
     });
-    this._showScannerScreen(id)
+    this._showScannerScreen(id);
   };
 
   _showScannerScreen = id => {
-    Navigation.showModal({
-      stack: {
-        children: [
-          {
-            component: {
-              name: Screens.ScannerScreen,
-              passProps: {
-                selectedItemId: id,
-                modalTitle: Strings.scanner.screenTitle,
-                instruction: Strings.scanner.instructionText
-              },
-              options: NavigationStyle.ScannerScreen
-            }
-          }
-        ]
-      }
-    });
+    Navigator.goToScannerScreen(id);
   };
 
   _keyExtractor = item => item.id.toString();

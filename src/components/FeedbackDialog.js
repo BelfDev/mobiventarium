@@ -29,6 +29,7 @@ export default class FeedbackDialog extends PureComponent {
                 width={0.9}
                 height={0.4}
                 dialogStyle={styles.dialogContainer}
+                containerStyle={{ zIndex: 10, elevation: 10 }}
                 onDismissed={() => (onDismissed ? onDismissed() : null)}
                 onShown={() => (onShown ? onShown() : null)}
             >

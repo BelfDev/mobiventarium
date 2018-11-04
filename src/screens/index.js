@@ -21,8 +21,8 @@ export const Screens = {
 };
 
 export const AppRootComponent = {
-  name: Screens.InterfaceTestScreen,
-  options: NavigationStyle.InterfaceTestScreen,
+  name: Screens.InventoryScreen,
+  options: NavigationStyle.InventoryScreen,
   passProps: {}
 };
 

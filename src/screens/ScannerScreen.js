@@ -10,7 +10,10 @@ import FeedbackDialog from "../components/FeedbackDialog";
 import { Navigation } from "react-native-navigation";
 import NavigationStyle from "../navigation/NavigationStyle";
 import Navigator from "../navigation/Navigator";
+import { observer, inject } from "mobx-react/native";
 
+@inject("sessionStore")
+@observer
 export default class ScannerScreen extends Component {
   state = {
     feedbackMode: "success",
@@ -30,7 +33,7 @@ export default class ScannerScreen extends Component {
   }
 
   async _checkInItem(validatedCode) {
-    const { selectedItemId } = this.props;
+    const { selectedItemId, sessionStore } = this.props;
     try {
       let scannedItem = JSON.parse(validatedCode.data);
       if (this._itemConformsWithProtocol(scannedItem, selectedItemId)) {
@@ -39,12 +42,14 @@ export default class ScannerScreen extends Component {
             selectedItemId
           );
           databaseItem.data.isRented = !databaseItem.data.isRented;
+          const sessionUser = await sessionStore.getSessionUser();
+          databaseItem.data.rentedBy = sessionUser.email;
           let editedItem = Object.assign({}, databaseItem);
-          const rentedItem = await InventoryApiService.updateItem(editedItem);
-          this.props.rentedItem = rentedItem
+          await InventoryApiService.updateItem(editedItem);
           this.setState({
             feedbackMode: "success",
             descriptionMessage: `Você alugou ${editedItem.data.model}`,
+            rentedItem: editedItem
           });
         } catch (error) {
           this.setState({
@@ -101,7 +106,8 @@ export default class ScannerScreen extends Component {
   _onDismissed = () => {
     console.log(">>>> onDimissed!");
     if (this.state.feedbackMode === "success") {
-      Navigator.goToRentedItemScreen(this.props.rentedItem)
+      console.log(">>> RENTED ITEM: ", this.state.rentedItem);
+      Navigator.goToRentedItemScreen(this.props.componentId, this.state.rentedItem);
     } else if (this.state.feedbackMode === "failure") {
       this.scanner.reactivate();
     }

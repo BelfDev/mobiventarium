@@ -1,11 +1,8 @@
 import { AsyncStorage } from "react-native";
 
-const USER_KEY = 'USER_KEY'
+const USER_KEY = "USER_KEY";
 
 export default class LocalStorage {
-
-  
-  
   static async saveAppRootComponentName(name) {
     try {
       await AsyncStorage.setItem("rootComponentName", name);
@@ -16,10 +13,19 @@ export default class LocalStorage {
 
   static async saveAppRootInitialProps(props) {
     try {
-      let stringifiedProps = JSON.stringify(props)
+      let stringifiedProps = JSON.stringify(props);
       await AsyncStorage.setItem("rootComponentInitialProps", stringifiedProps);
     } catch (error) {
       console.log(">>> rootComponentInitialProps: ", error);
+    }
+  }
+
+  static async saveAuthenticatedUser(user) {
+    try {
+      let stringifiedUser = JSON.stringify(user);
+      await AsyncStorage.setItem(USER_KEY, stringifiedUser);
+    } catch (error) {
+      console.log(">>> saveAuthenticatedUser: ", error);
     }
   }
 
@@ -33,8 +39,10 @@ export default class LocalStorage {
 
   static async getAppRootInitialProps() {
     try {
-      let stringifiedProps = await AsyncStorage.getItem("rootComponentInitialProps");
-      return JSON.parse(stringifiedProps)
+      let stringifiedProps = await AsyncStorage.getItem(
+        "rootComponentInitialProps"
+      );
+      return JSON.parse(stringifiedProps);
     } catch (error) {
       console.log(">>> rootComponentInitialProps: ", error);
     }
@@ -42,8 +50,10 @@ export default class LocalStorage {
 
   static async getAppRootInitialProps() {
     try {
-      let stringifiedProps = await AsyncStorage.getItem("rootComponentInitialProps");
-      return JSON.parse(stringifiedProps)
+      let stringifiedProps = await AsyncStorage.getItem(
+        "rootComponentInitialProps"
+      );
+      return JSON.parse(stringifiedProps);
     } catch (error) {
       console.log(">>> rootComponentInitialProps: ", error);
     }
@@ -51,11 +61,11 @@ export default class LocalStorage {
 
   static async getAuthenticatedUser() {
     try {
-      return await AsyncStorage.getItem(USER_KEY)
+      let stringifiedUser = await AsyncStorage.getItem(USER_KEY);
+      return JSON.parse(stringifiedUser);
     } catch (error) {
       console.log(">>> getAuthenticatedUser: ", error);
-      throw('No authenticated user found')
+      throw "No authenticated user found";
     }
   }
-
 }

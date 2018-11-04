@@ -1,54 +1,35 @@
 import { observable, action } from "mobx";
 import BaseStore from "./BaseStore";
+import LocalStorage from "../../local/LocalStorage";
+import { isEmpty } from "ramda";
 import AuthenticationApiService from "../services/InventoryApiService";
 
 export default class SessionStore extends BaseStore {
-
   @observable
   user = {};
 
   @action
-  updateSessionUser(user) {
-      this.user = user
+  async setSessionUser(user) {
+    const { uid, displayName, email, photoURL, metadata } = user;
+
+    this.user = {
+      id: uid,
+      email,
+      name: displayName,
+      photoURL,
+      lastSignInTime: metadata.lastSignInTime,
+      creationTime: metadata.creationTime
+    };
+
+    await LocalStorage.saveAuthenticatedUser(this.user);
+    console.log(">>> SAVED authenticated user: ", this.user);
   }
 
-//   @action
-//   async getItems() {
-//     try {
-//       this.isRefresing = true;
-//       const items = await InventoryApiService.getItems();
-//       this.itemList = items;
-//     } catch (error) {
-//       console.log(
-//         `>>> getItems error - ${JSON.stringify(error.message, null, 2)}`
-//       );
-//     } finally {
-//       this.isRefresing = false;
-//     }
-//   }
-
-//   @action
-//   async subscribeToInventory() {
-//     try {
-//       this.isRefresing = true;
-//       return await InventoryApiService.subscribeToInventory(this.onItemChange);
-//     } catch (error) {
-//       console.log(
-//         `>>> subscribeToInventory error - ${JSON.stringify(
-//           error.message,
-//           null,
-//           2
-//         )}`
-//       );
-//     } finally {
-//       this.isRefresing = false;
-//     }
-//   }
-
-//   onItemChange = snapshot => {
-//     this.itemList = snapshot.docs.map(doc => ({
-//       id: doc.id,
-//       data: doc.data()
-//     }));
-//   };
+  @action
+  async getSessionUser() {
+    if (isEmpty(this.user)) {
+      this.user = await LocalStorage.getAuthenticatedUser();
+    }
+    return this.user;
+  }
 }

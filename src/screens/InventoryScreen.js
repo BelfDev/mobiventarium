@@ -46,6 +46,11 @@ export default class InventoryScreen extends Component {
 
     if (this.state.rentedItemId === item.id) {
       Navigator.goToRentedItemScreen(item);
+    } else if (item.data.isRented) {
+      alert("Esse item já está alugado!")
+      this.setState({
+        itemPressed: false,
+      });
     } else {
       Navigator.goToScannerScreenForCheckIn(item);
     }

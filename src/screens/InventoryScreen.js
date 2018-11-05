@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { FlatList, RefreshControl, StyleSheet } from "react-native";
+import { View, FlatList, RefreshControl, StyleSheet } from "react-native";
+import { Snackbar, Text } from 'react-native-paper'
 import Item from "../components/Item";
 import { observer, inject } from "mobx-react/native";
 import { toJS } from "mobx";
@@ -12,7 +13,9 @@ import Navigator from "../navigation/Navigator";
 @observer
 export default class InventoryScreen extends Component {
   state = {
-    itemPressed: false
+    itemPressed: false,
+    snackBarVisible: false,
+    rentedBy: null,
   };
 
   constructor(props) {
@@ -44,17 +47,22 @@ export default class InventoryScreen extends Component {
       itemPressed: true
     });
 
-    if (this.state.rentedItemId === item.id) {
+    if (this._isItemRentedBySessionUser(item.id)) {
       Navigator.goToRentedItemScreen(item);
     } else if (item.data.isRented) {
-      alert("Esse item já está alugado!")
       this.setState({
         itemPressed: false,
+        snackBarVisible: true,
+        rentedBy: item.data.rentedBy
       });
     } else {
       Navigator.goToScannerScreenForCheckIn(item);
     }
   };
+
+  _isItemRentedBySessionUser = (itemId) => {
+    return this.state.rentedItemId === itemId
+  }
 
   _keyExtractor = item => item.id.toString();
 
@@ -68,11 +76,9 @@ export default class InventoryScreen extends Component {
         disabled={this.state.itemPressed}
         descriptionText={ItemFormatter.getDescriptionTextFormat(data.os)}
         descriptionTextColor={ItemFormatter.getPlatformTextColor(data.os)}
-        statusLabelText={ItemFormatter.getStatusLabelText(data.isRented)}
-        statusLabelColor={ItemFormatter.getStatusLabelColor(data.isRented)}
-        statusLabelBorderColor={ItemFormatter.getStatusLabelBorderColor(
-          data.isRented
-        )}
+        statusLabelText={ItemFormatter.getStatusLabelText(data.isRented, this._isItemRentedBySessionUser(item.id))}
+        statusLabelColor={ItemFormatter.getStatusLabelColor(data.isRented, this._isItemRentedBySessionUser(item.id))}
+        statusLabelBorderColor={ItemFormatter.getStatusLabelBorderColor(data.isRented, this._isItemRentedBySessionUser(item.id))}
         iconName={ItemFormatter.getIconName(data.os)}
         iconColor={ItemFormatter.getPlatformTextColor(data.os)}
       />
@@ -82,27 +88,61 @@ export default class InventoryScreen extends Component {
   render() {
     const { itemStore } = this.props;
     return (
-      <FlatList
-        contentContainerStyle={{ paddingTop: 8 }}
-        style={styles.itemList}
-        data={toJS(itemStore.itemList)}
-        refreshing={itemStore.isRefresing}
-        refreshControl={
-          <RefreshControl
-            refreshing={itemStore.isRefresing}
-            onRefresh={async () => await itemStore.getItems()}
-          />
-        }
-        extraData={this.props}
-        keyExtractor={this._keyExtractor.bind(this)}
-        renderItem={this._renderItem.bind(this)}
-      />
+      <View style={styles.backgroundContainer}>
+        <FlatList
+          contentContainerStyle={{ paddingTop: 8 }}
+          style={styles.itemList}
+          data={toJS(itemStore.itemList)}
+          refreshing={itemStore.isRefresing}
+          refreshControl={
+            <RefreshControl
+              refreshing={itemStore.isRefresing}
+              onRefresh={async () => await itemStore.getItems()}
+            />
+          }
+          extraData={this.props}
+          keyExtractor={this._keyExtractor.bind(this)}
+          renderItem={this._renderItem.bind(this)}
+        />
+        <Snackbar
+          visible={this.state.snackBarVisible}
+          duration={2000}
+          onDismiss={() => this.setState({
+            snackBarVisible: false,
+          })}
+        >
+          <Text
+            style={styles.snackBarInstructionText}
+          >
+            {'Alugado por: '}
+          </Text>
+          <Text
+            style={styles.snackBarEmailText}
+          >
+            {this.state.rentedBy}
+          </Text>
+        </Snackbar>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  backgroundContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
   itemList: {
-    backgroundColor: Colors.backgroundGray
+    backgroundColor: Colors.backgroundGray,
+  },
+  snackBarInstructionText: {
+    fontSize: 14,
+    color: 'white',
+    fontWeight: '400',
+  },
+  snackBarEmailText: {
+    fontSize: 16,
+    color: 'white',
+    fontWeight: '600'
   }
 });

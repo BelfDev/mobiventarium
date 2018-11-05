@@ -5,6 +5,7 @@ const colors = {
   vividPurple: '#8D98F2',
   red: "#9A4242",
   green: "#2DA455",
+  purple: '#5A6ABF',
   smoothWhite: "#EDEDED",
   androidGreen: "#A4C639",
   iosGray: "#7d7d7d",

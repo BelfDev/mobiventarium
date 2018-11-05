@@ -56,6 +56,14 @@ const strings = {
     "Não foi possível conectar-se com o servidor. Por favor, tente mais tarde.",
     checkoutSuccess:
     "Obrigado, o item foi devolvido com sucesso."
+  },
+  itemFormatter: {
+    availableLabelText: 
+    "disponível",
+    unavailableLabelText:
+    "indisponível",
+    rentedBySessionUserText:
+    "com você"
   }
 };
 

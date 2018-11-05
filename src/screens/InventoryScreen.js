@@ -20,10 +20,14 @@ export default class InventoryScreen extends Component {
     Navigation.events().bindComponent(this);
   }
 
-  componentDidAppear() {
+  async componentDidAppear() {
+    const { itemStore } = this.props;
+    await itemStore.getRentedItemId();
     this.setState({
-      itemPressed: false
+      itemPressed: false,
+      rentedItemId: itemStore.rentedItemId
     });
+    console.log(" RENTED ITEM: ", itemStore.rentedItemId)
   }
 
   componentDidMount = async () => {
@@ -39,12 +43,12 @@ export default class InventoryScreen extends Component {
     this.setState({
       itemPressed: true
     });
-    this._showScannerScreen(item);
-  };
 
-  _showScannerScreen = item => {
-    // Navigator.goToScannerScreen(id);
-    Navigator.goToScannerScreenForCheckIn(item);
+    if (this.state.rentedItemId === item.id) {
+      Navigator.goToRentedItemScreen(item);
+    } else {
+      Navigator.goToScannerScreenForCheckIn(item);
+    }
   };
 
   _keyExtractor = item => item.id.toString();

@@ -1,6 +1,7 @@
 import { AsyncStorage } from "react-native";
 
 const USER_KEY = "USER_KEY";
+const RENTED_ITEM_ID = "RENTED_ITEM_ID";
 
 export default class LocalStorage {
   static async saveAppRootComponentName(name) {
@@ -17,6 +18,22 @@ export default class LocalStorage {
       await AsyncStorage.setItem("rootComponentInitialProps", stringifiedProps);
     } catch (error) {
       console.log(">>> rootComponentInitialProps: ", error);
+    }
+  }
+
+  static async saveRentedItemId(id) {
+    try {
+      await AsyncStorage.setItem(RENTED_ITEM_ID, id);
+    } catch (error) {
+      console.log(">>> saveRentedItemId: ", error);
+    }
+  }
+
+  static async clearRentedItemId() {
+    try {
+      await AsyncStorage.removeItem(RENTED_ITEM_ID);
+    } catch (error) {
+      console.log(">>> clearRentedItemId: ", error);
     }
   }
 
@@ -66,6 +83,14 @@ export default class LocalStorage {
     } catch (error) {
       console.log(">>> getAuthenticatedUser: ", error);
       throw "No authenticated user found";
+    }
+  }
+
+  static async getRentedItemId() {
+    try {
+      return await AsyncStorage.getItem(RENTED_ITEM_ID);
+    } catch (error) {
+      console.log(">>> getRentedItemId: ", error);
     }
   }
 }

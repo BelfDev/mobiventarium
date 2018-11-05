@@ -15,6 +15,7 @@ import FeedbackDialog from "../components/FeedbackDialog";
 import NavigationStyle from "../navigation/NavigationStyle";
 import Navigator from "../navigation/Navigator";
 import { observer, inject } from "mobx-react/native";
+import LocalStorage from '../data/local/LocalStorage'
 
 @inject("sessionStore")
 @observer
@@ -78,6 +79,7 @@ export default class ScannerScreen extends Component {
             databaseItem.data.rentedBy = null;
             let editedItem = Object.assign({}, databaseItem);
             await InventoryApiService.updateItem(editedItem);
+            await LocalStorage.clearRentedItemId()
             this.setState({
               feedbackMode: "success",
               descriptionMessage: `Você devolveu ${editedItem.data.model}`,
@@ -121,6 +123,7 @@ export default class ScannerScreen extends Component {
         databaseItem.data.rentedBy = sessionUser.email;
         let editedItem = Object.assign({}, databaseItem);
         await InventoryApiService.updateItem(editedItem);
+        await LocalStorage.saveRentedItemId(selectedItemId)
         this.setState({
           feedbackMode: "success",
           descriptionMessage: `Você alugou ${editedItem.data.model}`,
@@ -202,7 +205,7 @@ export default class ScannerScreen extends Component {
           Navigator.goToRentedItemScreenAfterCheckIn(this.props.componentId)
           break;
         case "checkOut":
-          Navigator.goToInventoryScreenAfterCheckOut(this.props.componentId)
+          Navigator.goToInventoryScreenAfterCheckOut()
           break;
       }
     } else if (this.state.feedbackMode === "failure") {

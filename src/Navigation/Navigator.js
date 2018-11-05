@@ -63,25 +63,37 @@ export default class Navigator {
     });
   }
 
-  // static async goToScannerScreen(selectedItemId) {
-  //   Navigation.showModal({
-  //     stack: {
-  //       children: [
-  //         {
-  //           component: {
-  //             name: Screens.ScannerScreen,
-  //             options: NavigationStyle.ScannerScreen,
-  //             passProps: {
-  //               selectedItemId: selectedItemId,
-  //               modalTitle: Strings.scanner.screenTitle,
-  //               instruction: Strings.scanner.instructionText
-  //             }
-  //           }
-  //         }
-  //       ]
+  static async goToRentedItemScreen(selectedItem) {
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: Screens.RentedItemScreen,
+              options: NavigationStyle.RentedItemScreen,
+              passProps: {
+                selectedItemId: selectedItem.id,
+                itemTitle: selectedItem.data.model,
+                itemType: selectedItem.data.os
+              }
+            }
+          },
+        ]
+      }
+    });
+  }
+
+  // Navigation.push(componentId, {
+  //   component: {
+  //     name: Screens.RentedItemScreen,
+  //     options: NavigationStyle.RentedItemScreen,
+  //     passProps: {
+  //       selectedItemId: selectedItem.id,
+  //       itemTitle: selectedItem.data.model,
+  //       itemType: selectedItem.data.os
   //     }
-  //   });
-  // }
+  //   }
+  // });
 
   static async goToScannerScreenForCheckIn(selectedItem) {
     const mode = "checkIn";
@@ -116,54 +128,11 @@ export default class Navigator {
     });
   }
 
-  // static async goToRentedItemScreen(componentId, rentedItem) {
-  //   const props = {
-  // selectedItemId: rentedItem.id,
-  // itemTitle: rentedItem.data.model,
-  // itemType: rentedItem.data.os
-  //   };
-  //   this._setNewStackRoot(
-  //     componentId,
-  //     Screens.RentedItemScreen,
-  //     NavigationStyle.RentedItemScreen,
-  //     props,
-  //   );
-  // }
-
-  static async goToRentedItemScreen(componentId, rentedItem) {
-    const props = {
-      selectedItemId: rentedItem.id,
-      itemTitle: rentedItem.data.model,
-      itemType: rentedItem.data.os
-    };
-    this._setNewStackRoot(
-      componentId,
-      Screens.RentedItemScreen,
-      NavigationStyle.RentedItemScreen,
-      props
-    );
-  }
-
-  static async leaveRentedItemScreen(componentId) {
-    this._setNewStackRoot(
-      componentId,
-      Screens.InventoryScreen,
-      NavigationStyle.InventoryScreen,
-      {}
-    );
-  }
-
   static async goToScannerScreenForCheckout(rentedItemId, inventoryCode) {
     const mode = "checkOut";
     Navigation.showModal({
       stack: {
         children: [
-          {
-            component: {
-              name: Screens.InventoryScreen,
-              options: NavigationStyle.InventoryScreen,
-            }
-          },
           {
             component: {
               name: Screens.ScannerScreen,
@@ -182,12 +151,12 @@ export default class Navigator {
     });
   }
 
-  static async goToInventoryScreenAfterCheckOut(componentId) {
-    Navigation.popToRoot(componentId)
+  static async goToInventoryScreenAfterCheckOut() {
+    Navigation.dismissAllModals();
   }
 
   static async goToRentedItemScreenAfterCheckIn(componentId) {
-    Navigation.pop(componentId)
+    Navigation.pop(componentId);
   }
 
   static dismissModal(componentId) {
@@ -217,27 +186,4 @@ export default class Navigator {
       console.log(">>> _setNewStackRoot error: ", error);
     }
   }
-
-  // static async _setNewStackRoot(
-  //   componentId,
-  //   screenName,
-  //   navigationStyle,
-  //   props,
-  // ) {
-  //   try {
-  //     AppRootComponent.name = screenName;
-  //     AppRootComponent.options = navigationStyle
-  //     AppRootComponent.passProps = props;
-
-  //     console.log(">>> OPTIONS: ", AppRootComponent.options);
-
-  //     await LocalStorage.saveAppRootComponentName(screenName);
-  //     await LocalStorage.saveAppRootInitialProps(props);
-  //     Navigation.setStackRoot(componentId, {
-  //       component: AppRootComponent
-  //     });
-  //   } catch (error) {
-  //     console.log(">>> _setNewStackRoot error: ", error);
-  //   }
-  // }
 }

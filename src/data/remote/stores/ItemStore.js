@@ -58,5 +58,5 @@ export default class ItemStore extends BaseStore {
       console.log(">>> getRentedItemId error: ", error);
     }
   }
-  
+
 }

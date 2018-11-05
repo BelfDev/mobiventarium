@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, FlatList, RefreshControl, StyleSheet, ActivityIndicator } from "react-native";
+import { View, FlatList, RefreshControl, StyleSheet } from "react-native";
 import { Snackbar, Text } from 'react-native-paper'
 import Item from "../components/Item";
 import { observer, inject } from "mobx-react/native";
@@ -122,6 +122,7 @@ export default class InventoryScreen extends Component {
         statusLabelBorderColor={ItemFormatter.getStatusLabelBorderColor(data.isRented, this._isItemRentedBySessionUser(item.id))}
         iconName={ItemFormatter.getIconName(data.os)}
         iconColor={ItemFormatter.getPlatformTextColor(data.os)}
+        imageUrl={data.imageUrl}
       />
     );
   };

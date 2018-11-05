@@ -20,7 +20,7 @@ export default class Item extends PureComponent {
       statusLabelColor,
       statusLabelBorderColor,
       iconName,
-      imagePath,
+      imageUrl,
       iconColor,
       rippleColor,
       underlayColor,
@@ -47,8 +47,8 @@ export default class Item extends PureComponent {
             <View style={styles.imageContainer}>
               <Image
                 style={styles.image}
-                resizeMode="cover"
-                source={imagePath}
+                resizeMode="contain"
+                source={{uri: imageUrl}}
               />
             </View>
             <View style={styles.infoContainer}>

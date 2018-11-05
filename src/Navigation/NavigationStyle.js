@@ -99,7 +99,7 @@ const NavigationStyle = {
       buttonColor: topBarDefaultStyle.buttonColor,
       title: Object.assign(
         {
-          text: "Inventory Manager"
+          text: "Rentify"
         },
         topBarDefaultStyle.title
       ),

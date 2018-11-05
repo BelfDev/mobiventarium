@@ -24,7 +24,7 @@ import { MAX_RENTAL_DAYS } from "../navigation/AppConfig";
 @observer
 export default class ScannerScreen extends Component {
   state = {
-    feedbackMode: "success",
+    feedbackMode: "loading",
     descriptionMessage: ""
   };
 
@@ -80,8 +80,12 @@ export default class ScannerScreen extends Component {
         ) {
           try {
             databaseItem.data.isRented = !databaseItem.data.isRented;
-            databaseItem.data.retrievalDate = moment();
-            databaseItem.data.returnDate = moment().add(MAX_RENTAL_DAYS, "day");
+            databaseItem.data.retrievalDate = moment().toISOString();
+            databaseItem.data.returnDate = moment()
+              .add(MAX_RENTAL_DAYS, "day")
+              .toISOString();
+            console.log(">>> RetrievalDate: ", databaseItem.data.retrievalDate);
+            console.log(">>> ReturnDate: ", databaseItem.data.returnDate);
             databaseItem.data.rentedBy = null;
             let editedItem = Object.assign({}, databaseItem);
             await InventoryApiService.updateItem(editedItem);

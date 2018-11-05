@@ -10,10 +10,6 @@ import InventoryApiService from "../data/remote/services/InventoryApiService"
 import moment from 'moment';
 import 'moment/locale/pt-br';
 import StorageApiService from '../data/remote/services/StorageApiService'
-import FeedbackDialog from "../components/FeedbackDialog"
-import Strings from "../utils/Strings"
-import { Screens } from "../screens"
-import NavigationStyle from "../navigation/NavigationStyle"
 import Navigator from '../navigation/Navigator'
 
 export default class RentedItemScreen extends Component {
@@ -26,9 +22,7 @@ export default class RentedItemScreen extends Component {
     itemType: this.props.itemType,
     isLoadingDates: true,
     isLoadingImage: true,
-    isCheckingOut: false,
-    feedbackMode: 'success',
-    descriptionMessage: ''
+    rentedItem: null
   }
 
   constructor(props) {
@@ -60,6 +54,7 @@ export default class RentedItemScreen extends Component {
       this.setState({
         itemTitle: item.data.model,
         itemType: item.data.os,
+        itemInventoryCode: item.data.inventoryCode,
         retrievalDate: item.data.retrievalDate,
         returnDate: item.data.returnDate,
         isLoadingDates: false,
@@ -70,56 +65,10 @@ export default class RentedItemScreen extends Component {
   }
 
   _onReturnPress = async () => {
-    try {
-      const { selectedItemId } = this.props;
-      this.setState({
-        isCheckingOut: true,
-      })
-      let databaseItem = await InventoryApiService.getItemById(selectedItemId)
-      this._checkOutItem(databaseItem)
-    } catch (error) {
-      this.setState({
-        feedbackMode: "failure",
-        descriptionMessage: Strings.rentedItem.connectionError,
-        isCheckingOut: false,
-      })
-      console.log('>>> getItemById (onReturn) error: ', error)
+    if (!this.state.isLoadingDates) {
+      Navigator.goToScannerScreenForCheckout(this.props.selectedItemId, this.state.itemInventoryCode)
     }
   }
-
-  _checkOutItem = async (databaseItem) => {
-    try {
-      databaseItem.data.isRented = false
-      let editedItem = Object.assign({}, databaseItem);
-      await InventoryApiService.updateItem(editedItem);
-      this.setState({
-        feedbackMode: "success",
-        descriptionMessage: Strings.rentedItem.checkoutSuccess,
-        isCheckingOut: false,
-      })
-    } catch (error) {
-      this.setState({
-        feedbackMode: "failure",
-        descriptionMessage: Strings.rentedItem.connectionError,
-        isCheckingOut: false,
-      })
-      console.log('>>> checkOutItem error: ', error)
-    }
-    this.feedbackDialog.show();
-  }
-
-  _onDismissed = () => {
-    console.log(">>>> onDimissed!");
-    if (this.state.feedbackMode === "success") {
-      Navigator.leaveRentedItemScreen(this.props.componentId)
-    } else if (this.state.feedbackMode === "failure") {
-
-    }
-  };
-
-  _onShown = () => {
-    console.log(">>>> onShow!");
-  };
 
   _getItemImage = (isLoadingImage, imageUrl) => {
     if (isLoadingImage) {
@@ -173,7 +122,7 @@ export default class RentedItemScreen extends Component {
           </View>
           <Button
             mode="contained"
-            loading={this.state.isCheckingOut}
+            loading={this.state.isLoadingDates}
             color={Colors.vividPurple}
             dark={true}
             style={styles.returnButton}
@@ -186,15 +135,6 @@ export default class RentedItemScreen extends Component {
             {this._getDeadlineWarning(this.state.isLoadingDates)}
           </Text>
         </View>
-        <FeedbackDialog
-          mode={this.state.feedbackMode}
-          description={this.state.descriptionMessage}
-          onDismissed={() => this._onDismissed()}
-          onShown={() => this._onShown()}
-          ref={feedbackDialog => {
-            this.feedbackDialog = feedbackDialog;
-          }}
-        />
       </SafeAreaView>
     );
   }

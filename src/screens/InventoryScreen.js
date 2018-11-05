@@ -35,15 +35,16 @@ export default class InventoryScreen extends Component {
     this.unsubscribe();
   };
 
-  _onItemPressed = id => {
+  _onItemPressed = item => {
     this.setState({
       itemPressed: true
     });
-    this._showScannerScreen(id);
+    this._showScannerScreen(item);
   };
 
-  _showScannerScreen = id => {
-    Navigator.goToScannerScreen(id);
+  _showScannerScreen = item => {
+    // Navigator.goToScannerScreen(id);
+    Navigator.goToScannerScreenForCheckIn(item);
   };
 
   _keyExtractor = item => item.id.toString();
@@ -53,7 +54,7 @@ export default class InventoryScreen extends Component {
     return (
       <Item
         id={item.id}
-        onPress={this._onItemPressed}
+        onPress={() => this._onItemPressed(item)}
         itemTitle={data.model}
         disabled={this.state.itemPressed}
         descriptionText={ItemFormatter.getDescriptionTextFormat(data.os)}

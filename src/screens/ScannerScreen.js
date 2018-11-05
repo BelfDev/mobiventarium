@@ -15,7 +15,10 @@ import FeedbackDialog from "../components/FeedbackDialog";
 import NavigationStyle from "../navigation/NavigationStyle";
 import Navigator from "../navigation/Navigator";
 import { observer, inject } from "mobx-react/native";
-import LocalStorage from '../data/local/LocalStorage'
+import LocalStorage from "../data/local/LocalStorage";
+import moment from "moment";
+import "moment/locale/pt-br";
+import { MAX_RENTAL_DAYS } from "../navigation/AppConfig";
 
 @inject("sessionStore")
 @observer
@@ -27,6 +30,7 @@ export default class ScannerScreen extends Component {
 
   constructor(props) {
     super(props);
+    moment.locale("pt-BR");
     console.log(">>> Setup selectedId ", this.props.selectedItemId);
   }
 
@@ -52,7 +56,7 @@ export default class ScannerScreen extends Component {
             break;
         }
       } catch (error) {
-        console.log(">>> PARSE ERROR: ", error)
+        console.log(">>> PARSE ERROR: ", error);
         this.setState({
           feedbackMode: "failure",
           descriptionMessage: Strings.scanner.parsingError
@@ -76,10 +80,12 @@ export default class ScannerScreen extends Component {
         ) {
           try {
             databaseItem.data.isRented = !databaseItem.data.isRented;
+            databaseItem.data.retrievalDate = moment();
+            databaseItem.data.returnDate = moment().add(MAX_RENTAL_DAYS, "day");
             databaseItem.data.rentedBy = null;
             let editedItem = Object.assign({}, databaseItem);
             await InventoryApiService.updateItem(editedItem);
-            await LocalStorage.clearRentedItemId()
+            await LocalStorage.clearRentedItemId();
             this.setState({
               feedbackMode: "success",
               descriptionMessage: `Você devolveu ${editedItem.data.model}`,
@@ -123,7 +129,7 @@ export default class ScannerScreen extends Component {
         databaseItem.data.rentedBy = sessionUser.email;
         let editedItem = Object.assign({}, databaseItem);
         await InventoryApiService.updateItem(editedItem);
-        await LocalStorage.saveRentedItemId(selectedItemId)
+        await LocalStorage.saveRentedItemId(selectedItemId);
         this.setState({
           feedbackMode: "success",
           descriptionMessage: `Você alugou ${editedItem.data.model}`,
@@ -202,10 +208,10 @@ export default class ScannerScreen extends Component {
       console.log(">>> RENTED ITEM: ", this.state.rentedItem);
       switch (this.props.mode) {
         case "checkIn":
-          Navigator.goToRentedItemScreenAfterCheckIn(this.props.componentId)
+          Navigator.goToRentedItemScreenAfterCheckIn(this.props.componentId);
           break;
         case "checkOut":
-          Navigator.goToInventoryScreenAfterCheckOut()
+          Navigator.goToInventoryScreenAfterCheckOut();
           break;
       }
     } else if (this.state.feedbackMode === "failure") {

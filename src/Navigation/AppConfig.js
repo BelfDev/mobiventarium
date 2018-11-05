@@ -4,6 +4,7 @@ import { getNavigationStyle } from "./NavigationStyle";
 import { isNil } from "ramda";
 
 export const APP_BUNDLE_ID = "com.mobiventarium";
+export const MAX_RENTAL_DAYS = 3
 
 export async function setupAppRootComponent() {
   if (await isAuthenticated()) {

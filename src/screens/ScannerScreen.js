@@ -23,9 +23,11 @@ import { MAX_RENTAL_DAYS } from "../navigation/AppConfig";
 @inject("sessionStore")
 @observer
 export default class ScannerScreen extends Component {
+
   state = {
     feedbackMode: "loading",
-    descriptionMessage: ""
+    descriptionMessage: "",
+    closeButtonDisabled: false,
   };
 
   constructor(props) {
@@ -228,7 +230,12 @@ export default class ScannerScreen extends Component {
   };
 
   _onClosePressed = () => {
-    Navigator.dismissModal(this.props.componentId);
+    if (!this.state.closeButtonDisabled) {
+      this.setState({
+        closeButtonDisabled: true,
+      })
+      Navigator.dismissModal(this.props.componentId);
+    }
   };
 
   _handleBackPress = () => {
@@ -255,17 +262,18 @@ export default class ScannerScreen extends Component {
           showMarker={true}
           customMarker={
             <QRModalMarker
-              onClosePressed={() => this._onClosePressed()}
+              onClosePressed={this._onClosePressed}
               modalTitleText={this.props.modalTitle}
               instructionText={this.props.instruction}
+              closeButtonDisabled={this.state.closeButtonDisabled}
             />
           }
         />
         <FeedbackDialog
           mode={this.state.feedbackMode}
           description={this.state.descriptionMessage}
-          onDismissed={() => this._onDismissed()}
-          onShown={() => this._onShown()}
+          onDismissed={this._onDismissed}
+          onShown={this._onShown}
           ref={feedbackDialog => {
             this.feedbackDialog = feedbackDialog;
           }}

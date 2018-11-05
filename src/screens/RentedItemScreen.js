@@ -32,26 +32,31 @@ export default class RentedItemScreen extends Component {
   }
 
   async componentDidMount() {
+    this._isMounted = true
     try {
       const imageUrl = await StorageApiService.getInventoryItemImageUrl('b2w-inventory', this.props.selectedItemId)
-      this.setState({
+      this._isMounted && this.setState({
         imageUrl: imageUrl,
         isLoadingImage: false,
       })
     } catch (error) {
       console.log('>>> image url error: ', error)
-      this.setState({
+      this._isMounted && this.setState({
         imageUrl: '',
         isLoadingImage: false,
       })
     }
   }
 
+  componentWillUnmount() {
+    this._isMounted = false
+  }
+
   async componentDidAppear() {
     try {
       const { selectedItemId } = this.props;
       let item = await InventoryApiService.getItemById(selectedItemId)
-      this.setState({
+      this._isMounted && this.setState({
         itemTitle: item.data.model,
         itemType: item.data.os,
         itemInventoryCode: item.data.inventoryCode,

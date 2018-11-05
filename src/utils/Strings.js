@@ -64,6 +64,10 @@ const strings = {
     "indisponível",
     rentedBySessionUserText:
     "com você"
+  },
+  connectionErrorContent: {
+    instruction:
+    "Não foi possível conectar-se com o servidor. Por favor, tente mais tarde.",
   }
 };
 

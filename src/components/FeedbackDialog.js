@@ -10,10 +10,6 @@ export default class FeedbackDialog extends PureComponent {
     this.popupDialog.show();
   }
 
-  batata() {
-    console.log("batata");
-  }
-
   _getDialogContent() {
     const { mode, description } = this.props;
     if (mode === "loading") {

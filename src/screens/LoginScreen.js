@@ -45,7 +45,7 @@ export default class LoginScreen extends Component {
         Navigator.goToInventoryScreen();
       })
       .catch(err => {
-        console.log("erro no login=====>", err.code);
+        console.log("erro no login=====>", err);
         this.handleLogInError(err.code);
       });
   };

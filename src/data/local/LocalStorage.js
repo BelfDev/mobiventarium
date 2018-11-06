@@ -46,6 +46,14 @@ export default class LocalStorage {
     }
   }
 
+  static async clearAuthenticatedUser() {
+    try {
+      await AsyncStorage.removeItem(USER_KEY);
+    } catch (error) {
+      console.log(">>> clearAuthenticatedUser: ", error);
+    }
+  }
+
   static async getAppRootComponentName() {
     try {
       return AsyncStorage.getItem("rootComponentName");

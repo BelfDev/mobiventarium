@@ -1,4 +1,5 @@
 import Colors from "../utils/Colors";
+import Images from "assets";
 import { drop } from "ramda";
 import { APP_BUNDLE_ID } from './AppConfig'
 
@@ -103,6 +104,12 @@ const NavigationStyle = {
         },
         topBarDefaultStyle.title
       ),
+      rightButtons: [ {
+        id: 'signOutButton',
+        text: 'Logout',
+        icon: Images.signOutIcon,
+        color: Colors.smoothWhite,
+      }],
       background: topBarDefaultStyle.background,
       largeTitle: topBarDefaultStyle.largeTitle,
     }
@@ -166,6 +173,11 @@ const NavigationStyle = {
       elevation: 0,
       background: {
         color: "transparent"
+      }
+    },
+    animations: {
+      setStackRoot: {
+        enable: false
       }
     }
   },

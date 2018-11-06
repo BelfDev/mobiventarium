@@ -77,7 +77,7 @@ export default class Navigator {
                 itemType: selectedItem.data.os
               }
             }
-          },
+          }
         ]
       }
     });
@@ -159,6 +159,15 @@ export default class Navigator {
     Navigation.pop(componentId);
   }
 
+  static async goToOnboardingScreen(componentId) {
+    await this._setNewStackRoot(
+      componentId,
+      Screens.OnboardingScreen,
+      NavigationStyle.OnboardingScreen,
+      {}
+    );
+  }
+
   static dismissModal(componentId) {
     Navigation.dismissModal(componentId);
   }
@@ -174,13 +183,11 @@ export default class Navigator {
       AppRootComponent.options = navigationStyle;
       AppRootComponent.passProps = props;
 
-      console.log(">>> OPTIONS: ", AppRootComponent.options);
-
       await LocalStorage.saveAppRootComponentName(screenName);
       await LocalStorage.saveAppRootInitialProps(props);
 
       Navigation.setStackRoot(componentId, {
-        component: AppRootComponent
+        component: AppRootComponent,
       });
     } catch (error) {
       console.log(">>> _setNewStackRoot error: ", error);

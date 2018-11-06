@@ -99,7 +99,7 @@ const NavigationStyle = {
       buttonColor: topBarDefaultStyle.buttonColor,
       title: Object.assign(
         {
-          text: "Inventory Manager"
+          text: "Rentify"
         },
         topBarDefaultStyle.title
       ),
@@ -158,7 +158,7 @@ const NavigationStyle = {
       largeTitle: topBarDefaultStyle.largeTitle
     }
   },
-  WelcomeScreen: {
+  OnboardingScreen: {
     topBar: {
       visible: true,
       drawBehind: true,

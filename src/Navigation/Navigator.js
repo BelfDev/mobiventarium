@@ -24,7 +24,7 @@ export default class Navigator {
     });
   }
 
-  static async goToAuthenticationScreen() {
+  static async goToOnboardingScreen() {
     Navigation.setRoot({
       root: {
         stack: {
@@ -32,8 +32,8 @@ export default class Navigator {
           children: [
             {
               component: {
-                name: Screens.WelcomeScreen,
-                options: NavigationStyle.WelcomeScreen
+                name: Screens.OnboardingScreen,
+                options: NavigationStyle.OnboardingScreen
               }
             }
           ]
@@ -63,18 +63,63 @@ export default class Navigator {
     });
   }
 
-  static async goToScannerScreen(selectedItemId) {
+  static async goToRentedItemScreen(selectedItem) {
     Navigation.showModal({
       stack: {
         children: [
           {
             component: {
+              name: Screens.RentedItemScreen,
+              options: NavigationStyle.RentedItemScreen,
+              passProps: {
+                selectedItemId: selectedItem.id,
+                itemTitle: selectedItem.data.model,
+                itemType: selectedItem.data.os
+              }
+            }
+          },
+        ]
+      }
+    });
+  }
+
+  // Navigation.push(componentId, {
+  //   component: {
+  //     name: Screens.RentedItemScreen,
+  //     options: NavigationStyle.RentedItemScreen,
+  //     passProps: {
+  //       selectedItemId: selectedItem.id,
+  //       itemTitle: selectedItem.data.model,
+  //       itemType: selectedItem.data.os
+  //     }
+  //   }
+  // });
+
+  static async goToScannerScreenForCheckIn(selectedItem) {
+    const mode = "checkIn";
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: Screens.RentedItemScreen,
+              options: NavigationStyle.RentedItemScreen,
+              passProps: {
+                selectedItemId: selectedItem.id,
+                itemTitle: selectedItem.data.model,
+                itemType: selectedItem.data.os
+              }
+            }
+          },
+          {
+            component: {
               name: Screens.ScannerScreen,
               options: NavigationStyle.ScannerScreen,
               passProps: {
-                selectedItemId: selectedItemId,
+                selectedItemId: selectedItem.id,
                 modalTitle: Strings.scanner.screenTitle,
-                instruction: Strings.scanner.instructionText
+                instruction: Strings.scanner.instructionText,
+                mode
               }
             }
           }
@@ -83,27 +128,35 @@ export default class Navigator {
     });
   }
 
-  static async goToRentedItemScreen(componentId, rentedItem) {
-    const props = {
-      selectedItemId: rentedItem.id,
-      itemTitle: rentedItem.data.model,
-      itemType: rentedItem.data.os
-    };
-    this._setNewStackRoot(
-      componentId,
-      Screens.RentedItemScreen,
-      NavigationStyle.RentedItemScreen,
-      props,
-    );
+  static async goToScannerScreenForCheckout(rentedItemId, inventoryCode) {
+    const mode = "checkOut";
+    Navigation.showModal({
+      stack: {
+        children: [
+          {
+            component: {
+              name: Screens.ScannerScreen,
+              options: NavigationStyle.ScannerScreen,
+              passProps: {
+                selectedItemId: rentedItemId,
+                modalTitle: Strings.scanner.screenTitle,
+                instruction: Strings.scanner.instructionText,
+                inventoryCode: inventoryCode,
+                mode
+              }
+            }
+          }
+        ]
+      }
+    });
   }
 
-  static async leaveRentedItemScreen(componentId) {
-    this._setNewStackRoot(
-      componentId,
-      Screens.InventoryScreen,
-      NavigationStyle.InventoryScreen,
-      {},
-    );
+  static async goToInventoryScreenAfterCheckOut() {
+    Navigation.dismissAllModals();
+  }
+
+  static async goToRentedItemScreenAfterCheckIn(componentId) {
+    Navigation.pop(componentId);
   }
 
   static dismissModal(componentId) {
@@ -114,17 +167,18 @@ export default class Navigator {
     componentId,
     screenName,
     navigationStyle,
-    props,
+    props
   ) {
     try {
       AppRootComponent.name = screenName;
-      AppRootComponent.options = navigationStyle
+      AppRootComponent.options = navigationStyle;
       AppRootComponent.passProps = props;
 
       console.log(">>> OPTIONS: ", AppRootComponent.options);
 
       await LocalStorage.saveAppRootComponentName(screenName);
       await LocalStorage.saveAppRootInitialProps(props);
+
       Navigation.setStackRoot(componentId, {
         component: AppRootComponent
       });

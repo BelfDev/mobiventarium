@@ -8,7 +8,7 @@ import { isiPhoneXorAbove } from "../utils/PlatformUtils";
 
 export default class QRModalMarker extends PureComponent {
   render() {
-    const { instructionText, modalTitleText, onClosePressed } = this.props;
+    const { instructionText, modalTitleText, onClosePressed, closeButtonDisabled } = this.props;
     return (
       <View style={styles.markerContainer}>
         <View style={styles.modalBarContainer}>
@@ -22,6 +22,7 @@ export default class QRModalMarker extends PureComponent {
             )}
             color={Colors.smoothWhite}
             size={Platform.OS === "ios" ? 32 : 24}
+            disabled={closeButtonDisabled}
             onPress={() => (onClosePressed ? onClosePressed() : null)}
           />
           <Text style={styles.modalTitle} numberOfLines={1}>

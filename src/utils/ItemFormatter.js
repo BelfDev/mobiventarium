@@ -1,4 +1,5 @@
 import Colors from "./Colors";
+import Strings from './Strings'
 
 export default class ItemFormatter {
   static getDescriptionTextFormat(os) {
@@ -9,16 +10,27 @@ export default class ItemFormatter {
     return os === "ios" ? Colors.iosGray : Colors.androidGreen;
   }
 
-  static getStatusLabelText(isRented) {
-    return isRented ? "indisponível" : "disponível";
+  static getStatusLabelText(isRented, isRentedBySessionUser) {
+    if (isRented && isRentedBySessionUser) {
+      return Strings.itemFormatter.rentedBySessionUserText
+    } else {
+      return isRented ? Strings.itemFormatter.unavailableLabelText : Strings.itemFormatter.availableLabelText;
+    }
+  }
+  static getStatusLabelColor(isRented, isRentedBySessionUser) {
+    if (isRented && isRentedBySessionUser) {
+      return Colors.vividPurple
+    } else {
+      return isRented ? Colors.vividRed : Colors.vividGreen;
+    }
   }
 
-  static getStatusLabelColor(isRented) {
-    return isRented ? Colors.vividRed : Colors.vividGreen;
-  }
-
-  static getStatusLabelBorderColor(isRented) {
-    return isRented ? Colors.red : Colors.green;
+  static getStatusLabelBorderColor(isRented, isRentedBySessionUser) {
+    if (isRented && isRentedBySessionUser) {
+      return Colors.purple
+    } else {
+      return isRented ? Colors.red : Colors.green;
+    }
   }
 
   static getIconName(os) {

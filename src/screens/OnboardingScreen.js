@@ -5,7 +5,7 @@ import { Button } from 'react-native-paper';
 import NavigationStyle from "../navigation/NavigationStyle";
 import Images from '../assets';
 
-export default class WelcomeScreen extends Component {
+export default class OnboardingScreen extends Component {
   constructor(props) {
     super(props);
     this.pushLoginScreen = this.pushLoginScreen.bind(this);

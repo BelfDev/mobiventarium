@@ -6,6 +6,10 @@ const strings = {
       "Por favor, escaneie o QR Code",
     idMismatchError:
       "Por favor escaneie o mesmo item selecionado na lista do inventário.",
+    inventoryCodeMismatchError: 
+      "Por favor retorne o item ao seu inventário de origem.",
+    renterEmailMismatchError: 
+      "Você só pode devolver itens que você mesmo alugou.",
     connectionError:
       "Não foi possível conectar-se com o servidor. Por favor, tente mais tarde.",
     validationError: 
@@ -52,6 +56,18 @@ const strings = {
     "Não foi possível conectar-se com o servidor. Por favor, tente mais tarde.",
     checkoutSuccess:
     "Obrigado, o item foi devolvido com sucesso."
+  },
+  itemFormatter: {
+    availableLabelText: 
+    "disponível",
+    unavailableLabelText:
+    "indisponível",
+    rentedBySessionUserText:
+    "com você"
+  },
+  connectionErrorContent: {
+    instruction:
+    "Não foi possível conectar-se com o servidor. Por favor, tente mais tarde.",
   }
 };
 

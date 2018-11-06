@@ -1,10 +1,14 @@
 import { observable, action } from "mobx";
 import BaseStore from "./BaseStore";
 import InventoryApiService from "../services/InventoryApiService";
+import LocalStorage from "../../local/LocalStorage";
 
 export default class ItemStore extends BaseStore {
   @observable
   itemList = [];
+
+  @observable
+  rentedItemId = null;
 
   @action
   async getItems() {
@@ -45,4 +49,14 @@ export default class ItemStore extends BaseStore {
       data: doc.data()
     }));
   };
+
+  @action
+  async getRentedItemId() {
+    try {
+      this.rentedItemId = await LocalStorage.getRentedItemId();
+    } catch (error) {
+      console.log(">>> getRentedItemId error: ", error);
+    }
+  }
+
 }

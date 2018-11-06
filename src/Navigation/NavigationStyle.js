@@ -105,9 +105,10 @@ const NavigationStyle = {
         topBarDefaultStyle.title
       ),
       rightButtons: [ {
-        id: 'logoutButton',
+        id: 'signOutButton',
         text: 'Logout',
-        icon: Images.accountIcon
+        icon: Images.signOutIcon,
+        color: Colors.smoothWhite,
       }],
       background: topBarDefaultStyle.background,
       largeTitle: topBarDefaultStyle.largeTitle,
@@ -172,6 +173,11 @@ const NavigationStyle = {
       elevation: 0,
       background: {
         color: "transparent"
+      }
+    },
+    animations: {
+      setStackRoot: {
+        enable: false
       }
     }
   },

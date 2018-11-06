@@ -63,7 +63,7 @@ export default class InventoryScreen extends Component {
   navigationButtonPressed = async ({ buttonId }) => {
     if (this._isMounted) {
       switch (buttonId) {
-        case "logoutButton":
+        case "signOutButton":
           await this._signSessionUserOut();
           break;
       }

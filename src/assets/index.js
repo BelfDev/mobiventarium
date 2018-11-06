@@ -3,7 +3,7 @@ import androidBackground from './img/android-bg.png'
 import iosBackground from './img/ios-bg.png'
 import avatarPlaceholder from './img/avatar-placeholder.png'
 import mainIcon from './img/main-icon.png'
-import accountIcon from './img/account-icon.png'
+import signOutIcon from './img/signout-icon.png'
 
 const images = {
 	galaxy,
@@ -11,7 +11,7 @@ const images = {
 	iosBackground,
 	avatarPlaceholder,
 	mainIcon,
-	accountIcon
+	signOutIcon
 };
 
 export default images;

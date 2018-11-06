@@ -23,7 +23,7 @@ export const Screens = {
 export const AppRootComponent = {
   name: Screens.InventoryScreen,
   options: NavigationStyle.InventoryScreen,
-  passProps: {}
+  passProps: {},
 };
 
 const screenList = [

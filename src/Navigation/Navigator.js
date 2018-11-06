@@ -183,13 +183,11 @@ export default class Navigator {
       AppRootComponent.options = navigationStyle;
       AppRootComponent.passProps = props;
 
-      console.log(">>> OPTIONS: ", AppRootComponent.options);
-
       await LocalStorage.saveAppRootComponentName(screenName);
       await LocalStorage.saveAppRootInitialProps(props);
 
       Navigation.setStackRoot(componentId, {
-        component: AppRootComponent
+        component: AppRootComponent,
       });
     } catch (error) {
       console.log(">>> _setNewStackRoot error: ", error);

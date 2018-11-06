@@ -38,14 +38,11 @@ export default class LoginScreen extends Component {
     });
     if (!this.state.emailLogIn || !this.state.passwordLogIn) return null;
     const { emailLogIn, passwordLogIn } = this.state;
-    AuthenticationApiService.login(emailLogIn, passwordLogIn)
-      .then(credential  => {
+
+    sessionStore.signUserIn(emailLogIn, passwordLogIn)
+    .then(()  => {
         console.log("==========autenticado=======");
-        console.log("user=======>", credential.user.toJSON());
-        sessionStore.setSessionUser(credential.user)
-        .then(() => {
-            Navigator.goToInventoryScreen();
-        })
+        Navigator.goToInventoryScreen();
       })
       .catch(err => {
         console.log("erro no login=====>", err.code);

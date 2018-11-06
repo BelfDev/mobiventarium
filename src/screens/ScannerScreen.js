@@ -91,6 +91,9 @@ export default class ScannerScreen extends Component {
             databaseItem.data.rentedBy = null;
             let editedItem = Object.assign({}, databaseItem);
             await InventoryApiService.updateItem(editedItem);
+            sessionStore.setUserData({
+              rentedItemId: null
+            })
             await LocalStorage.clearRentedItemId();
             this.setState({
               feedbackMode: "success",
@@ -135,6 +138,9 @@ export default class ScannerScreen extends Component {
         databaseItem.data.rentedBy = sessionUser.email;
         let editedItem = Object.assign({}, databaseItem);
         await InventoryApiService.updateItem(editedItem);
+        sessionStore.setUserData({
+          rentedItemId: editedItem.id
+        })
         await LocalStorage.saveRentedItemId(selectedItemId);
         this.setState({
           feedbackMode: "success",
@@ -167,8 +173,8 @@ export default class ScannerScreen extends Component {
     try {
       let scannedItem = JSON.parse(code.data);
       if (
-        this._isValidForCheckIn(scannedItem.data) ||
-        this._isValidForCheckOut(scannedItem.data)
+        this._isValidForCheckIn(scannedItem) ||
+        this._isValidForCheckOut(scannedItem)
       ) {
         return true;
       } else {
@@ -186,25 +192,27 @@ export default class ScannerScreen extends Component {
     }
   }
 
-  _isValidForCheckIn(scannedItemData) {
+  _isValidForCheckIn(scannedItem) {
     const { mode } = this.props;
+    let hasId = has("id");
     let hasSerialNumber = has("serial");
-    let hasRentedStatus = has("isRented");
+    let hasInventoryCodeStatus = has("inventoryCode");
     return (
       mode === "checkIn" &&
-      hasSerialNumber(scannedItemData) &&
-      hasRentedStatus(scannedItemData)
+      hasId(scannedItem) &&
+      hasSerialNumber(scannedItem.data) &&
+      hasInventoryCodeStatus(scannedItem.data)
     );
   }
 
-  _isValidForCheckOut(scannedItemData) {
+  _isValidForCheckOut(scannedItem) {
     const { mode } = this.props;
     let hasInventoryCode = has("inventoryCode");
     let hasInventoryOwner = has("inventoryOwner");
     return (
       mode === "checkOut" &&
-      hasInventoryCode(scannedItemData) &&
-      hasInventoryOwner(scannedItemData)
+      hasInventoryCode(scannedItem.data) &&
+      hasInventoryOwner(scannedItem.data)
     );
   }
 

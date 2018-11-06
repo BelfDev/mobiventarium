@@ -2,7 +2,7 @@ import firebase from "react-native-firebase";
 
 const authentication = firebase.auth();
 export default class AuthenticationApiService {
-  static async login(email, password) {
+  static async signIn(email, password) {
     return authentication.signInAndRetrieveDataWithEmailAndPassword(
       email,
       password

@@ -1,4 +1,5 @@
 import Colors from "../utils/Colors";
+import Images from "assets";
 import { drop } from "ramda";
 import { APP_BUNDLE_ID } from './AppConfig'
 
@@ -103,6 +104,11 @@ const NavigationStyle = {
         },
         topBarDefaultStyle.title
       ),
+      rightButtons: [ {
+        id: 'logoutButton',
+        text: 'Logout',
+        icon: Images.accountIcon
+      }],
       background: topBarDefaultStyle.background,
       largeTitle: topBarDefaultStyle.largeTitle,
     }

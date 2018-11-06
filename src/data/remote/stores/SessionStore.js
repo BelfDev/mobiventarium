@@ -2,7 +2,7 @@ import { observable, action } from "mobx";
 import BaseStore from "./BaseStore";
 import LocalStorage from "../../local/LocalStorage";
 import { isEmpty } from "ramda";
-import AuthenticationApiService from "../services/InventoryApiService";
+import AuthenticationApiService from "../services/AuthenticationApiService";
 
 export default class SessionStore extends BaseStore {
   @observable
@@ -31,5 +31,17 @@ export default class SessionStore extends BaseStore {
       this.user = await LocalStorage.getAuthenticatedUser();
     }
     return this.user;
+  }
+
+  @action
+  async signSessionUserOut() {
+    try {
+      await AuthenticationApiService.signOut();
+      await LocalStorage.clearAuthenticatedUser();
+      this.user = {};
+    } catch (error) {
+      console.log(">>> signSessionUserOut error: ", error);
+      throw "SignOut Error";
+    }
   }
 }

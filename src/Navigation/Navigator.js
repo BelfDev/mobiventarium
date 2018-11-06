@@ -77,7 +77,7 @@ export default class Navigator {
                 itemType: selectedItem.data.os
               }
             }
-          },
+          }
         ]
       }
     });
@@ -157,6 +157,15 @@ export default class Navigator {
 
   static async goToRentedItemScreenAfterCheckIn(componentId) {
     Navigation.pop(componentId);
+  }
+
+  static async goToOnboardingScreen(componentId) {
+    await this._setNewStackRoot(
+      componentId,
+      Screens.OnboardingScreen,
+      NavigationStyle.OnboardingScreen,
+      {}
+    );
   }
 
   static dismissModal(componentId) {

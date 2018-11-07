@@ -30,8 +30,9 @@ export default class InventoryScreen extends Component {
 
   componentDidMount = async () => {
     this._isMounted = true;
-    const { itemStore } = this.props;
+    const { sessionStore, itemStore } = this.props;
     try {
+      await sessionStore.getRentedItemId();
       this.unsubscribe = await itemStore.subscribeToInventory();
     } catch (error) {
       console.log(">>> Erro de conexão: ", error);
@@ -44,15 +45,14 @@ export default class InventoryScreen extends Component {
   };
 
   async componentDidAppear() {
-    const { itemStore } = this.props;
-    await itemStore.getRentedItemId();
+    const { sessionStore } = this.props;
     if (this._isMounted) {
-      this._isMounted &&
-        this.setState({
-          itemPressed: false
-        });
+      await sessionStore.getRentedItemId();
+      this.setState({
+        itemPressed: false
+      });
     }
-    console.log(" RENTED ITEM: ", itemStore.rentedItemId);
+    console.log(" RENTED ITEM: ", sessionStore.user.data);
   }
 
   componentWillUnmount = () => {
@@ -105,8 +105,8 @@ export default class InventoryScreen extends Component {
   };
 
   _isItemRentedBySessionUser = itemId => {
-    const { itemStore } = this.props;
-    return itemStore.rentedItemId === itemId;
+    const { sessionStore } = this.props;
+    return sessionStore.rentedItemId === itemId;
   };
 
   _keyExtractor = item => item.id.toString();

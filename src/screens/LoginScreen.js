@@ -5,9 +5,9 @@ import {
   TextInput,
   View,
   Image,
-  ScrollView
+  ScrollView,
+  SafeAreaView
 } from "react-native";
-import firebase from "react-native-firebase";
 import { Button } from "react-native-paper";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";

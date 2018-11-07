@@ -24,7 +24,6 @@
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		18A562350C44405B81722AA2 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 782A5432CFBE4AEABA9F66AC /* FontAwesome5_Solid.ttf */; };
-		1FD9A1E4959A923B4A43EC56 /* libPods-mobiventariumTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754E9F5067947FE1B52DA90A /* libPods-mobiventariumTests.a */; };
 		27EC5957D6A7401C9B693D2F /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2CC4283DA02496EBA9DC9EF /* MaterialIcons.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -39,19 +38,20 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* mobiventariumTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* mobiventariumTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
+		3206C20B81A02A02C223FD9E /* libPods-mobiventarium-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76F1DD9D1974F3AD1C8909AC /* libPods-mobiventarium-tvOS.a */; };
 		4A4B75B6B1F54EA298444D72 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2977342444424041A2105130 /* Foundation.ttf */; };
 		53EC8A30140A4617AAE2FB7E /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 637F42FAA4AA4C5A8C632F5E /* libRNVectorIcons.a */; };
 		5C425322B6F5480C995F8245 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D687BF6201EC4BEE806D5EB2 /* SimpleLineIcons.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
-		71F3EA4B732B0D4047C076BE /* libPods-mobiventarium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD9FCA4DFD2D4F6F082CAC8 /* libPods-mobiventarium.a */; };
-		7B0923CA43AF7EBEB8A7482D /* libPods-mobiventarium-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C86CECA2BB31BA181EFB9D1C /* libPods-mobiventarium-tvOS.a */; };
 		7B1F55122FAC4D4A9EE54E62 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CC9550A31CD4BA59B618F8D /* FontAwesome.ttf */; };
 		7B4184AD24C2489FA0F24BD7 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BBE2D4E0319449DAF8FC086 /* FontAwesome5_Brands.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		9734197B2176293A008E16FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9734197A2176293A008E16FE /* GoogleService-Info.plist */; };
+		9D01D676D2B12698A3B110E2 /* libPods-mobiventarium-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D54CE75A9FAB79FB68B6C480 /* libPods-mobiventarium-tvOSTests.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B2CA649F15F549D8AF0CE02C /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144E07A0EF454915B21B6885 /* MaterialCommunityIcons.ttf */; };
 		B66C8FAF62FD41D6BBFE3AD6 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CF6B11C419948B69862764F /* FontAwesome5_Regular.ttf */; };
+		BA6795D7F85B0A563840171B /* libPods-mobiventarium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B080CE064F973A7A783B6888 /* libPods-mobiventarium.a */; };
 		BB5AE14AC18C48488C7DDE16 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 247F8A1A9B5B438EADD6F9F0 /* Ionicons.ttf */; };
 		BB67567455CA48ED8036ED17 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34ADBFA7A10C453EB3713790 /* Octicons.ttf */; };
 		BBD64795489B4C4B9B1CE688 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E76383E15584C05A6B600DD /* Zocial.ttf */; };
@@ -59,7 +59,7 @@
 		CDA79BF2750C4A339EE61BE5 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B94D78DF7C92401FB948E271 /* Feather.ttf */; };
 		E8882AD1013F4E08B2156127 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CE289705D844AD281560424 /* Entypo.ttf */; };
 		EBB86813214B455100B20BA6 /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBB86810214B454500B20BA6 /* libReactNativeNavigation.a */; };
-		F8830CA6ABA42481A8B316A1 /* libPods-mobiventarium-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91223F17C386024FA93AEEBD /* libPods-mobiventarium-tvOSTests.a */; };
+		F0844EAF3256F155F87D6419 /* libPods-mobiventariumTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F47A06795D9D0206295B7C0 /* libPods-mobiventariumTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -376,7 +376,6 @@
 		00E356EE1AD99517003FC87E /* mobiventariumTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mobiventariumTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* mobiventariumTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mobiventariumTests.m; sourceTree = "<group>"; };
-		07EA155AA5657B0D6E633484 /* Pods-mobiventariumTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventariumTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventariumTests/Pods-mobiventariumTests.debug.xcconfig"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* mobiventarium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mobiventarium.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -389,42 +388,43 @@
 		144E07A0EF454915B21B6885 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1B7C1AFB138B41B3AF398640 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		2033EB983B9213A994C04D82 /* Pods-mobiventarium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium.release.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium/Pods-mobiventarium.release.xcconfig"; sourceTree = "<group>"; };
 		247F8A1A9B5B438EADD6F9F0 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		2977342444424041A2105130 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		2B05F5B96E4F3D6832376CC8 /* Pods-mobiventariumTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventariumTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventariumTests/Pods-mobiventariumTests.release.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* mobiventarium-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mobiventarium-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* mobiventarium-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mobiventarium-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F47A06795D9D0206295B7C0 /* libPods-mobiventariumTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mobiventariumTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		31F146283288AE9E87DDE10E /* Pods-mobiventarium-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium-tvOS/Pods-mobiventarium-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		337C49008149FBA8CE69B664 /* Pods-mobiventarium-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium-tvOSTests/Pods-mobiventarium-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		34ADBFA7A10C453EB3713790 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
-		39579F5E28B9477A575C81CF /* Pods-mobiventarium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium/Pods-mobiventarium.debug.xcconfig"; sourceTree = "<group>"; };
-		3AD9FCA4DFD2D4F6F082CAC8 /* libPods-mobiventarium.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mobiventarium.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		39738DB143C570E40E3A132D /* Pods-mobiventarium-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium-tvOSTests/Pods-mobiventarium-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		457EC233217270CD0014CA9A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		637F42FAA4AA4C5A8C632F5E /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		6CC9550A31CD4BA59B618F8D /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		6CF6B11C419948B69862764F /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
-		754E9F5067947FE1B52DA90A /* libPods-mobiventariumTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mobiventariumTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		76F1DD9D1974F3AD1C8909AC /* libPods-mobiventarium-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mobiventarium-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		776CA667A3EEC790119E4B4F /* Pods-mobiventariumTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventariumTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventariumTests/Pods-mobiventariumTests.debug.xcconfig"; sourceTree = "<group>"; };
 		782A5432CFBE4AEABA9F66AC /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		79754D58E9AB19DCFA7E4AFB /* Pods-mobiventarium-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium-tvOS/Pods-mobiventarium-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		7ABC02EB4AE9604478EC9C1F /* Pods-mobiventarium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium/Pods-mobiventarium.debug.xcconfig"; sourceTree = "<group>"; };
 		7BBE2D4E0319449DAF8FC086 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		7CE289705D844AD281560424 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		84BEC62CDF024653B6A83E36 /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
-		85587FE7C56DBB1B42776EFF /* Pods-mobiventariumTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventariumTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventariumTests/Pods-mobiventariumTests.release.xcconfig"; sourceTree = "<group>"; };
 		8E76383E15584C05A6B600DD /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		91223F17C386024FA93AEEBD /* libPods-mobiventarium-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mobiventarium-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9734197A2176293A008E16FE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		B080CE064F973A7A783B6888 /* libPods-mobiventarium.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mobiventarium.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B94D78DF7C92401FB948E271 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
-		B9589639D3D16A983EEC3657 /* Pods-mobiventarium-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium-tvOSTests/Pods-mobiventarium-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		C86CECA2BB31BA181EFB9D1C /* libPods-mobiventarium-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mobiventarium-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D209C4EACA902AB985434AA3 /* Pods-mobiventarium-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium-tvOS/Pods-mobiventarium-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		D2CC4283DA02496EBA9DC9EF /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		D54CE75A9FAB79FB68B6C480 /* libPods-mobiventarium-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mobiventarium-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D687BF6201EC4BEE806D5EB2 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		DE84C8BCB4D87D9296B2A1F0 /* Pods-mobiventarium-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium-tvOS/Pods-mobiventarium-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		EBB867E5214B454500B20BA6 /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/lib/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
-		F218909E7D13810606532AC9 /* Pods-mobiventarium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium.release.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium/Pods-mobiventarium.release.xcconfig"; sourceTree = "<group>"; };
 		F325BF509E10457B81BDA90A /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
-		F4593F3E119EC6B0258D4DE1 /* Pods-mobiventarium-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobiventarium-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-mobiventarium-tvOSTests/Pods-mobiventarium-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		FBEB8501A4844C5B8CD2314D /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -434,7 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
-				1FD9A1E4959A923B4A43EC56 /* libPods-mobiventariumTests.a in Frameworks */,
+				F0844EAF3256F155F87D6419 /* libPods-mobiventariumTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,7 +458,7 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				53EC8A30140A4617AAE2FB7E /* libRNVectorIcons.a in Frameworks */,
 				BC18DCBDAD184DD0A017C8BF /* libRNFirebase.a in Frameworks */,
-				71F3EA4B732B0D4047C076BE /* libPods-mobiventarium.a in Frameworks */,
+				BA6795D7F85B0A563840171B /* libPods-mobiventarium.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,7 +474,7 @@
 				2D02E4C61E0B4AEC006451C7 /* libRCTSettings-tvOS.a in Frameworks */,
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
-				7B0923CA43AF7EBEB8A7482D /* libPods-mobiventarium-tvOS.a in Frameworks */,
+				3206C20B81A02A02C223FD9E /* libPods-mobiventarium-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,7 +483,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */,
-				F8830CA6ABA42481A8B316A1 /* libPods-mobiventarium-tvOSTests.a in Frameworks */,
+				9D01D676D2B12698A3B110E2 /* libPods-mobiventarium-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,6 +549,21 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		10DB7132F3A0CB9BD0694ED0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7ABC02EB4AE9604478EC9C1F /* Pods-mobiventarium.debug.xcconfig */,
+				2033EB983B9213A994C04D82 /* Pods-mobiventarium.release.xcconfig */,
+				79754D58E9AB19DCFA7E4AFB /* Pods-mobiventarium-tvOS.debug.xcconfig */,
+				31F146283288AE9E87DDE10E /* Pods-mobiventarium-tvOS.release.xcconfig */,
+				39738DB143C570E40E3A132D /* Pods-mobiventarium-tvOSTests.debug.xcconfig */,
+				337C49008149FBA8CE69B664 /* Pods-mobiventarium-tvOSTests.release.xcconfig */,
+				776CA667A3EEC790119E4B4F /* Pods-mobiventariumTests.debug.xcconfig */,
+				2B05F5B96E4F3D6832376CC8 /* Pods-mobiventariumTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -612,10 +627,10 @@
 			isa = PBXGroup;
 			children = (
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				3AD9FCA4DFD2D4F6F082CAC8 /* libPods-mobiventarium.a */,
-				C86CECA2BB31BA181EFB9D1C /* libPods-mobiventarium-tvOS.a */,
-				91223F17C386024FA93AEEBD /* libPods-mobiventarium-tvOSTests.a */,
-				754E9F5067947FE1B52DA90A /* libPods-mobiventariumTests.a */,
+				B080CE064F973A7A783B6888 /* libPods-mobiventarium.a */,
+				76F1DD9D1974F3AD1C8909AC /* libPods-mobiventarium-tvOS.a */,
+				D54CE75A9FAB79FB68B6C480 /* libPods-mobiventarium-tvOSTests.a */,
+				2F47A06795D9D0206295B7C0 /* libPods-mobiventariumTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -700,7 +715,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				2D421701ED394F1F93D823EA /* Resources */,
 				EBB8682E214B506300B20BA6 /* Recovered References */,
-				A0955168B9AD177AF1C40894 /* Pods */,
+				10DB7132F3A0CB9BD0694ED0 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -716,21 +731,6 @@
 				2D02E4901E0B4A5D006451C7 /* mobiventarium-tvOSTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		A0955168B9AD177AF1C40894 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				39579F5E28B9477A575C81CF /* Pods-mobiventarium.debug.xcconfig */,
-				F218909E7D13810606532AC9 /* Pods-mobiventarium.release.xcconfig */,
-				DE84C8BCB4D87D9296B2A1F0 /* Pods-mobiventarium-tvOS.debug.xcconfig */,
-				D209C4EACA902AB985434AA3 /* Pods-mobiventarium-tvOS.release.xcconfig */,
-				B9589639D3D16A983EEC3657 /* Pods-mobiventarium-tvOSTests.debug.xcconfig */,
-				F4593F3E119EC6B0258D4DE1 /* Pods-mobiventarium-tvOSTests.release.xcconfig */,
-				07EA155AA5657B0D6E633484 /* Pods-mobiventariumTests.debug.xcconfig */,
-				85587FE7C56DBB1B42776EFF /* Pods-mobiventariumTests.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		ADBDB9201DFEBF0600ED6528 /* Products */ = {
@@ -783,7 +783,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "mobiventariumTests" */;
 			buildPhases = (
-				B843AE9350E454DBBD849952 /* [CP] Check Pods Manifest.lock */,
+				FCE4432046C42E9BD2DEDB25 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -802,12 +802,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "mobiventarium" */;
 			buildPhases = (
-				1F4B8D7E6ECEED1BEF36CFD4 /* [CP] Check Pods Manifest.lock */,
+				F413A7983DFB03E6EC51B5DD /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				EB12C82659A3DB2A7A9877DD /* [CP] Copy Pods Resources */,
+				8CB3D3CD06224BACD072F870 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -822,7 +822,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "mobiventarium-tvOS" */;
 			buildPhases = (
-				4AB6BD2A16EA2667F331A12B /* [CP] Check Pods Manifest.lock */,
+				79291ADB03A2026A78A8658B /* [CP] Check Pods Manifest.lock */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
 				2D02E4791E0B4A5D006451C7 /* Resources */,
@@ -841,7 +841,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "mobiventarium-tvOSTests" */;
 			buildPhases = (
-				94081BE402A22AAAF7D40BA8 /* [CP] Check Pods Manifest.lock */,
+				CF9B74ED2C6002B724AE0E42 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -871,7 +871,8 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 3N2ZMMKPFS;
+						DevelopmentTeam = LMJ6674UP5;
+						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1321,28 +1322,6 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		1F4B8D7E6ECEED1BEF36CFD4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-mobiventarium-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1357,7 +1336,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		4AB6BD2A16EA2667F331A12B /* [CP] Check Pods Manifest.lock */ = {
+		79291ADB03A2026A78A8658B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1379,7 +1358,29 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		94081BE402A22AAAF7D40BA8 /* [CP] Check Pods Manifest.lock */ = {
+		8CB3D3CD06224BACD072F870 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-mobiventarium/Pods-mobiventarium-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/gRPC/gRPCCertificates.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-mobiventarium/Pods-mobiventarium-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CF9B74ED2C6002B724AE0E42 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1401,7 +1402,29 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B843AE9350E454DBBD849952 /* [CP] Check Pods Manifest.lock */ = {
+		F413A7983DFB03E6EC51B5DD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-mobiventarium-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FCE4432046C42E9BD2DEDB25 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1421,28 +1444,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EB12C82659A3DB2A7A9877DD /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-mobiventarium/Pods-mobiventarium-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/gRPC/gRPCCertificates.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-mobiventarium/Pods-mobiventarium-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1512,7 +1513,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 07EA155AA5657B0D6E633484 /* Pods-mobiventariumTests.debug.xcconfig */;
+			baseConfigurationReference = 776CA667A3EEC790119E4B4F /* Pods-mobiventariumTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 3N2ZMMKPFS;
@@ -1544,7 +1545,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 85587FE7C56DBB1B42776EFF /* Pods-mobiventariumTests.release.xcconfig */;
+			baseConfigurationReference = 2B05F5B96E4F3D6832376CC8 /* Pods-mobiventariumTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -1573,12 +1574,14 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 39579F5E28B9477A575C81CF /* Pods-mobiventarium.debug.xcconfig */;
+			baseConfigurationReference = 7ABC02EB4AE9604478EC9C1F /* Pods-mobiventarium.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 3N2ZMMKPFS;
+				DEVELOPMENT_TEAM = LMJ6674UP5;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
@@ -1591,18 +1594,22 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.belfortdev.rentify;
 				PRODUCT_NAME = mobiventarium;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F218909E7D13810606532AC9 /* Pods-mobiventarium.release.xcconfig */;
+			baseConfigurationReference = 2033EB983B9213A994C04D82 /* Pods-mobiventarium.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3N2ZMMKPFS;
+				DEVELOPMENT_TEAM = LMJ6674UP5;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
@@ -1615,14 +1622,16 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.belfortdev.rentify;
 				PRODUCT_NAME = mobiventarium;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE84C8BCB4D87D9296B2A1F0 /* Pods-mobiventarium-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 79754D58E9AB19DCFA7E4AFB /* Pods-mobiventarium-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1659,7 +1668,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D209C4EACA902AB985434AA3 /* Pods-mobiventarium-tvOS.release.xcconfig */;
+			baseConfigurationReference = 31F146283288AE9E87DDE10E /* Pods-mobiventarium-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1696,7 +1705,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B9589639D3D16A983EEC3657 /* Pods-mobiventarium-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 39738DB143C570E40E3A132D /* Pods-mobiventarium-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1732,7 +1741,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F4593F3E119EC6B0258D4DE1 /* Pods-mobiventarium-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 337C49008149FBA8CE69B664 /* Pods-mobiventarium-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;

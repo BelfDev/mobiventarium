@@ -30,12 +30,9 @@ export default class SessionStore extends BaseStore {
       creationTime: metadata.creationTime,
       data
     };
-    if (!isNil(user.data)) {
-      await LocalStorage.saveRentedItemId(user.data.rentedItemId);
-    }
+    if (!isNil(data)) { this.rentedItemId = data.rentedItemId }
     this.user = user;
     await LocalStorage.saveAuthenticatedUser(this.user);
-
     console.log(">>> SAVED authenticated user: ", this.user);
   }
 
@@ -48,26 +45,20 @@ export default class SessionStore extends BaseStore {
   }
 
   @action
-  async setUserData(data) {
+  async setUserData(rentedItemId) {
+
+    const data = {
+      rentedItemId,
+    }
+
     this.user.data = data;
     console.log("NEW DATA: ", this.user.data);
     try {
       await UserDataApiService.createUserDataIfNeeded(this.user);
-      if (!isNil(data.rentedItemId) && !isEmpty(data.rentedItemId)) {
-        await LocalStorage.saveRentedItemId(data.rentedItemId);
-      }
+      this.rentedItemId = rentedItemId
     } catch (error) {
       console.log(">>> createUserDataIfNeeded error: ", this.user);
       throw "Error setting user data";
-    }
-  }
-
-  @action
-  async getRentedItemId() {
-    try {
-      this.rentedItemId = await LocalStorage.getRentedItemId();
-    } catch (error) {
-      console.log(">>> getRentedItemId: ", error);
     }
   }
 
@@ -76,7 +67,7 @@ export default class SessionStore extends BaseStore {
     try {
       await AuthenticationApiService.signOut();
       await LocalStorage.clearAuthenticatedUser();
-      await LocalStorage.clearRentedItemId();
+      this.rentedItemId = null;
       this.user = {};
     } catch (error) {
       console.log(">>> signSessionUserOut error: ", error);

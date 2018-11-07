@@ -21,22 +21,6 @@ export default class LocalStorage {
     }
   }
 
-  static async saveRentedItemId(id) {
-    try {
-      await AsyncStorage.setItem(RENTED_ITEM_ID, id);
-    } catch (error) {
-      console.log(">>> saveRentedItemId: ", error);
-    }
-  }
-
-  static async clearRentedItemId() {
-    try {
-      await AsyncStorage.removeItem(RENTED_ITEM_ID);
-    } catch (error) {
-      console.log(">>> clearRentedItemId: ", error);
-    }
-  }
-
   static async saveAuthenticatedUser(user) {
     try {
       let stringifiedUser = JSON.stringify(user);
@@ -94,11 +78,4 @@ export default class LocalStorage {
     }
   }
 
-  static async getRentedItemId() {
-    try {
-      return await AsyncStorage.getItem(RENTED_ITEM_ID);
-    } catch (error) {
-      console.log(">>> getRentedItemId: ", error);
-    }
-  }
 }

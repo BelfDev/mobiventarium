@@ -30,9 +30,8 @@ export default class InventoryScreen extends Component {
 
   componentDidMount = async () => {
     this._isMounted = true;
-    const { sessionStore, itemStore } = this.props;
+    const { itemStore } = this.props;
     try {
-      await sessionStore.getRentedItemId();
       this.unsubscribe = await itemStore.subscribeToInventory();
     } catch (error) {
       console.log(">>> Erro de conexão: ", error);
@@ -47,12 +46,11 @@ export default class InventoryScreen extends Component {
   async componentDidAppear() {
     const { sessionStore } = this.props;
     if (this._isMounted) {
-      await sessionStore.getRentedItemId();
       this.setState({
         itemPressed: false
       });
     }
-    console.log(" RENTED ITEM: ", sessionStore.user.data);
+    console.log(" RENTED ITEM: ", sessionStore.rentedItemId);
   }
 
   componentWillUnmount = () => {

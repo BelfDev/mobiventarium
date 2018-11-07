@@ -91,10 +91,7 @@ export default class ScannerScreen extends Component {
             databaseItem.data.rentedBy = null;
             let editedItem = Object.assign({}, databaseItem);
             await InventoryApiService.updateItem(editedItem);
-            sessionStore.setUserData({
-              rentedItemId: null
-            })
-            await LocalStorage.clearRentedItemId();
+            sessionStore.setUserData(null)
             this.setState({
               feedbackMode: "success",
               descriptionMessage: `Você devolveu ${editedItem.data.model}`,
@@ -138,9 +135,7 @@ export default class ScannerScreen extends Component {
         databaseItem.data.rentedBy = sessionUser.email;
         let editedItem = Object.assign({}, databaseItem);
         await InventoryApiService.updateItem(editedItem);
-        sessionStore.setUserData({
-          rentedItemId: editedItem.id
-        })
+        sessionStore.setUserData(editedItem.id)
         this.setState({
           feedbackMode: "success",
           descriptionMessage: `Você alugou ${editedItem.data.model}`,

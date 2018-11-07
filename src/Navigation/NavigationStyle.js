@@ -66,7 +66,7 @@ const topBarDefaultStyle = {
   visible: true,
   elevation: 4,
   backButton: {
-    color: "black"
+    color: "white"
   },
   buttonColor: "white",
   title: {
@@ -130,22 +130,45 @@ const NavigationStyle = {
     }
   },
   LoginScreen: {
+    layout: {
+      orientation: ["portrait"]
+    },
     topBar: {
       visible: topBarDefaultStyle.visible,
-      elevation: topBarDefaultStyle.elevation,
+      animate: false,
+      drawBehind: true,
+      backButton: topBarDefaultStyle.backButton,
+      buttonColor: topBarDefaultStyle.buttonColor,
+      elevation: 0,
       transparent: true,
-      background: topBarDefaultStyle.background
+      background: {
+        color: "transparent",
+        translucent: true
+      },
     }
   },
   SignUpScreen: {
+    layout: {
+      orientation: ["portrait"]
+    },
     topBar: {
       visible: topBarDefaultStyle.visible,
-      elevation: topBarDefaultStyle.elevation,
+      animate: false,
+      drawBehind: true,
+      backButton: topBarDefaultStyle.backButton,
+      buttonColor: topBarDefaultStyle.buttonColor,
+      elevation: 0,
       transparent: true,
-      background: topBarDefaultStyle.background
+      background: {
+        color: "transparent",
+        translucent: true
+      },
     }
   },
   RentedItemScreen: {
+    layout: {
+      orientation: ["portrait"]
+    },
     topBar: {
       visible: false,
       animate: true,
@@ -166,14 +189,13 @@ const NavigationStyle = {
     }
   },
   OnboardingScreen: {
+    layout: {
+      orientation: ["portrait"]
+    },
     topBar: {
-      visible: true,
+      visible: false,
       drawBehind: true,
-      transparent: true,
-      elevation: 0,
-      background: {
-        color: "transparent"
-      }
+      animate: false,
     },
     animations: {
       setStackRoot: {

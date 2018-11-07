@@ -7,9 +7,6 @@ export default class ItemStore extends BaseStore {
   @observable
   itemList = [];
 
-  @observable
-  rentedItemId = null;
-
   @action
   async getItems() {
     try {
@@ -49,14 +46,5 @@ export default class ItemStore extends BaseStore {
       data: doc.data()
     }));
   };
-
-  @action
-  async getRentedItemId() {
-    try {
-      this.rentedItemId = await LocalStorage.getRentedItemId();
-    } catch (error) {
-      console.log(">>> getRentedItemId error: ", error);
-    }
-  }
 
 }

@@ -141,7 +141,6 @@ export default class ScannerScreen extends Component {
         sessionStore.setUserData({
           rentedItemId: editedItem.id
         })
-        await LocalStorage.saveRentedItemId(selectedItemId);
         this.setState({
           feedbackMode: "success",
           descriptionMessage: `Você alugou ${editedItem.data.model}`,

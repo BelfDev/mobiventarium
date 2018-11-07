@@ -42,7 +42,7 @@ export default class LoginScreen extends Component {
     sessionStore.signUserIn(emailLogIn, passwordLogIn)
     .then(()  => {
         console.log("==========autenticado=======");
-        Navigator.goToInventoryScreen();
+        Navigator.goToInventoryScreen(this.props.componentId);
       })
       .catch(err => {
         console.log("erro no login=====>", err);

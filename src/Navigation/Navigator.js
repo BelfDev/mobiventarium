@@ -42,25 +42,13 @@ export default class Navigator {
     });
   }
 
-  static async goToInventoryScreen() {
-    Navigation.setRoot({
-      root: {
-        stack: {
-          id: "App",
-          children: [
-            {
-              component: {
-                name: Screens.InventoryScreen,
-                options: NavigationStyle.InventoryScreen,
-                navigatorStyle: {
-                  navBarHidden: true
-                }
-              }
-            }
-          ]
-        }
-      }
-    });
+  static async goToInventoryScreen(componentId) {
+    await this._setNewStackRoot(
+      componentId,
+      Screens.InventoryScreen,
+      NavigationStyle.InventoryScreen,
+      {}
+    );
   }
 
   static async goToRentedItemScreen(selectedItem) {

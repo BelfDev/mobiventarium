@@ -9,7 +9,7 @@ import Colors from "../utils/Colors";
 import { Navigation } from "react-native-navigation";
 import Navigator from "../navigation/Navigator";
 import ConnectionErrorContent from "../components/ConnectionErrorContent";
-import { isNil } from "ramda";
+import { isNil, contains } from "ramda";
 
 @inject("itemStore", "sessionStore")
 @observer
@@ -32,8 +32,9 @@ export default class InventoryScreen extends Component {
     this._isMounted = true;
     const { sessionStore, itemStore } = this.props;
     try {
-      await sessionStore.getRentedItemId();
       this.unsubscribe = await itemStore.subscribeToInventory();
+      console.log("Trying to Sync...")
+      await sessionStore.syncRentedItemsIfNeeded()
     } catch (error) {
       console.log(">>> Erro de conexão: ", error);
       this._isMounted &&
@@ -45,14 +46,13 @@ export default class InventoryScreen extends Component {
   };
 
   async componentDidAppear() {
-    const { sessionStore } = this.props;
     if (this._isMounted) {
-      await sessionStore.getRentedItemId();
+      const { sessionStore } = this.props;
       this.setState({
         itemPressed: false
       });
+      console.log(" RENTED ITEM: ", sessionStore.rentedItemId);
     }
-    console.log(" RENTED ITEM: ", sessionStore.user.data);
   }
 
   componentWillUnmount = () => {
@@ -106,7 +106,7 @@ export default class InventoryScreen extends Component {
 
   _isItemRentedBySessionUser = itemId => {
     const { sessionStore } = this.props;
-    return sessionStore.rentedItemId === itemId;
+    return contains(itemId, sessionStore.rentedItems);
   };
 
   _keyExtractor = item => item.id.toString();

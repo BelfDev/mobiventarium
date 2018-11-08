@@ -15,7 +15,7 @@ import FeedbackDialog from "../components/FeedbackDialog";
 import NavigationStyle from "../navigation/NavigationStyle";
 import Navigator from "../navigation/Navigator";
 import { observer, inject } from "mobx-react/native";
-import LocalStorage from "../data/local/LocalStorage";
+import { Navigation } from "react-native-navigation";
 import moment from "moment";
 import "moment/locale/pt-br";
 import { MAX_RENTAL_DAYS } from "../navigation/AppConfig";
@@ -27,22 +27,34 @@ export default class ScannerScreen extends Component {
   state = {
     feedbackMode: "loading",
     descriptionMessage: "",
-    closeButtonDisabled: false,
   };
 
   constructor(props) {
     super(props);
+    Navigation.events().bindComponent(this);
     moment.locale("pt-BR");
     console.log(">>> Setup selectedId ", this.props.selectedItemId);
   }
 
   componentDidMount = () => {
+    this._isMounted = true
     BackHandler.addEventListener("hardwareBackPress", this._handleBackPress);
   };
 
   componentWillUnmount = () => {
+    this._isMounted = false
     BackHandler.removeEventListener("hardwareBackPress", this._handleBackPress);
   };
+
+  navigationButtonPressed({ buttonId }) {
+    if (this._isMounted) {
+      switch(buttonId) {
+        case 'closeButton': 
+        Navigator.dismissModal(this.props.componentId);
+        break;
+      }
+    }
+  }
 
   async _onSuccess(code) {
     console.log(">>> SCANNED CODE: ", code);
@@ -82,23 +94,15 @@ export default class ScannerScreen extends Component {
         ) {
           try {
             databaseItem.data.isRented = !databaseItem.data.isRented;
-            databaseItem.data.retrievalDate = moment().toISOString();
-            databaseItem.data.returnDate = moment()
-              .add(MAX_RENTAL_DAYS, "day")
-              .toISOString();
-            console.log(">>> RetrievalDate: ", databaseItem.data.retrievalDate);
-            console.log(">>> ReturnDate: ", databaseItem.data.returnDate);
+            databaseItem.data.retrievalDate = null;
+            databaseItem.data.returnDate = null;
             databaseItem.data.rentedBy = null;
             let editedItem = Object.assign({}, databaseItem);
             await InventoryApiService.updateItem(editedItem);
-            sessionStore.setUserData({
-              rentedItemId: null
-            })
-            await LocalStorage.clearRentedItemId();
+            sessionStore.returnRentedItem(editedItem.id)
             this.setState({
               feedbackMode: "success",
               descriptionMessage: `Você devolveu ${editedItem.data.model}`,
-              rentedItem: null
             });
           } catch (error) {
             this.setState({
@@ -136,15 +140,16 @@ export default class ScannerScreen extends Component {
         databaseItem.data.isRented = !databaseItem.data.isRented;
         const sessionUser = await sessionStore.getSessionUser();
         databaseItem.data.rentedBy = sessionUser.email;
+        databaseItem.data.retrievalDate = moment().toISOString();
+            databaseItem.data.returnDate = moment()
+              .add(MAX_RENTAL_DAYS, "day")
+              .toISOString();
         let editedItem = Object.assign({}, databaseItem);
         await InventoryApiService.updateItem(editedItem);
-        sessionStore.setUserData({
-          rentedItemId: editedItem.id
-        })
+        sessionStore.addRentedItem(editedItem.id)
         this.setState({
           feedbackMode: "success",
           descriptionMessage: `Você alugou ${editedItem.data.model}`,
-          rentedItem: editedItem
         });
       } catch (error) {
         this.setState({
@@ -218,7 +223,6 @@ export default class ScannerScreen extends Component {
   _onDismissed = () => {
     console.log(">>>> onDimissed!");
     if (this.state.feedbackMode === "success") {
-      console.log(">>> RENTED ITEM: ", this.state.rentedItem);
       switch (this.props.mode) {
         case "checkIn":
           Navigator.goToRentedItemScreenAfterCheckIn(this.props.componentId);
@@ -234,15 +238,6 @@ export default class ScannerScreen extends Component {
 
   _onShown = () => {
     console.log(">>>> onShow!");
-  };
-
-  _onClosePressed = () => {
-    if (!this.state.closeButtonDisabled) {
-      this.setState({
-        closeButtonDisabled: true,
-      })
-      Navigator.dismissModal(this.props.componentId);
-    }
   };
 
   _handleBackPress = () => {
@@ -269,10 +264,8 @@ export default class ScannerScreen extends Component {
           showMarker={true}
           customMarker={
             <QRModalMarker
-              onClosePressed={this._onClosePressed}
               modalTitleText={this.props.modalTitle}
               instructionText={this.props.instruction}
-              closeButtonDisabled={this.state.closeButtonDisabled}
             />
           }
         />

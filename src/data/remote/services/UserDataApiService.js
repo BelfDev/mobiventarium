@@ -1,4 +1,5 @@
 import firebase from 'react-native-firebase'
+import { toJS } from "mobx";
 
 const usersCollection = firebase.firestore().collection('users')
 
@@ -18,9 +19,8 @@ export default class UserDataApiService {
 
     static async createUserDataIfNeeded(user) {
         try {
-            const response = await usersCollection.doc(user.id).set(user.data)
-            console.log(">>> createUserData RESPONSE: ", response)
-            return response
+            data = toJS(user.data)
+            return await usersCollection.doc(user.id).set(data)
         } catch (error) {
             console.log(">>> createUserData error: ", error)
         }

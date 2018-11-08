@@ -8,7 +8,7 @@ export default class AuthenticationApiService {
       password
     );
   }
-  static async signUp(email, password, context) {
+  static async signUp(email, password) {
     return authentication.createUserAndRetrieveDataWithEmailAndPassword(
       email,
       password

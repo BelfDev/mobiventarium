@@ -8,27 +8,9 @@ import { isiPhoneXorAbove } from "../utils/PlatformUtils";
 
 export default class QRModalMarker extends PureComponent {
   render() {
-    const { instructionText, modalTitleText, onClosePressed, closeButtonDisabled } = this.props;
+    const { instructionText } = this.props;
     return (
       <View style={styles.markerContainer}>
-        <View style={styles.modalBarContainer}>
-          <IconButton
-            icon={({ size, color }) => (
-              <Icon
-                name={Platform.OS === "ios" ? "ios-close" : "md-close"}
-                size={size}
-                color={color}
-              />
-            )}
-            color={Colors.smoothWhite}
-            size={Platform.OS === "ios" ? 32 : 24}
-            disabled={closeButtonDisabled}
-            onPress={() => (onClosePressed ? onClosePressed() : null)}
-          />
-          <Text style={styles.modalTitle} numberOfLines={1}>
-            {modalTitleText}
-          </Text>
-        </View>
         <View style={styles.topOverlay}>
           <Text style={styles.instructionText} numberOfLines={2}>
             {instructionText}
@@ -70,7 +52,6 @@ QRModalMarker.defaultProps = {
 QRModalMarker.propTypes = {
   instructionText: PropTypes.string,
   modalTitleText: PropTypes.string.isRequired,
-  onClosePressed: PropTypes.func
 };
 
 const SCREEN_WIDTH = Dimensions.get("window").width;

@@ -27,7 +27,6 @@ export default class OnboardingScreen extends Component {
     this._isMounted = false
   }
   
-
   async componentDidAppear() {
     if (this._isMounted) {
       this.setState({

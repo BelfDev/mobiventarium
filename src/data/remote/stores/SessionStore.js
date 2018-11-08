@@ -45,6 +45,30 @@ export default class SessionStore extends BaseStore {
   }
 
   @action
+  async signUserUp(inputEmail, inputPassword) {
+    const credential = await AuthenticationApiService.signUp(
+      inputEmail,
+      inputPassword
+    );
+    const { uid, displayName, email, photoURL, metadata } = credential.user;
+
+    const data = await UserDataApiService.getUserDataById(uid);
+    const user = {
+      id: uid,
+      email,
+      name: displayName,
+      photoURL,
+      lastSignInTime: metadata.lastSignInTime,
+      creationTime: metadata.creationTime,
+      data
+    };
+    if (!isNil(data)) { this.rentedItems = data.rentedItems }
+    this.user = user;
+    await LocalStorage.saveAuthenticatedUser(this.user);
+    console.log(">>> SAVED authenticated user: ", this.user);
+  }
+
+  @action
   async addRentedItem(rentedItemId) {
     try {
       this.rentedItems.push(rentedItemId)

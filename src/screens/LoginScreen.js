@@ -18,11 +18,11 @@ import images from "../assets";
 import Navigator from "../navigation/Navigator";
 import { observer, inject } from "mobx-react/native";
 import FeedbackDialog from "../components/FeedbackDialog";
-import { isEmpty, isNil } from 'ramda'
+import { Navigation } from "react-native-navigation";
+import { isEmpty, isNil } from "ramda";
 
 @inject("sessionStore")
 @observer
-
 export default class LoginScreen extends Component {
   state = {
     email: "",
@@ -31,40 +31,70 @@ export default class LoginScreen extends Component {
     emailLogIn: null,
     passwordLogIn: null,
     errorMessage_login: null,
-    loading:false,
+    loading: false,
     feedbackMode: "loading",
     closeButtonDisabled: false,
+    buttonPressed: false
   };
 
-  _isInputFieldEmpty = (inputField) => {
-    return (isNil(inputField) || isEmpty(inputField))
+  constructor(props) {
+    super(props);
+    Navigation.events().bindComponent(this);
   }
+
+  componentDidMount = () => {
+    this._isMounted = true;
+  };
+
+  componentWillUnmount = () => {
+    this._isMounted = false;
+  };
+
+  async componentDidAppear() {
+    if (this._isMounted) {
+      this.setState({
+        buttonPressed: false
+      });
+    }
+  }
+
+  _isInputFieldEmpty = inputField => {
+    return isNil(inputField) || isEmpty(inputField);
+  };
 
   handleLogin = () => {
     const { sessionStore } = this.props;
-    console.log(">>> LoginProps: ", this.props)
+    console.log(">>> LoginProps: ", this.props);
 
-    if (!this._isInputFieldEmpty(this.state.emailLogIn) && !this._isInputFieldEmpty(this.state.passwordLogIn)) {
+    if (
+      !this._isInputFieldEmpty(this.state.emailLogIn) &&
+      !this._isInputFieldEmpty(this.state.passwordLogIn)
+    ) {
       this.setState({
         errorMessage_login: null,
-        loading:true
+        loading: true
       });
     } else {
-      this.setState({loading:false, feedbackMode: "failure", errorMessage_login: "Por favor preencha os campos acima"})
+      this.setState({
+        loading: false,
+        feedbackMode: "failure",
+        errorMessage_login: "Por favor preencha os campos acima"
+      });
       this.feedbackDialog.show();
     }
 
     if (!this.state.emailLogIn || !this.state.passwordLogIn) return null;
     const { emailLogIn, passwordLogIn } = this.state;
 
-    sessionStore.signUserIn(emailLogIn, passwordLogIn)
-    .then(()  => {
-      this.setState({loading:false})
+    sessionStore
+      .signUserIn(emailLogIn, passwordLogIn)
+      .then(() => {
+        this._isMounted && this.setState({ loading: false, buttonPressed: true });
         console.log("==========autenticado=======");
         Navigator.goToInventoryScreen(this.props.componentId);
       })
       .catch(err => {
-        this.setState({loading:false, feedbackMode: "failure"})
+        this._isMounted && this.setState({ loading: false, feedbackMode: "failure" });
         console.log("erro no login=====>", err);
         this.handleLogInError(err.code);
         this.feedbackDialog.show();
@@ -73,23 +103,23 @@ export default class LoginScreen extends Component {
 
   handleLogInError = error => {
     if (error === "auth/invalid-email") {
-      this.setState({
+      this._isMounted && this.setState({
         errorMessage_login: Strings.logIn.invalidEmail
       });
     } else if (error === "auth/user-not-found") {
-      this.setState({
+      this._isMounted && this.setState({
         errorMessage_login: Strings.logIn.userNotFound
       });
     } else if (error === "auth/wrong-password") {
-      this.setState({
+      this._isMounted && this.setState({
         errorMessage_login: Strings.logIn.wrongPassword
       });
     } else if (error === "auth/user-disabled") {
-      this.setState({
+      this._isMounted && this.setState({
         errorMessage_login: Strings.logIn.userDisabled
       });
     } else {
-      this.setState({
+      this._isMounted && this.setState({
         errorMessage_login: Strings.logIn.logInError
       });
     }
@@ -125,10 +155,10 @@ export default class LoginScreen extends Component {
             <TextInput
               style={styles.textInput}
               autoCapitalize="none"
-              selectionColor={'white'}
+              selectionColor={"white"}
               placeholder={Strings.logIn.firstPlaceholder}
               placeholderTextColor="white"
-              onChangeText={emailLogIn => this.setState({ emailLogIn })}
+              onChangeText={emailLogIn => this._isMounted && this.setState({ emailLogIn })}
               value={this.state.emailLogIn}
             />
           </View>
@@ -142,11 +172,11 @@ export default class LoginScreen extends Component {
             <TextInput
               secureTextEntry
               style={styles.textInput}
-              selectionColor={'white'}
+              selectionColor={"white"}
               autoCapitalize="none"
               placeholder={Strings.logIn.secondPlaceholder}
               placeholderTextColor="white"
-              onChangeText={passwordLogIn => this.setState({ passwordLogIn })}
+              onChangeText={passwordLogIn => this._isMounted && this.setState({ passwordLogIn })}
               value={this.state.passwordLogIn}
             />
           </View>
@@ -159,21 +189,25 @@ export default class LoginScreen extends Component {
           </Text>
         </View>
         <View style={styles.buttonContainer}>
-          {!this.state.loading ?
-          <Button
-            mode="contained"
-            compact
-            style={styles.signInButton}
-            onPress={this.handleLogin}
-          >
-            <Text style={styles.buttonText}>{'entrar'.toUpperCase()}</Text>
-          </Button>:<ActivityIndicator size="large" color="white" />}
+          {!this.state.loading ? (
+            <Button
+              mode="contained"
+              compact
+              style={styles.signInButton}
+              onPress={this.handleLogin}
+              disabled={this.state.buttonPressed}
+            >
+              <Text style={styles.buttonText}>{"entrar".toUpperCase()}</Text>
+            </Button>
+          ) : (
+            <ActivityIndicator size="large" color="white" />
+          )}
         </View>
         <FeedbackDialog
           mode={this.state.feedbackMode}
           description={this.state.errorMessage_login}
-          onDismissed={() => this._onDimissed()}
-          onShown={() => this._onShown()}
+          onDismissed={this._onDimissed}
+          onShown={this._onShown}
           ref={feedbackDialog => {
             this.feedbackDialog = feedbackDialog;
           }}
@@ -182,7 +216,6 @@ export default class LoginScreen extends Component {
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -225,7 +258,7 @@ const styles = StyleSheet.create({
     width: "100%",
     borderBottomColor: Colors.textInputBorderGray,
     borderBottomWidth: 1,
-    color: 'white',
+    color: "white",
     backgroundColor: "transparent",
     paddingTop: 10,
     paddingBottom: 10,
@@ -258,15 +291,15 @@ const styles = StyleSheet.create({
     height: 300,
     width: "100%",
     marginTop: 10,
-    alignItems: "center",
+    alignItems: "center"
   },
   signInButton: {
-    alignSelf:"center",
+    alignSelf: "center",
     padding: 8,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: Colors.white,
-    borderRadius: 8,
+    borderRadius: 8
   },
   buttonText: {
     fontSize: 18,

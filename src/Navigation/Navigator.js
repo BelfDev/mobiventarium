@@ -106,7 +106,7 @@ export default class Navigator {
               passProps: {
                 selectedItemId: selectedItem.id,
                 modalTitle: Strings.scanner.screenTitle,
-                instruction: Strings.scanner.instructionText,
+                instruction: `Por favor, escaneie o QR Code\natrás de: ${selectedItem.data.model}`,
                 mode
               }
             }

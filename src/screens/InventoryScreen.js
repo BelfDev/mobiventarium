@@ -9,7 +9,7 @@ import Colors from "../utils/Colors";
 import { Navigation } from "react-native-navigation";
 import Navigator from "../navigation/Navigator";
 import ConnectionErrorContent from "../components/ConnectionErrorContent";
-import { isNil } from "ramda";
+import { isNil, contains } from "ramda";
 
 @inject("itemStore", "sessionStore")
 @observer
@@ -104,7 +104,7 @@ export default class InventoryScreen extends Component {
 
   _isItemRentedBySessionUser = itemId => {
     const { sessionStore } = this.props;
-    return sessionStore.rentedItemId === itemId;
+    return contains(itemId, sessionStore.rentedItems)
   };
 
   _keyExtractor = item => item.id.toString();

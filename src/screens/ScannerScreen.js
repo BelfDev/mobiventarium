@@ -103,11 +103,10 @@ export default class ScannerScreen extends Component {
             databaseItem.data.rentedBy = null;
             let editedItem = Object.assign({}, databaseItem);
             await InventoryApiService.updateItem(editedItem);
-            sessionStore.setUserData(null)
+            sessionStore.returnRentedItem(editedItem.id)
             this.setState({
               feedbackMode: "success",
               descriptionMessage: `Você devolveu ${editedItem.data.model}`,
-              rentedItem: null
             });
           } catch (error) {
             this.setState({
@@ -147,11 +146,10 @@ export default class ScannerScreen extends Component {
         databaseItem.data.rentedBy = sessionUser.email;
         let editedItem = Object.assign({}, databaseItem);
         await InventoryApiService.updateItem(editedItem);
-        sessionStore.setUserData(editedItem.id)
+        sessionStore.addRentedItem(editedItem.id)
         this.setState({
           feedbackMode: "success",
           descriptionMessage: `Você alugou ${editedItem.data.model}`,
-          rentedItem: editedItem
         });
       } catch (error) {
         this.setState({
@@ -225,7 +223,6 @@ export default class ScannerScreen extends Component {
   _onDismissed = () => {
     console.log(">>>> onDimissed!");
     if (this.state.feedbackMode === "success") {
-      console.log(">>> RENTED ITEM: ", this.state.rentedItem);
       switch (this.props.mode) {
         case "checkIn":
           Navigator.goToRentedItemScreenAfterCheckIn(this.props.componentId);

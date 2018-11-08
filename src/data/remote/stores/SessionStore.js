@@ -10,7 +10,7 @@ export default class SessionStore extends BaseStore {
   user = {};
 
   @observable
-  rentedItems = []
+  rentedItems = [];
 
   @action
   async signUserIn(inputEmail, inputPassword) {
@@ -30,7 +30,9 @@ export default class SessionStore extends BaseStore {
       creationTime: metadata.creationTime,
       data
     };
-    if (!isNil(data)) { this.rentedItems = data.rentedItems }
+    if (!isNil(data)) {
+      this.rentedItems = data.rentedItems;
+    }
     this.user = user;
     await LocalStorage.saveAuthenticatedUser(this.user);
     console.log(">>> SAVED authenticated user: ", this.user);
@@ -62,22 +64,34 @@ export default class SessionStore extends BaseStore {
       creationTime: metadata.creationTime,
       data
     };
-    if (!isNil(data)) { this.rentedItems = data.rentedItems }
+    if (!isNil(data)) {
+      this.rentedItems = data.rentedItems;
+    }
     this.user = user;
     await LocalStorage.saveAuthenticatedUser(this.user);
     console.log(">>> SAVED authenticated user: ", this.user);
   }
 
   @action
+  async syncRentedItemsIfNeeded() {
+    if (isNil(this.rentedItems) || isEmpty(toJS(this.rentedItems))) {
+      this.user = await LocalStorage.getAuthenticatedUser();
+      if (!isNil(this.user.data)) {
+        this.rentedItems = this.user.data.rentedItems;
+      }
+    }
+  }
+
+  @action
   async addRentedItem(rentedItemId) {
     try {
-      this.rentedItems.push(rentedItemId)
+      this.rentedItems.push(rentedItemId);
       const data = {
-        rentedItems : toJS(this.rentedItems),
-      }
-      console.log(">> DATA: ", data)
+        rentedItems: toJS(this.rentedItems)
+      };
+      console.log(">> DATA: ", data);
       this.user.data = data;
-      await UserDataApiService.createUserDataIfNeeded(toJS(this.user));
+      await UserDataApiService.createUserDataIfNeeded(this.user);
     } catch (error) {
       console.log(">>> createUserDataIfNeeded error: ", this.user);
       throw "Error setting user data";
@@ -89,8 +103,8 @@ export default class SessionStore extends BaseStore {
     try {
       this.rentedItems.splice(this.rentedItems.indexOf(rentedItemId), 1);
       const data = {
-        rentedItems : toJS(this.rentedItems),
-      }
+        rentedItems: toJS(this.rentedItems)
+      };
       this.user.data = data;
       await UserDataApiService.createUserDataIfNeeded(this.user);
     } catch (error) {

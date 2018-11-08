@@ -94,12 +94,8 @@ export default class ScannerScreen extends Component {
         ) {
           try {
             databaseItem.data.isRented = !databaseItem.data.isRented;
-            databaseItem.data.retrievalDate = moment().toISOString();
-            databaseItem.data.returnDate = moment()
-              .add(MAX_RENTAL_DAYS, "day")
-              .toISOString();
-            console.log(">>> RetrievalDate: ", databaseItem.data.retrievalDate);
-            console.log(">>> ReturnDate: ", databaseItem.data.returnDate);
+            databaseItem.data.retrievalDate = null;
+            databaseItem.data.returnDate = null;
             databaseItem.data.rentedBy = null;
             let editedItem = Object.assign({}, databaseItem);
             await InventoryApiService.updateItem(editedItem);
@@ -144,6 +140,10 @@ export default class ScannerScreen extends Component {
         databaseItem.data.isRented = !databaseItem.data.isRented;
         const sessionUser = await sessionStore.getSessionUser();
         databaseItem.data.rentedBy = sessionUser.email;
+        databaseItem.data.retrievalDate = moment().toISOString();
+            databaseItem.data.returnDate = moment()
+              .add(MAX_RENTAL_DAYS, "day")
+              .toISOString();
         let editedItem = Object.assign({}, databaseItem);
         await InventoryApiService.updateItem(editedItem);
         sessionStore.addRentedItem(editedItem.id)

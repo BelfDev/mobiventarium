@@ -14,11 +14,11 @@ import EvilIcons from "react-native-vector-icons/EvilIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Strings from "../utils/Strings";
 import Colors from "../utils/Colors";
-import AuthenticationApiService from "../data/remote/services/AuthenticationApiService";
 import images from "../assets";
 import Navigator from "../navigation/Navigator";
 import { observer, inject } from "mobx-react/native";
 import FeedbackDialog from "../components/FeedbackDialog";
+import { isEmpty, isNil } from 'ramda'
 
 @inject("sessionStore")
 @observer
@@ -36,13 +36,24 @@ export default class LoginScreen extends Component {
     closeButtonDisabled: false,
   };
 
+  _isInputFieldEmpty = (inputField) => {
+    return (isNil(inputField) || isEmpty(inputField))
+  }
+
   handleLogin = () => {
     const { sessionStore } = this.props;
     console.log(">>> LoginProps: ", this.props)
-    this.setState({
-      errorMessage_login: null,
-      loading:true
-    });
+
+    if (!this._isInputFieldEmpty(this.state.emailLogIn) && !this._isInputFieldEmpty(this.state.passwordLogIn)) {
+      this.setState({
+        errorMessage_login: null,
+        loading:true
+      });
+    } else {
+      this.setState({loading:false, feedbackMode: "failure", errorMessage_login: "Por favor preencha os campos acima"})
+      this.feedbackDialog.show();
+    }
+
     if (!this.state.emailLogIn || !this.state.passwordLogIn) return null;
     const { emailLogIn, passwordLogIn } = this.state;
 
@@ -114,6 +125,7 @@ export default class LoginScreen extends Component {
             <TextInput
               style={styles.textInput}
               autoCapitalize="none"
+              selectionColor={'white'}
               placeholder={Strings.logIn.firstPlaceholder}
               placeholderTextColor="white"
               onChangeText={emailLogIn => this.setState({ emailLogIn })}
@@ -130,6 +142,7 @@ export default class LoginScreen extends Component {
             <TextInput
               secureTextEntry
               style={styles.textInput}
+              selectionColor={'white'}
               autoCapitalize="none"
               placeholder={Strings.logIn.secondPlaceholder}
               placeholderTextColor="white"
@@ -150,10 +163,10 @@ export default class LoginScreen extends Component {
           <Button
             mode="contained"
             compact
-            style={styles.signUpButton}
+            style={styles.signInButton}
             onPress={this.handleLogin}
           >
-            <Text style={styles.buttonText}> Entrar </Text>
+            <Text style={styles.buttonText}>{'entrar'.toUpperCase()}</Text>
           </Button>:<ActivityIndicator size="large" color="white" />}
         </View>
         <FeedbackDialog
@@ -212,6 +225,7 @@ const styles = StyleSheet.create({
     width: "100%",
     borderBottomColor: Colors.textInputBorderGray,
     borderBottomWidth: 1,
+    color: 'white',
     backgroundColor: "transparent",
     paddingTop: 10,
     paddingBottom: 10,
@@ -246,10 +260,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: "center",
   },
-  signUpButton: {
+  signInButton: {
     alignSelf:"center",
-    paddingVertical: 8,
-    paddingHorizontal:30,
+    padding: 8,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: Colors.white,

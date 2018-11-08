@@ -10,6 +10,7 @@ import AuthenticationApiService from "../data/remote/services/AuthenticationApiS
 import images from '../assets';
 import FeedbackDialog from "../components/FeedbackDialog";
 import Navigator from "../navigation/Navigator";
+import { isEmpty, isNil } from 'ramda'
 
 export default class SignUpScreen extends Component {
     state = {
@@ -22,11 +23,21 @@ export default class SignUpScreen extends Component {
         closeButtonDisabled: false,
     }
 
+    _isInputFieldEmpty = (inputField) => {
+        return (isNil(inputField) || isEmpty(inputField))
+      }
+
     handleSignUp = () => {
-        this.setState({
-            errorMessage_signUp: null,
-            loading:true
-        })
+        if (!this._isInputFieldEmpty(this.state.emailLogIn) && !this._isInputFieldEmpty(this.state.passwordLogIn) && !this._isInputFieldEmpty(this.state.confirmedPassword)) {
+            this.setState({
+              errorMessage_login: null,
+              loading:true
+            });
+          } else {
+            this.setState({loading:false, feedbackMode: "failure", errorMessage_login: "Por favor preencha os campos acima"})
+            this.feedbackDialog.show();
+          }
+
         if (!this.state.email || !this.state.password || !this.state.confirmedPassword) return null
         if (this.state.password === this.state.confirmedPassword) (
             AuthenticationApiService.signUp(this.state.email, this.state.password)
@@ -97,6 +108,7 @@ export default class SignUpScreen extends Component {
                             autoCapitalize="none"
                             placeholder= {Strings.signUp.firstPlaceholder}
                             keyboardType="email-address"
+                            selectionColor={'white'}
                             placeholderTextColor="white"
                             onChangeText={email => this.setState({ email })}
                         />
@@ -107,6 +119,7 @@ export default class SignUpScreen extends Component {
                             secureTextEntry
                             style={styles.textInput}
                             autoCapitalize="none"
+                            selectionColor={'white'}
                             placeholder={Strings.signUp.secondPlaceholder}
                             placeholderTextColor="white"
                             onChangeText={password => this.setState({ password })}
@@ -118,6 +131,7 @@ export default class SignUpScreen extends Component {
                             secureTextEntry
                             style={styles.textInput}
                             autoCapitalize="none"
+                            selectionColor={'white'}
                             placeholder={Strings.signUp.thirdlaceholder}
                             placeholderTextColor="white"
                             onChangeText={confirmedPassword => this.setState({ confirmedPassword })}
@@ -132,7 +146,7 @@ export default class SignUpScreen extends Component {
                         style={styles.signUpButton}
                         onPress={this.handleSignUp}
                     >
-                        <Text style={styles.buttonText}> Cadastrar </Text>
+                        <Text style={styles.buttonText}>{'cadastrar'.toUpperCase()}</Text>
                     </Button>:<ActivityIndicator size="large" color="white" />}
                 </View>
                 <FeedbackDialog
@@ -188,6 +202,7 @@ const styles = StyleSheet.create({
     textInput: {
         height: 50,
         width: '100%',
+        color: 'white',
         borderBottomColor: Colors.textInputBorderGray,
         borderBottomWidth: 1,
         backgroundColor: 'transparent',
@@ -219,8 +234,7 @@ const styles = StyleSheet.create({
     },
     signUpButton: {
         alignSelf:"center",
-        paddingVertical: 10,
-        paddingHorizontal:30,
+        padding: 8,
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: Colors.white,

@@ -1,6 +1,8 @@
 import Colors from "../utils/Colors";
+import Images from "assets";
 import { drop } from "ramda";
 import { APP_BUNDLE_ID } from './AppConfig'
+import Strings from '../utils/Strings'
 
 const statusBarDefaultStyle = {
   visible: true,
@@ -65,7 +67,7 @@ const topBarDefaultStyle = {
   visible: true,
   elevation: 4,
   backButton: {
-    color: "black"
+    color: "white"
   },
   buttonColor: "white",
   title: {
@@ -103,6 +105,12 @@ const NavigationStyle = {
         },
         topBarDefaultStyle.title
       ),
+      rightButtons: [ {
+        id: 'signOutButton',
+        text: 'Logout',
+        icon: Images.signOutIcon,
+        color: Colors.smoothWhite,
+      }],
       background: topBarDefaultStyle.background,
       largeTitle: topBarDefaultStyle.largeTitle,
     }
@@ -112,60 +120,109 @@ const NavigationStyle = {
       orientation: ["portrait"]
     },
     topBar: {
-      visible: false,
+      visible: topBarDefaultStyle.visible,
+      animate: false,
       drawBehind: true,
       backButton: topBarDefaultStyle.backButton,
       buttonColor: topBarDefaultStyle.buttonColor,
-      elevation: topBarDefaultStyle.elevation,
-      title: Object.assign({}, topBarDefaultStyle.title),
-      background: topBarDefaultStyle.background,
-      largeTitle: topBarDefaultStyle.largeTitle
-    }
-  },
-  LoginScreen: {
-    topBar: {
-      visible: topBarDefaultStyle.visible,
-      elevation: topBarDefaultStyle.elevation,
-      transparent: true,
-      background: topBarDefaultStyle.background
-    }
-  },
-  SignUpScreen: {
-    topBar: {
-      visible: topBarDefaultStyle.visible,
-      elevation: topBarDefaultStyle.elevation,
-      transparent: true,
-      background: topBarDefaultStyle.background
-    }
-  },
-  RentedItemScreen: {
-    topBar: {
-      visible: false,
-      animate: true,
-      drawBehind: true,
       elevation: 0,
-      backButton: {
-        color: "black"
-      },
-      buttonColor: "black",
-      title: {
-        text: ""
-      },
+      transparent: true,
       background: {
         color: "transparent",
         translucent: true
       },
-      largeTitle: topBarDefaultStyle.largeTitle
+      title: Object.assign(
+        {
+          text: Strings.scanner.screenTitle
+        },
+        topBarDefaultStyle.title
+      ),
+      leftButtons: [
+        {
+          id: 'closeButton',
+          icon: Images.closeIcon,
+          color: 'white',
+          text: 'Close',
+          enabled: true,
+        }
+      ],
+    }
+  },
+  LoginScreen: {
+    layout: {
+      orientation: ["portrait"]
+    },
+    topBar: {
+      visible: topBarDefaultStyle.visible,
+      animate: false,
+      drawBehind: true,
+      backButton: topBarDefaultStyle.backButton,
+      buttonColor: topBarDefaultStyle.buttonColor,
+      elevation: 0,
+      transparent: true,
+      background: {
+        color: "transparent",
+        translucent: true
+      },
+    }
+  },
+  SignUpScreen: {
+    layout: {
+      orientation: ["portrait"]
+    },
+    topBar: {
+      visible: topBarDefaultStyle.visible,
+      animate: false,
+      drawBehind: true,
+      backButton: topBarDefaultStyle.backButton,
+      buttonColor: topBarDefaultStyle.buttonColor,
+      elevation: 0,
+      transparent: true,
+      background: {
+        color: "transparent",
+        translucent: true
+      },
+    }
+  },
+  RentedItemScreen: {
+    layout: {
+      orientation: ["portrait"]
+    },
+    topBar: {
+      visible: topBarDefaultStyle.visible,
+      animate: false,
+      drawBehind: true,
+      backButton: topBarDefaultStyle.backButton,
+      buttonColor: topBarDefaultStyle.buttonColor,
+      elevation: 0,
+      transparent: true,
+      background: {
+        color: "transparent",
+        translucent: true
+      },
+      leftButtons: [
+        {
+          id: 'closeButton',
+          icon: Images.closeIcon,
+          color: 'white',
+          text: 'Close',
+          enabled: true,
+        }
+      ],
     }
   },
   OnboardingScreen: {
+    layout: {
+      orientation: ["portrait"]
+    },
     topBar: {
-      visible: true,
+      visible: false,
       drawBehind: true,
-      transparent: true,
-      elevation: 0,
-      background: {
-        color: "transparent"
+      animate: false,
+    },
+    animations: {
+      setStackRoot: {
+        enable: false
       }
     }
   },

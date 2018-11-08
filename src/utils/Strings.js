@@ -3,7 +3,7 @@ const strings = {
     screenTitle: 
       "Aluguel de Devices",
     instructionText: 
-      "Por favor, escaneie o QR Code",
+      "Por favor, escaneie o QR Code atrás de: ",
     idMismatchError:
       "Por favor escaneie o mesmo item selecionado na lista do inventário.",
     inventoryCodeMismatchError: 

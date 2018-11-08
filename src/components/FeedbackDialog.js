@@ -64,7 +64,7 @@ export default class FeedbackDialog extends PureComponent {
 
 FeedbackDialog.propTypes = {
   mode: PropTypes.oneOf(["success", "failure", "loading"]).isRequired,
-  description: PropTypes.string.isRequired
+  description: PropTypes.string
 };
 
 const scaleAnimation = new ScaleAnimation({

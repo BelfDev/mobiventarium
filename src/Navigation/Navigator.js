@@ -42,25 +42,13 @@ export default class Navigator {
     });
   }
 
-  static async goToInventoryScreen() {
-    Navigation.setRoot({
-      root: {
-        stack: {
-          id: "App",
-          children: [
-            {
-              component: {
-                name: Screens.InventoryScreen,
-                options: NavigationStyle.InventoryScreen,
-                navigatorStyle: {
-                  navBarHidden: true
-                }
-              }
-            }
-          ]
-        }
-      }
-    });
+  static async goToInventoryScreen(componentId) {
+    await this._setNewStackRoot(
+      componentId,
+      Screens.InventoryScreen,
+      NavigationStyle.InventoryScreen,
+      {}
+    );
   }
 
   static async goToRentedItemScreen(selectedItem) {
@@ -77,7 +65,7 @@ export default class Navigator {
                 itemType: selectedItem.data.os
               }
             }
-          },
+          }
         ]
       }
     });
@@ -118,7 +106,7 @@ export default class Navigator {
               passProps: {
                 selectedItemId: selectedItem.id,
                 modalTitle: Strings.scanner.screenTitle,
-                instruction: Strings.scanner.instructionText,
+                instruction: `Por favor, escaneie o QR Code\natrás de: ${selectedItem.data.model}`,
                 mode
               }
             }
@@ -159,6 +147,15 @@ export default class Navigator {
     Navigation.pop(componentId);
   }
 
+  static async goToOnboardingScreen(componentId) {
+    await this._setNewStackRoot(
+      componentId,
+      Screens.OnboardingScreen,
+      NavigationStyle.OnboardingScreen,
+      {}
+    );
+  }
+
   static dismissModal(componentId) {
     Navigation.dismissModal(componentId);
   }
@@ -174,13 +171,11 @@ export default class Navigator {
       AppRootComponent.options = navigationStyle;
       AppRootComponent.passProps = props;
 
-      console.log(">>> OPTIONS: ", AppRootComponent.options);
-
       await LocalStorage.saveAppRootComponentName(screenName);
       await LocalStorage.saveAppRootInitialProps(props);
 
       Navigation.setStackRoot(componentId, {
-        component: AppRootComponent
+        component: AppRootComponent,
       });
     } catch (error) {
       console.log(">>> _setNewStackRoot error: ", error);

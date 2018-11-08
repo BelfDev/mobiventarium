@@ -6,7 +6,8 @@ import {
   View,
   Image,
   ScrollView,
-  SafeAreaView
+  SafeAreaView,
+  ActivityIndicator
 } from "react-native";
 import { Button } from "react-native-paper";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
@@ -17,9 +18,11 @@ import AuthenticationApiService from "../data/remote/services/AuthenticationApiS
 import images from "../assets";
 import Navigator from "../navigation/Navigator";
 import { observer, inject } from "mobx-react/native";
+import FeedbackDialog from "../components/FeedbackDialog";
 
 @inject("sessionStore")
 @observer
+
 export default class LoginScreen extends Component {
   state = {
     email: "",
@@ -27,26 +30,33 @@ export default class LoginScreen extends Component {
     errorMessage: null,
     emailLogIn: null,
     passwordLogIn: null,
-    errorMessage_login: null
+    errorMessage_login: null,
+    loading:false,
+    feedbackMode: "loading",
+    closeButtonDisabled: false,
   };
 
   handleLogin = () => {
     const { sessionStore } = this.props;
     console.log(">>> LoginProps: ", this.props)
     this.setState({
-      errorMessage_login: null
+      errorMessage_login: null,
+      loading:true
     });
     if (!this.state.emailLogIn || !this.state.passwordLogIn) return null;
     const { emailLogIn, passwordLogIn } = this.state;
 
     sessionStore.signUserIn(emailLogIn, passwordLogIn)
     .then(()  => {
+      this.setState({loading:false})
         console.log("==========autenticado=======");
         Navigator.goToInventoryScreen(this.props.componentId);
       })
       .catch(err => {
+        this.setState({loading:false, feedbackMode: "failure"})
         console.log("erro no login=====>", err);
         this.handleLogInError(err.code);
+        this.feedbackDialog.show();
       });
   };
 
@@ -72,6 +82,13 @@ export default class LoginScreen extends Component {
         errorMessage_login: Strings.logIn.logInError
       });
     }
+  };
+  _onDimissed = () => {
+    console.log(">>>> onDimissed!");
+  };
+
+  _onShown = () => {
+    console.log(">>>> onShow!");
   };
 
   render() {
@@ -128,12 +145,8 @@ export default class LoginScreen extends Component {
             Esqueci minha senha
           </Text>
         </View>
-        {this.state.errorMessage_login && (
-          <Text style={styles.errorMessage}>
-            {this.state.errorMessage_login}
-          </Text>
-        )}
         <View style={styles.buttonContainer}>
+          {!this.state.loading ?
           <Button
             mode="contained"
             compact
@@ -141,12 +154,23 @@ export default class LoginScreen extends Component {
             onPress={this.handleLogin}
           >
             <Text style={styles.buttonText}> Entrar </Text>
-          </Button>
+          </Button>:<ActivityIndicator size="large" color="white" />}
         </View>
+        <FeedbackDialog
+          mode={this.state.feedbackMode}
+          description={this.state.errorMessage_login}
+          onDismissed={() => this._onDimissed()}
+          onShown={() => this._onShown()}
+          ref={feedbackDialog => {
+            this.feedbackDialog = feedbackDialog;
+          }}
+        />
       </ScrollView>
     );
   }
 }
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -217,20 +241,19 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   buttonContainer: {
-    height: 200,
+    height: 300,
     width: "100%",
     marginTop: 10,
-    alignContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   signUpButton: {
-    height: 60,
-    width: "40%",
-    padding: 10,
+    alignSelf:"center",
+    paddingVertical: 8,
+    paddingHorizontal:30,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: Colors.white,
-    borderRadius: 50
+    borderRadius: 8,
   },
   buttonText: {
     fontSize: 18,

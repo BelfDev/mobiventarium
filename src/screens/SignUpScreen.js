@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Image,ScrollView } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Image,ScrollView,ActivityIndicator } from 'react-native'
 import firebase from 'react-native-firebase'
 import { Button } from 'react-native-paper';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -8,31 +8,42 @@ import Strings from "../utils/Strings"
 import Colors from "../utils/Colors"
 import AuthenticationApiService from "../data/remote/services/AuthenticationApiService";
 import images from '../assets';
+import FeedbackDialog from "../components/FeedbackDialog";
+import Navigator from "../navigation/Navigator";
 
 export default class SignUpScreen extends Component {
     state = {
         email: '',
         errorMessage_signUp: null,
-        password:'',
-        confirmedPassword:''
+        password: '',
+        confirmedPassword: '',
+        loading: false,
+        feedbackMode: "loading",
+        closeButtonDisabled: false,
     }
 
     handleSignUp = () => {
-        if (!this.state.email || !this.state.password || !this.state.confirmedPassword) return null
         this.setState({
-            errorMessage_signUp: null
+            errorMessage_signUp: null,
+            loading:true
         })
+        if (!this.state.email || !this.state.password || !this.state.confirmedPassword) return null
         if (this.state.password === this.state.confirmedPassword) (
             AuthenticationApiService.signUp(this.state.email, this.state.password)
-                .then(() => console.log("criado"))
+                .then(() =>{ console.log("criado")
+                this.setState({loading:false}) 
+                Navigator.goToInventoryScreen(this.props.componentId);})
                 .catch(err => {
+                    this.setState({loading:false, feedbackMode: "failure"})
                     console.log("erro no cadastro========>",err.code)
                     this.handleSignUpError(err.code)
+                    this.feedbackDialog.show();
                 })
         )
        else {
         this.setState({
-            errorMessage_signUp: Strings.signUp.differentPassword
+            errorMessage_signUp: Strings.signUp.differentPassword,
+            loading:false
         })
        }
     }
@@ -57,8 +68,14 @@ export default class SignUpScreen extends Component {
                 errorMessage_signUp:Strings.signUp.signUpError
             })
         }
-
     }
+    _onDimissed = () => {
+        console.log(">>>> onDimissed!");
+      };
+    
+      _onShown = () => {
+        console.log(">>>> onShow!");
+      };
     render() {
         return (
             <ScrollView style={styles.container}>
@@ -107,11 +124,8 @@ export default class SignUpScreen extends Component {
                         />
                     </View>
                 </View>
-                {this.state.errorMessage_signUp &&
-                    <Text style={styles.errorMessage}>
-                        {this.state.errorMessage_signUp}
-                    </Text>}
                 <View style={styles.buttonContainer}>
+                    {!this.state.loading ?
                     <Button
                         mode="contained"
                         compact
@@ -119,8 +133,17 @@ export default class SignUpScreen extends Component {
                         onPress={this.handleSignUp}
                     >
                         <Text style={styles.buttonText}> Cadastrar </Text>
-                    </Button>
+                    </Button>:<ActivityIndicator size="large" color="white" />}
                 </View>
+                <FeedbackDialog
+                    mode={this.state.feedbackMode}
+                    description={this.state.errorMessage_signUp}
+                    onDismissed={() => this._onDimissed()}
+                    onShown={() => this._onShown()}
+                    ref={feedbackDialog => {
+                        this.feedbackDialog = feedbackDialog;
+                    }}
+                />
                
                 </ScrollView>
         )
@@ -189,22 +212,20 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     buttonContainer: {
-        height: 220, 
+        height: 250, 
         width: '100%',
-        marginTop:25,
-        alignContent:'center',
+        marginTop:35,
         alignItems:"center" 
     },
     signUpButton: {
-        height: 60,
-        width: '40%',
-        padding: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white',
-        borderRadius: 50,
-       
-    },
+        alignSelf:"center",
+        paddingVertical: 10,
+        paddingHorizontal:30,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: Colors.white,
+        borderRadius: 8,
+      },
     buttonText: {
         fontSize: 18,
         color: Colors.backgroundPurple

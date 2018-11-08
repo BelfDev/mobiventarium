@@ -47,6 +47,16 @@ export default class RentedItemScreen extends Component {
     this._isMounted = false;
   }
 
+  navigationButtonPressed({ buttonId }) {
+    if (this._isMounted) {
+      switch(buttonId) {
+        case 'closeButton': 
+        Navigator.dismissModal(this.props.componentId)
+        break;
+      }
+    }
+  }
+
   async componentDidAppear() {
     try {
       const { selectedItemId } = this.props;

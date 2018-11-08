@@ -15,7 +15,7 @@ import FeedbackDialog from "../components/FeedbackDialog";
 import NavigationStyle from "../navigation/NavigationStyle";
 import Navigator from "../navigation/Navigator";
 import { observer, inject } from "mobx-react/native";
-import LocalStorage from "../data/local/LocalStorage";
+import { Navigation } from "react-native-navigation";
 import moment from "moment";
 import "moment/locale/pt-br";
 import { MAX_RENTAL_DAYS } from "../navigation/AppConfig";
@@ -27,22 +27,34 @@ export default class ScannerScreen extends Component {
   state = {
     feedbackMode: "loading",
     descriptionMessage: "",
-    closeButtonDisabled: false,
   };
 
   constructor(props) {
     super(props);
+    Navigation.events().bindComponent(this);
     moment.locale("pt-BR");
     console.log(">>> Setup selectedId ", this.props.selectedItemId);
   }
 
   componentDidMount = () => {
+    this._isMounted = true
     BackHandler.addEventListener("hardwareBackPress", this._handleBackPress);
   };
 
   componentWillUnmount = () => {
+    this._isMounted = false
     BackHandler.removeEventListener("hardwareBackPress", this._handleBackPress);
   };
+
+  navigationButtonPressed({ buttonId }) {
+    if (this._isMounted) {
+      switch(buttonId) {
+        case 'closeButton': 
+        Navigator.dismissModal(this.props.componentId);
+        break;
+      }
+    }
+  }
 
   async _onSuccess(code) {
     console.log(">>> SCANNED CODE: ", code);
@@ -231,15 +243,6 @@ export default class ScannerScreen extends Component {
     console.log(">>>> onShow!");
   };
 
-  _onClosePressed = () => {
-    if (!this.state.closeButtonDisabled) {
-      this.setState({
-        closeButtonDisabled: true,
-      })
-      Navigator.dismissModal(this.props.componentId);
-    }
-  };
-
   _handleBackPress = () => {
     Navigator.dismissModal(this.props.componentId);
     return true;
@@ -264,10 +267,8 @@ export default class ScannerScreen extends Component {
           showMarker={true}
           customMarker={
             <QRModalMarker
-              onClosePressed={this._onClosePressed}
               modalTitleText={this.props.modalTitle}
               instructionText={this.props.instruction}
-              closeButtonDisabled={this.state.closeButtonDisabled}
             />
           }
         />

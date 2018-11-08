@@ -2,6 +2,7 @@ import Colors from "../utils/Colors";
 import Images from "assets";
 import { drop } from "ramda";
 import { APP_BUNDLE_ID } from './AppConfig'
+import Strings from '../utils/Strings'
 
 const statusBarDefaultStyle = {
   visible: true,
@@ -119,14 +120,32 @@ const NavigationStyle = {
       orientation: ["portrait"]
     },
     topBar: {
-      visible: false,
+      visible: topBarDefaultStyle.visible,
+      animate: false,
       drawBehind: true,
       backButton: topBarDefaultStyle.backButton,
       buttonColor: topBarDefaultStyle.buttonColor,
-      elevation: topBarDefaultStyle.elevation,
-      title: Object.assign({}, topBarDefaultStyle.title),
-      background: topBarDefaultStyle.background,
-      largeTitle: topBarDefaultStyle.largeTitle
+      elevation: 0,
+      transparent: true,
+      background: {
+        color: "transparent",
+        translucent: true
+      },
+      title: Object.assign(
+        {
+          text: Strings.scanner.screenTitle
+        },
+        topBarDefaultStyle.title
+      ),
+      leftButtons: [
+        {
+          id: 'closeButton',
+          icon: Images.closeIcon,
+          color: 'white',
+          text: 'Close',
+          enabled: true,
+        }
+      ],
     }
   },
   LoginScreen: {
@@ -170,22 +189,26 @@ const NavigationStyle = {
       orientation: ["portrait"]
     },
     topBar: {
-      visible: false,
-      animate: true,
+      visible: topBarDefaultStyle.visible,
+      animate: false,
       drawBehind: true,
+      backButton: topBarDefaultStyle.backButton,
+      buttonColor: topBarDefaultStyle.buttonColor,
       elevation: 0,
-      backButton: {
-        color: "black"
-      },
-      buttonColor: "black",
-      title: {
-        text: ""
-      },
+      transparent: true,
       background: {
         color: "transparent",
         translucent: true
       },
-      largeTitle: topBarDefaultStyle.largeTitle
+      leftButtons: [
+        {
+          id: 'closeButton',
+          icon: Images.closeIcon,
+          color: 'white',
+          text: 'Close',
+          enabled: true,
+        }
+      ],
     }
   },
   OnboardingScreen: {

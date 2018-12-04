@@ -1,11 +1,13 @@
 {
   "presets": ["react-native"],
   "plugins": [
-    "react-native-paper/babel",
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
     [
-      "@babel/plugin-proposal-decorators",
+      "@babel/plugin-transform-runtime",
       {
-        "legacy": true
+        "helpers": true,
+        "polyfill": false,
+        "regenerator": false
       }
     ]
   ]
